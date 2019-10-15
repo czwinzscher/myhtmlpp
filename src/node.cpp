@@ -11,12 +11,16 @@ std::optional<std::string> myhtmlpp::Node::text() {
     return std::nullopt;
 }
 
-std::optional<myhtmlpp::Node> myhtmlpp::Node::child() {
-    if (auto raw_child = myhtml_node_child(m_raw_node)) {
-        return Node(raw_child);
+std::vector<myhtmlpp::Node> myhtmlpp::Node::children() {
+    std::vector<myhtmlpp::Node> res;
+
+    myhtml_tree_node_t* raw_child = myhtml_node_child(m_raw_node);
+    while (raw_child != nullptr) {
+        res.emplace_back(raw_child);
+        raw_child = myhtml_node_next(raw_child);
     }
 
-    return std::nullopt;
+    return res;
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() {

@@ -2,6 +2,7 @@
 
 #include <myhtml/api.h>
 #include <optional>
+#include <vector>
 
 namespace myhtmlpp {
 
@@ -10,7 +11,7 @@ public:
     explicit Node(myhtml_tree_node_t* raw_node);
 
     std::optional<std::string> text();
-    std::optional<myhtmlpp::Node> child();
+    std::vector<myhtmlpp::Node> children();
     std::optional<myhtmlpp::Node> parent();
 
 private:
