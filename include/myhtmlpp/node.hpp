@@ -9,6 +9,7 @@ namespace myhtmlpp {
 class Node {
 public:
     explicit Node(myhtml_tree_node_t* raw_node);
+    ~Node();
 
     std::optional<std::string> text();
     std::vector<myhtmlpp::Node> children();
