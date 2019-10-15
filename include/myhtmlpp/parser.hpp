@@ -11,7 +11,7 @@ public:
     ~Parser();
 
 private:
-    myhtml_t* m_myhtml;
+    myhtml_t* m_raw_myhtml;
     myhtml_tree_t* m_tree;
 };
 
