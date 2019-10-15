@@ -13,7 +13,7 @@ include(GNUInstallDirs)
 
 ## OPTIONS
 
-option(MYHTMLPP_ENABLE_TESTS "Build myhtmlpp tests if ON." ON)
+option(MYHTMLPP_BUILD_TESTS "Build myhtmlpp tests if ON." ON)
 
 
 ## CONFIGURATION
@@ -41,7 +41,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
 
 ## TESTS
 
-if(MYHTMLPP_ENABLE_TESTS)
+if(MYHTMLPP_BUILD_TESTS)
   enable_testing()
   add_subdirectory(test)
 endif()
