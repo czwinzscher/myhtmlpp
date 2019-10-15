@@ -13,6 +13,7 @@ public:
     std::optional<std::string> text();
     std::vector<myhtmlpp::Node> children();
     std::optional<myhtmlpp::Node> parent();
+    myhtml_tag_id_t tag_id();
 
 private:
     myhtml_tree_node_t* m_raw_node;

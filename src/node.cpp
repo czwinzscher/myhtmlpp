@@ -1,7 +1,6 @@
 #include "myhtmlpp/node.hpp"
 
-myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node)
-    : m_raw_node(raw_node) {}
+myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
 std::optional<std::string> myhtmlpp::Node::text() {
     if (auto raw_text = myhtml_node_text(m_raw_node, nullptr)) {
@@ -29,4 +28,8 @@ std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() {
     }
 
     return std::nullopt;
+}
+
+myhtml_tag_id_t myhtmlpp::Node::tag_id() {
+    return myhtml_node_tag_id(m_raw_node);
 }
