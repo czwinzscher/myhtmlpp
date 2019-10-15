@@ -4,6 +4,8 @@ project(myhtmlpp VERSION 0.0.1 DESCRIPTION "c++ wrapper for myhtml")
 
 include(GNUInstallDirs)
 
+option(MYHTMLPP_ENABLE_TESTS "Build myhtmlpp tests if ON." ON)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -22,6 +24,11 @@ file(GLOB MYHTMLPP_PUBLIC_HEADERS ${MYHTMLPP_INCLUDE_DIR}/*.hpp)
 set_target_properties(${PROJECT_NAME} PROPERTIES
   VERSION ${PROJECT_VERSION}
   PUBLIC_HEADER ${MYHTMLPP_PUBLIC_HEADERS})
+
+if(MYHTMLPP_ENABLE_TESTS)
+  enable_testing()
+  add_subdirectory(test)
+endif()
 
 install(TARGETS ${PROJECT_NAME}
   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
