@@ -12,7 +12,7 @@ public:
 
 private:
     myhtml_t* m_raw_myhtml;
-    myhtml_tree_t* m_tree;
+    myhtml_tree_t* m_raw_tree;
 };
 
 }  // namespace myhtmlpp
