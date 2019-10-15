@@ -9,6 +9,7 @@ class Node {
 public:
     explicit Node(myhtml_tree_node_t* raw_node);
 
+    std::optional<std::string> text();
     std::optional<myhtmlpp::Node> child();
     std::optional<myhtmlpp::Node> parent();
 
