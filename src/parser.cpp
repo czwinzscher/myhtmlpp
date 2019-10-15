@@ -14,3 +14,7 @@ myhtmlpp::Parser::~Parser() {
     myhtml_tree_destroy(m_raw_tree);
     myhtml_destroy(m_raw_myhtml);
 }
+
+myhtmlpp::Node myhtmlpp::Parser::root() {
+    return myhtmlpp::Node(myhtml_tree_get_document(m_raw_tree));
+}

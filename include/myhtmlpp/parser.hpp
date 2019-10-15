@@ -1,5 +1,7 @@
 #pragma once
 
+#include "node.hpp"
+
 #include <myhtml/api.h>
 #include <string>
 
@@ -9,6 +11,8 @@ class Parser {
 public:
     explicit Parser(const std::string& html);
     ~Parser();
+
+    myhtmlpp::Node root();
 
 private:
     myhtml_t* m_raw_myhtml;
