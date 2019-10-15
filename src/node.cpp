@@ -10,3 +10,11 @@ std::optional<myhtmlpp::Node> myhtmlpp::Node::child() {
 
     return std::nullopt;
 }
+
+std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() {
+    if (auto raw_parent = myhtml_node_parent(m_raw_node)) {
+        return Node(raw_parent);
+    }
+
+    return std::nullopt;
+}
