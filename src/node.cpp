@@ -4,6 +4,8 @@ myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
 myhtmlpp::Node::~Node() { myhtml_node_free(m_raw_node); }
 
+bool myhtmlpp::Node::good() { return m_raw_node != nullptr; }
+
 std::optional<std::string> myhtmlpp::Node::text() {
     if (auto raw_text = myhtml_node_text(m_raw_node, nullptr)) {
         return std::string(raw_text);

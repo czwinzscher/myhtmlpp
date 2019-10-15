@@ -11,6 +11,8 @@ public:
     explicit Node(myhtml_tree_node_t* raw_node);
     ~Node();
 
+    bool good();
+
     std::optional<std::string> text();
     std::vector<myhtmlpp::Node> children();
     std::optional<myhtmlpp::Node> parent();
