@@ -1,4 +1,4 @@
-#include "parser.hpp"
+#include "myhtmlpp/parser.hpp"
 
 myhtmlpp::Parser::Parser(const std::string& html) {
     m_myhtml = myhtml_create();
