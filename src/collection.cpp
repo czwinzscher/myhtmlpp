@@ -6,3 +6,7 @@ myhtmlpp::Collection::Collection(myhtml_collection_t* raw_collection)
 myhtmlpp::Collection::~Collection() {
     myhtml_collection_destroy(m_raw_collection);
 }
+
+size_t myhtmlpp::Collection::size() {
+    return m_raw_collection->length;
+}
