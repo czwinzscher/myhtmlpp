@@ -7,6 +7,10 @@ myhtmlpp::Collection::~Collection() {
     myhtml_collection_destroy(m_raw_collection);
 }
 
+myhtmlpp::Node myhtmlpp::Collection::operator[](size_t n) noexcept {
+    return Node(m_raw_collection->list[n]);
+}
+
 size_t myhtmlpp::Collection::size() const { return m_raw_collection->length; }
 
 // Iterator

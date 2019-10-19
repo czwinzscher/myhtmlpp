@@ -11,7 +11,9 @@ public:
     explicit Collection(myhtml_collection_t* raw_collection);
     ~Collection();
 
-    size_t size() const;
+    [[nodiscard]] Node operator[](size_t n) noexcept;
+
+    [[nodiscard]] size_t size() const;
 
     // implement an Iterator for the collection to enable range based for loops
     class Iterator {
