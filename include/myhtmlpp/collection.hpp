@@ -53,8 +53,8 @@ public:
     Iterator begin() noexcept;
     Iterator end() noexcept;
 
-    ConstIterator begin() const noexcept;
-    ConstIterator end() const noexcept;
+    [[nodiscard]] ConstIterator begin() const noexcept;
+    [[nodiscard]] ConstIterator end() const noexcept;
 
 private:
     myhtml_collection_t* m_raw_collection;

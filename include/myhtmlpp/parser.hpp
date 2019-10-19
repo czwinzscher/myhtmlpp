@@ -13,16 +13,18 @@ public:
     explicit Parser(const std::string& html);
     ~Parser();
 
-    bool good() const;
+    [[nodiscard]] bool good() const;
 
-    Node root() const;
+    [[nodiscard]] Node root() const;
 
-    Collection nodes_by_tag_id(myhtml_tag_id_t tag_id) const;
-    Collection nodes_by_name(const std::string& name) const;
-    Collection nodes_by_attribute_key(const std::string& key) const;
-    Collection nodes_by_attribute_value(const std::string& value,
-                                        bool case_insensitive = false) const;
-    Collection
+    [[nodiscard]] Collection nodes_by_tag_id(myhtml_tag_id_t tag_id) const;
+    [[nodiscard]] Collection nodes_by_name(const std::string& name) const;
+    [[nodiscard]] Collection
+    nodes_by_attribute_key(const std::string& key) const;
+    [[nodiscard]] Collection
+    nodes_by_attribute_value(const std::string& value,
+                             bool case_insensitive = false) const;
+    [[nodiscard]] Collection
     nodes_by_attribute_value_with_key(const std::string& key,
                                       const std::string& value,
                                       bool case_insensitive = false) const;
