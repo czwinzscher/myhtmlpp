@@ -13,6 +13,8 @@ public:
     explicit Parser(const std::string& html);
     ~Parser();
 
+    bool good() const;
+
     Node root();
 
     Collection nodes_by_tag_id(myhtml_tag_id_t tag_id);

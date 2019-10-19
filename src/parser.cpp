@@ -16,6 +16,10 @@ myhtmlpp::Parser::~Parser() {
     myhtml_destroy(m_raw_myhtml);
 }
 
+bool myhtmlpp::Parser::good() const {
+    return m_raw_myhtml != nullptr && m_raw_tree != nullptr;
+}
+
 myhtmlpp::Node myhtmlpp::Parser::root() {
     return Node(myhtml_tree_get_document(m_raw_tree));
 }
