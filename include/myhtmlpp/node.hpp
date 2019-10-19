@@ -14,8 +14,11 @@ public:
     bool good();
 
     std::optional<std::string> text();
-    std::vector<myhtmlpp::Node> children();
-    std::optional<myhtmlpp::Node> parent();
+
+    std::vector<Node> children();
+    std::optional<Node> next() const;
+    std::optional<Node> previous() const;
+    std::optional<Node> parent();
     myhtml_tag_id_t tag_id() const;
 
 private:

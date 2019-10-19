@@ -26,6 +26,22 @@ std::vector<myhtmlpp::Node> myhtmlpp::Node::children() {
     return res;
 }
 
+std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
+    if (auto raw_next = myhtml_node_next(m_raw_node)) {
+        return Node(raw_next);
+    }
+
+    return std::nullopt;
+}
+
+std::optional<myhtmlpp::Node> myhtmlpp::Node::previous() const {
+    if (auto raw_prev = myhtml_node_prev(m_raw_node)) {
+        return Node(raw_prev);
+    }
+
+    return std::nullopt;
+}
+
 std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() {
     if (auto raw_parent = myhtml_node_parent(m_raw_node)) {
         return Node(raw_parent);
