@@ -34,6 +34,6 @@ std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() {
     return std::nullopt;
 }
 
-myhtml_tag_id_t myhtmlpp::Node::tag_id() {
+myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
     return myhtml_node_tag_id(m_raw_node);
 }
