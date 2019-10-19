@@ -22,4 +22,4 @@ private:
     myhtml_tree_node_t* m_raw_node;
 };
 
-}
+}  // namespace myhtmlpp
