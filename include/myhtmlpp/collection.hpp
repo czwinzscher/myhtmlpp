@@ -13,4 +13,4 @@ private:
     myhtml_collection_t* m_raw_collection;
 };
 
-}
+}  // namespace myhtmlpp
