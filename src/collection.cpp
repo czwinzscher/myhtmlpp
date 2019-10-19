@@ -7,7 +7,7 @@ myhtmlpp::Collection::~Collection() {
     myhtml_collection_destroy(m_raw_collection);
 }
 
-size_t myhtmlpp::Collection::size() { return m_raw_collection->length; }
+size_t myhtmlpp::Collection::size() const { return m_raw_collection->length; }
 
 // Iterator
 myhtmlpp::Collection::Iterator::Iterator(myhtml_collection_t* c, size_t pos)
