@@ -11,14 +11,14 @@ public:
     explicit Node(myhtml_tree_node_t* raw_node);
     ~Node();
 
-    bool good();
+    bool good() const;
 
-    std::optional<std::string> text();
+    std::optional<std::string> text() const;
 
-    std::vector<Node> children();
+    std::vector<Node> children() const;
     std::optional<Node> next() const;
     std::optional<Node> previous() const;
-    std::optional<Node> parent();
+    std::optional<Node> parent() const;
     myhtml_tag_id_t tag_id() const;
 
 private:
