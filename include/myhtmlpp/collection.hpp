@@ -11,7 +11,9 @@ public:
     explicit Collection(myhtml_collection_t* raw_collection);
     ~Collection();
 
-    [[nodiscard]] Node operator[](size_t n) noexcept;
+    [[nodiscard]] Node operator[](size_t n) const noexcept;
+
+    [[nodiscard]] Node at(size_t n) const;
 
     [[nodiscard]] size_t size() const;
 

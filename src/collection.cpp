@@ -1,5 +1,7 @@
 #include "myhtmlpp/collection.hpp"
 
+#include <stdexcept>
+
 myhtmlpp::Collection::Collection(myhtml_collection_t* raw_collection)
     : m_raw_collection(raw_collection) {}
 
@@ -7,8 +9,16 @@ myhtmlpp::Collection::~Collection() {
     myhtml_collection_destroy(m_raw_collection);
 }
 
-myhtmlpp::Node myhtmlpp::Collection::operator[](size_t n) noexcept {
+myhtmlpp::Node myhtmlpp::Collection::operator[](size_t n) const noexcept {
     return Node(m_raw_collection->list[n]);
+}
+
+myhtmlpp::Node myhtmlpp::Collection::at(size_t n) const {
+    if (n >= size()) {
+        throw std::out_of_range("Index out of bounds.");
+    }
+
+    return (*this)[n];
 }
 
 size_t myhtmlpp::Collection::size() const { return m_raw_collection->length; }
