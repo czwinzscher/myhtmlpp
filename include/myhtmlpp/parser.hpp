@@ -11,6 +11,8 @@ namespace myhtmlpp {
 class Parser {
 public:
     explicit Parser(const std::string& html);
+    Parser(const std::string& html, myhtml_options opt, size_t thread_count,
+           size_t queue_size);
     ~Parser();
 
     [[nodiscard]] bool good() const;

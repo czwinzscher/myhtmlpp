@@ -11,6 +11,18 @@ myhtmlpp::Parser::Parser(const std::string& html) {
                  strlen(html.c_str()));
 }
 
+myhtmlpp::Parser::Parser(const std::string& html, myhtml_options opt,
+                         size_t thread_count, size_t queue_size) {
+    m_raw_myhtml = myhtml_create();
+    myhtml_init(m_raw_myhtml, opt, thread_count, queue_size);
+
+    m_raw_tree = myhtml_tree_create();
+    myhtml_tree_init(m_raw_tree, m_raw_myhtml);
+
+    myhtml_parse(m_raw_tree, MyENCODING_UTF_8, html.c_str(),
+                 strlen(html.c_str()));
+}
+
 myhtmlpp::Parser::~Parser() {
     myhtml_tree_destroy(m_raw_tree);
     myhtml_destroy(m_raw_myhtml);
