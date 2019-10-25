@@ -21,6 +21,10 @@ public:
     [[nodiscard]] std::optional<Node> parent() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
 
+    void add_child(const Node& node);
+    void insert_before(const Node& node);
+    void insert_after(const Node& node);
+
 private:
     myhtml_tree_node_t* m_raw_node;
 };

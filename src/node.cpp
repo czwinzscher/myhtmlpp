@@ -1,5 +1,7 @@
 #include "myhtmlpp/node.hpp"
 
+#include <myhtml/api.h>
+
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
 myhtmlpp::Node::~Node() { myhtml_node_free(m_raw_node); }
@@ -52,4 +54,16 @@ std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() const {
 
 myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
     return myhtml_node_tag_id(m_raw_node);
+}
+
+void myhtmlpp::Node::add_child(const Node& node) {
+    myhtml_tree_node_add_child(m_raw_node, node.m_raw_node);
+}
+
+void myhtmlpp::Node::insert_before(const Node& node) {
+    myhtml_tree_node_insert_before(m_raw_node, node.m_raw_node);
+}
+
+void myhtmlpp::Node::insert_after(const Node& node) {
+    myhtml_tree_node_insert_after(m_raw_node, node.m_raw_node);
 }
