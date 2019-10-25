@@ -27,6 +27,13 @@ myhtmlpp::Node myhtmlpp::Tree::body() const {
     return Node(myhtml_tree_get_node_body(m_raw_tree));
 }
 
+myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
+                                           myhtml_namespace_t ns) {
+    myhtml_tree_node_t* n = myhtml_node_create(m_raw_tree, tag_id, ns);
+
+    return Node(n);
+}
+
 myhtmlpp::Collection
 myhtmlpp::Tree::nodes_by_tag_id(myhtml_tag_id_t tag_id) const {
     myhtml_collection_t* c =

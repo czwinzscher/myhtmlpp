@@ -19,7 +19,7 @@ public:
     [[nodiscard]] myhtmlpp::Node head() const;
     [[nodiscard]] myhtmlpp::Node body() const;
 
-    myhtmlpp::Node create_node();
+    myhtmlpp::Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 
     [[nodiscard]] Collection nodes_by_tag_id(myhtml_tag_id_t tag_id) const;
     [[nodiscard]] Collection nodes_by_name(const std::string& name) const;
