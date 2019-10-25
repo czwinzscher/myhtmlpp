@@ -2,20 +2,25 @@
 
 #include <myhtml/api.h>
 #include <optional>
+#include <string>
 #include <vector>
 
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
 myhtmlpp::Node::~Node() { myhtml_node_free(m_raw_node); }
 
+bool myhtmlpp::Node::operator==(const Node& other) const {
+    return m_raw_node == other.m_raw_node;
+}
+
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
-std::optional<std::string> myhtmlpp::Node::text() const {
+std::string myhtmlpp::Node::text() const {
     if (auto raw_text = myhtml_node_text(m_raw_node, nullptr)) {
         return std::string(raw_text);
     }
 
-    return std::nullopt;
+    return "";
 }
 
 myhtml_tag_id_t myhtmlpp::Node::tag_id() const {

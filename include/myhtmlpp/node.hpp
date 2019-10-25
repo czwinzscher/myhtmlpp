@@ -2,6 +2,7 @@
 
 #include <myhtml/api.h>
 #include <optional>
+#include <string>
 #include <vector>
 
 namespace myhtmlpp {
@@ -11,9 +12,11 @@ public:
     explicit Node(myhtml_tree_node_t* raw_node);
     ~Node();
 
+    bool operator==(const Node& other) const;
+
     [[nodiscard]] bool good() const;
 
-    [[nodiscard]] std::optional<std::string> text() const;
+    [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
 
     [[nodiscard]] std::optional<Node> first_child() const;
