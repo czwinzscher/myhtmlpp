@@ -1,4 +1,5 @@
 #include "myhtmlpp/parser.hpp"
+#include <myhtml/api.h>
 
 myhtmlpp::Parser::Parser(const std::string& html) {
     m_raw_myhtml = myhtml_create();
@@ -32,8 +33,20 @@ bool myhtmlpp::Parser::good() const {
     return m_raw_myhtml != nullptr && m_raw_tree != nullptr;
 }
 
-myhtmlpp::Node myhtmlpp::Parser::root() const {
+myhtmlpp::Node myhtmlpp::Parser::document() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
+}
+
+myhtmlpp::Node myhtmlpp::Parser::root() const {
+    return Node(myhtml_tree_get_node_html(m_raw_tree));
+}
+
+myhtmlpp::Node myhtmlpp::Parser::head() const {
+    return Node(myhtml_tree_get_node_head(m_raw_tree));
+}
+
+myhtmlpp::Node myhtmlpp::Parser::body() const {
+    return Node(myhtml_tree_get_node_body(m_raw_tree));
 }
 
 myhtmlpp::Collection
