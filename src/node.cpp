@@ -1,6 +1,8 @@
 #include "myhtmlpp/node.hpp"
 
 #include <myhtml/api.h>
+#include <optional>
+#include <vector>
 
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
@@ -16,16 +18,16 @@ std::optional<std::string> myhtmlpp::Node::text() const {
     return std::nullopt;
 }
 
-std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {
-    std::vector<myhtmlpp::Node> res;
+myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
+    return myhtml_node_tag_id(m_raw_node);
+}
 
-    myhtml_tree_node_t* raw_child = myhtml_node_child(m_raw_node);
-    while (raw_child != nullptr) {
-        res.emplace_back(raw_child);
-        raw_child = myhtml_node_next(raw_child);
+std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
+    if (auto raw_first = myhtml_node_child(m_raw_node)) {
+        return Node(raw_first);
     }
 
-    return res;
+    return std::nullopt;
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
@@ -52,8 +54,16 @@ std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() const {
     return std::nullopt;
 }
 
-myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
-    return myhtml_node_tag_id(m_raw_node);
+std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {
+    std::vector<myhtmlpp::Node> res;
+
+    myhtml_tree_node_t* raw_child = myhtml_node_child(m_raw_node);
+    while (raw_child != nullptr) {
+        res.emplace_back(raw_child);
+        raw_child = myhtml_node_next(raw_child);
+    }
+
+    return res;
 }
 
 void myhtmlpp::Node::add_child(const Node& node) {

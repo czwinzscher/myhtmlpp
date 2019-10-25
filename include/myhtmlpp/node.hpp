@@ -14,12 +14,13 @@ public:
     [[nodiscard]] bool good() const;
 
     [[nodiscard]] std::optional<std::string> text() const;
+    [[nodiscard]] myhtml_tag_id_t tag_id() const;
 
-    [[nodiscard]] std::vector<Node> children() const;
+    [[nodiscard]] std::optional<Node> first_child() const;
     [[nodiscard]] std::optional<Node> next() const;
     [[nodiscard]] std::optional<Node> previous() const;
     [[nodiscard]] std::optional<Node> parent() const;
-    [[nodiscard]] myhtml_tag_id_t tag_id() const;
+    [[nodiscard]] std::vector<Node> children() const;
 
     void add_child(const Node& node);
     void insert_before(const Node& node);
