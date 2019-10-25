@@ -13,6 +13,10 @@ bool myhtmlpp::Node::operator==(const Node& other) const {
     return m_raw_node == other.m_raw_node;
 }
 
+bool myhtmlpp::Node::operator!=(const Node& other) const {
+    return !operator==(other);
+}
+
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
 std::string myhtmlpp::Node::text() const {

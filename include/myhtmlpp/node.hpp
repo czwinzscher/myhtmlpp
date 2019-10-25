@@ -13,6 +13,7 @@ public:
     ~Node();
 
     bool operator==(const Node& other) const;
+    bool operator!=(const Node& other) const;
 
     [[nodiscard]] bool good() const;
 
