@@ -39,6 +39,14 @@ std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
     return std::nullopt;
 }
 
+std::optional<myhtmlpp::Node> myhtmlpp::Node::last_child() const {
+    if (auto raw_last = myhtml_node_last_child(m_raw_node)) {
+        return Node(raw_last);
+    }
+
+    return std::nullopt;
+}
+
 std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
     if (auto raw_next = myhtml_node_next(m_raw_node)) {
         return Node(raw_next);
