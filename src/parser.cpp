@@ -1,93 +1,52 @@
 #include "myhtmlpp/parser.hpp"
-#include <myhtml/api.h>
 
-myhtmlpp::Parser::Parser(const std::string& html) {
+#include "myhtmlpp/tree.hpp"
+
+#include <myhtml/api.h>
+#include <string>
+
+myhtmlpp::Parser::Parser() : m_raw_myhtml(nullptr) {}
+
+myhtmlpp::Parser::~Parser() { reset(); }
+
+myhtmlpp::Tree myhtmlpp::Parser::parse(const std::string& html) {
+    reset();
+
     m_raw_myhtml = myhtml_create();
     myhtml_init(m_raw_myhtml, MyHTML_OPTIONS_DEFAULT, 1, 0);
 
-    m_raw_tree = myhtml_tree_create();
-    myhtml_tree_init(m_raw_tree, m_raw_myhtml);
+    myhtml_tree_t* raw_tree = myhtml_tree_create();
+    myhtml_tree_init(raw_tree, m_raw_myhtml);
 
-    myhtml_parse(m_raw_tree, MyENCODING_UTF_8, html.c_str(),
+    myhtml_parse(raw_tree, MyENCODING_UTF_8, html.c_str(),
                  strlen(html.c_str()));
+
+    return Tree(raw_tree);
 }
 
-myhtmlpp::Parser::Parser(const std::string& html, myhtml_options opt,
-                         size_t thread_count, size_t queue_size) {
+myhtmlpp::Tree myhtmlpp::Parser::parse_with_options(const std::string& html,
+                                                    myhtml_options opt,
+                                                    size_t thread_count,
+                                                    size_t queue_size) {
+    reset();
+
     m_raw_myhtml = myhtml_create();
     myhtml_init(m_raw_myhtml, opt, thread_count, queue_size);
 
-    m_raw_tree = myhtml_tree_create();
-    myhtml_tree_init(m_raw_tree, m_raw_myhtml);
+    myhtml_tree_t* raw_tree = myhtml_tree_create();
+    myhtml_tree_init(raw_tree, m_raw_myhtml);
 
-    myhtml_parse(m_raw_tree, MyENCODING_UTF_8, html.c_str(),
+    myhtml_parse(raw_tree, MyENCODING_UTF_8, html.c_str(),
                  strlen(html.c_str()));
+
+    return Tree(raw_tree);
 }
 
-myhtmlpp::Parser::~Parser() {
-    myhtml_tree_destroy(m_raw_tree);
-    myhtml_destroy(m_raw_myhtml);
-}
+bool myhtmlpp::Parser::good() const { return m_raw_myhtml != nullptr; }
 
-bool myhtmlpp::Parser::good() const {
-    return m_raw_myhtml != nullptr && m_raw_tree != nullptr;
-}
-
-myhtmlpp::Node myhtmlpp::Parser::document() const {
-    return Node(myhtml_tree_get_document(m_raw_tree));
-}
-
-myhtmlpp::Node myhtmlpp::Parser::root() const {
-    return Node(myhtml_tree_get_node_html(m_raw_tree));
-}
-
-myhtmlpp::Node myhtmlpp::Parser::head() const {
-    return Node(myhtml_tree_get_node_head(m_raw_tree));
-}
-
-myhtmlpp::Node myhtmlpp::Parser::body() const {
-    return Node(myhtml_tree_get_node_body(m_raw_tree));
-}
-
-myhtmlpp::Collection
-myhtmlpp::Parser::nodes_by_tag_id(myhtml_tag_id_t tag_id) const {
-    myhtml_collection_t* c =
-        myhtml_get_nodes_by_tag_id(m_raw_tree, nullptr, tag_id, nullptr);
-
-    return Collection(c);
-}
-
-myhtmlpp::Collection
-myhtmlpp::Parser::nodes_by_name(const std::string& name) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_name(
-        m_raw_tree, nullptr, name.c_str(), strlen(name.c_str()), nullptr);
-
-    return Collection(c);
-}
-
-myhtmlpp::Collection
-myhtmlpp::Parser::nodes_by_attribute_key(const std::string& key) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_attribute_key(
-        m_raw_tree, nullptr, nullptr, key.c_str(), strlen(key.c_str()),
-        nullptr);
-
-    return Collection(c);
-}
-
-myhtmlpp::Collection
-myhtmlpp::Parser::nodes_by_attribute_value(const std::string& value) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_attribute_value(
-        m_raw_tree, nullptr, nullptr, false, nullptr, 0, value.c_str(),
-        strlen(value.c_str()), nullptr);
-
-    return Collection(c);
-}
-
-myhtmlpp::Collection myhtmlpp::Parser::nodes_by_attribute_value_with_key(
-    const std::string& key, const std::string& value) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_attribute_value(
-        m_raw_tree, nullptr, nullptr, false, key.c_str(), strlen(key.c_str()),
-        value.c_str(), strlen(value.c_str()), nullptr);
-
-    return Collection(c);
+void myhtmlpp::Parser::reset() {
+    if (m_raw_myhtml != nullptr) {
+        myhtml_destroy(m_raw_myhtml);
+        m_raw_myhtml = nullptr;
+    }
 }
