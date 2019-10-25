@@ -62,21 +62,19 @@ myhtmlpp::Parser::nodes_by_attribute_key(const std::string& key) const {
 }
 
 myhtmlpp::Collection
-myhtmlpp::Parser::nodes_by_attribute_value(const std::string& value,
-                                           bool case_insensitive) const {
+myhtmlpp::Parser::nodes_by_attribute_value(const std::string& value) const {
     myhtml_collection_t* c = myhtml_get_nodes_by_attribute_value(
-        m_raw_tree, nullptr, nullptr, case_insensitive, nullptr, 0,
-        value.c_str(), strlen(value.c_str()), nullptr);
+        m_raw_tree, nullptr, nullptr, false, nullptr, 0, value.c_str(),
+        strlen(value.c_str()), nullptr);
 
     return Collection(c);
 }
 
 myhtmlpp::Collection myhtmlpp::Parser::nodes_by_attribute_value_with_key(
-    const std::string& key, const std::string& value,
-    bool case_insensitive) const {
+    const std::string& key, const std::string& value) const {
     myhtml_collection_t* c = myhtml_get_nodes_by_attribute_value(
-        m_raw_tree, nullptr, nullptr, case_insensitive, key.c_str(),
-        strlen(key.c_str()), value.c_str(), strlen(value.c_str()), nullptr);
+        m_raw_tree, nullptr, nullptr, false, key.c_str(), strlen(key.c_str()),
+        value.c_str(), strlen(value.c_str()), nullptr);
 
     return Collection(c);
 }
