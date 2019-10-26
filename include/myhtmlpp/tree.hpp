@@ -15,12 +15,12 @@ public:
 
     [[nodiscard]] bool good() const;
 
-    [[nodiscard]] myhtmlpp::Node document() const;
-    [[nodiscard]] myhtmlpp::Node root() const;
-    [[nodiscard]] myhtmlpp::Node head() const;
-    [[nodiscard]] myhtmlpp::Node body() const;
+    [[nodiscard]] Node document() const;
+    [[nodiscard]] Node root() const;
+    [[nodiscard]] Node head() const;
+    [[nodiscard]] Node body() const;
 
-    myhtmlpp::Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
+    Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 
     [[nodiscard]] Collection nodes_by_tag_id(myhtml_tag_id_t tag_id) const;
     [[nodiscard]] Collection nodes_by_name(const std::string& name) const;

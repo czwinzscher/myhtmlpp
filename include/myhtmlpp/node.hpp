@@ -19,7 +19,7 @@ public:
 
     [[nodiscard]] bool good() const;
 
-    [[nodiscard]] myhtmlpp::Tree tree() const;
+    [[nodiscard]] Tree tree() const;
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
 
