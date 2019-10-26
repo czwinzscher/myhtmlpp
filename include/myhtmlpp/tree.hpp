@@ -4,6 +4,7 @@
 #include "node.hpp"
 
 #include <myhtml/api.h>
+#include <string>
 
 namespace myhtmlpp {
 
