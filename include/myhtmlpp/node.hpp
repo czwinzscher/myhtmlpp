@@ -7,6 +7,8 @@
 
 namespace myhtmlpp {
 
+class Tree;
+
 class Node {
 public:
     explicit Node(myhtml_tree_node_t* raw_node);
@@ -17,6 +19,7 @@ public:
 
     [[nodiscard]] bool good() const;
 
+    [[nodiscard]] myhtmlpp::Tree tree() const;
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
 
