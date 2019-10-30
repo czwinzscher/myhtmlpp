@@ -5,9 +5,13 @@
 
 #include <myhtml/api.h>
 
-myhtmlpp::Tree::Tree(myhtml_tree_t* raw_tree) : m_raw_tree(raw_tree) {}
+myhtmlpp::Tree::Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree)
+    : m_raw_myhtml(raw_myhtml), m_raw_tree(raw_tree) {}
 
-myhtmlpp::Tree::~Tree() { myhtml_tree_destroy(m_raw_tree); }
+myhtmlpp::Tree::~Tree() {
+    myhtml_tree_destroy(m_raw_tree);
+    myhtml_destroy(m_raw_myhtml);
+}
 
 bool myhtmlpp::Tree::good() const { return m_raw_tree != nullptr; }
 
@@ -34,45 +38,50 @@ myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
     return Node(n);
 }
 
-myhtmlpp::Collection
-myhtmlpp::Tree::nodes_by_tag_id(myhtml_tag_id_t tag_id) const {
-    myhtml_collection_t* c =
-        myhtml_get_nodes_by_tag_id(m_raw_tree, nullptr, tag_id, nullptr);
+// Iterator
+myhtmlpp::Tree::Iterator::Iterator(myhtml_tree_t* t, const Node& node)
+    : m_data(t), m_node(node) {}
 
-    return Collection(c);
+myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
+    if (auto child = m_node.first_child()) {
+        m_node = child.value();
+    } else if (auto next = m_node.next()) {
+        m_node = next.value();
+    } else {
+        // TODO
+    }
+
+    return *this;
 }
 
-myhtmlpp::Collection
-myhtmlpp::Tree::nodes_by_name(const std::string& name) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_name(
-        m_raw_tree, nullptr, name.c_str(), strlen(name.c_str()), nullptr);
-
-    return Collection(c);
+myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
+    return Iterator(m_raw_tree, document());
 }
 
-myhtmlpp::Collection
-myhtmlpp::Tree::nodes_by_attribute_key(const std::string& key) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_attribute_key(
-        m_raw_tree, nullptr, nullptr, key.c_str(), strlen(key.c_str()),
-        nullptr);
-
-    return Collection(c);
+myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
+    return Iterator(m_raw_tree, Node(nullptr));
 }
 
-myhtmlpp::Collection
-myhtmlpp::Tree::nodes_by_attribute_value(const std::string& value) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_attribute_value(
-        m_raw_tree, nullptr, nullptr, false, nullptr, 0, value.c_str(),
-        strlen(value.c_str()), nullptr);
+// ConstIterator
+myhtmlpp::Tree::ConstIterator::ConstIterator(myhtml_tree_t* t, const Node& node)
+    : m_data(t), m_node(node) {}
 
-    return Collection(c);
+myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
+    if (auto child = m_node.first_child()) {
+        m_node = child.value();
+    } else if (auto next = m_node.next()) {
+        m_node = next.value();
+    } else {
+        // TODO
+    }
+
+    return *this;
 }
 
-myhtmlpp::Collection myhtmlpp::Tree::nodes_by_attribute_value_with_key(
-    const std::string& key, const std::string& value) const {
-    myhtml_collection_t* c = myhtml_get_nodes_by_attribute_value(
-        m_raw_tree, nullptr, nullptr, false, key.c_str(), strlen(key.c_str()),
-        value.c_str(), strlen(value.c_str()), nullptr);
+myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
+    return ConstIterator(m_raw_tree, document());
+}
 
-    return Collection(c);
+myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
+    return ConstIterator(m_raw_tree, Node(nullptr));
 }
