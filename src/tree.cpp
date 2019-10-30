@@ -2,6 +2,7 @@
 
 #include "myhtmlpp/node.hpp"
 
+#include <mycore/myosi.h>
 #include <myhtml/api.h>
 
 myhtmlpp::Tree::Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree)
@@ -11,6 +12,21 @@ myhtmlpp::Tree::~Tree() {
     myhtml_tree_destroy(m_raw_tree);
     myhtml_destroy(m_raw_myhtml);
 }
+
+// use namespace here so we don't get a warning because it's a friend function
+namespace myhtmlpp {
+
+std::ostream& operator<<(std::ostream& os, const Tree& t) {
+    mycore_string_raw_t str = {nullptr, 0, 0};
+    myhtml_serialization_tree_buffer(myhtml_tree_get_document(t.m_raw_tree),
+                                     &str);
+
+    os << str.data;
+
+    return os;
+}
+
+}  // namespace myhtmlpp
 
 bool myhtmlpp::Tree::good() const { return m_raw_tree != nullptr; }
 

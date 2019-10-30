@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <myhtml/api.h>
+#include <ostream>
 #include <string>
 
 namespace myhtmlpp {
@@ -13,10 +14,9 @@ public:
     Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree);
     ~Tree();
 
-    [[nodiscard]] bool good() const;
+    friend std::ostream& operator<<(std::ostream& os, const Tree& t);
 
-    [[nodiscard]] bool empty() const;
-    [[nodiscard]] size_t size() const;
+    [[nodiscard]] bool good() const;
 
     [[nodiscard]] Node document() const;
     [[nodiscard]] Node root() const;
