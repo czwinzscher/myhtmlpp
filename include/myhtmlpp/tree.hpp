@@ -1,6 +1,5 @@
 #pragma once
 
-#include "collection.hpp"
 #include "node.hpp"
 
 #include <cstddef>

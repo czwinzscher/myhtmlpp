@@ -1,6 +1,5 @@
 #include "myhtmlpp/tree.hpp"
 
-#include "myhtmlpp/collection.hpp"
 #include "myhtmlpp/node.hpp"
 
 #include <myhtml/api.h>
