@@ -3,7 +3,7 @@ add_library(doctest_main OBJECT "test_main.cpp")
 set(TEST_FILES
   test_parser.cpp
   test_node.cpp
-  test_collection_iterator.cpp)
+  test_tree.cpp)
 
 foreach(file ${TEST_FILES})
   get_filename_component(file_basename ${file} NAME_WE)
