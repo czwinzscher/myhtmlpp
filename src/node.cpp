@@ -20,11 +20,9 @@ bool myhtmlpp::Node::operator!=(const Node& other) const {
 
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
-myhtmlpp::Tree myhtmlpp::Node::tree() const {
-    myhtml_tree_t* t = myhtml_node_tree(m_raw_node);
-
-    return Tree(t);
-}
+// myhtmlpp::Tree myhtmlpp::Node::tree() const {
+//     return m_tree;
+// }
 
 std::string myhtmlpp::Node::text() const {
     if (auto raw_text = myhtml_node_text(m_raw_node, nullptr)) {
