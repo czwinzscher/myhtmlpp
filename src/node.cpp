@@ -36,6 +36,10 @@ myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
     return myhtml_node_tag_id(m_raw_node);
 }
 
+myhtml_namespace_t myhtmlpp::Node::ns() const {
+    return myhtml_node_namespace(m_raw_node);
+}
+
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
     if (auto raw_first = myhtml_node_child(m_raw_node)) {
         return Node(raw_first);

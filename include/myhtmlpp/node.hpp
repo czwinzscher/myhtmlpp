@@ -20,6 +20,7 @@ public:
     // [[nodiscard]] Tree tree() const;
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
+    [[nodiscard]] myhtml_namespace_t ns() const;
 
     [[nodiscard]] std::optional<Node> first_child() const;
     [[nodiscard]] std::optional<Node> last_child() const;
