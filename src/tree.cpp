@@ -28,8 +28,6 @@ std::ostream& operator<<(std::ostream& os, const Tree& t) {
 
 }  // namespace myhtmlpp
 
-bool myhtmlpp::Tree::good() const { return m_raw_tree != nullptr; }
-
 myhtmlpp::Node myhtmlpp::Tree::document() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
 }

@@ -16,8 +16,6 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Tree& t);
 
-    [[nodiscard]] bool good() const;
-
     [[nodiscard]] Node document() const;
     [[nodiscard]] Node root() const;
     [[nodiscard]] Node head() const;
