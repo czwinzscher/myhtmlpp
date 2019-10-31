@@ -47,43 +47,43 @@ void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
-    if (auto raw_first = myhtml_node_child(m_raw_node)) {
-        return Node(raw_first);
-    }
+    myhtml_tree_node_t* raw_first = myhtml_node_child(m_raw_node);
 
-    return std::nullopt;
+    return raw_first != nullptr
+        ? std::make_optional(Node(raw_first))
+        : std::nullopt;
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::last_child() const {
-    if (auto raw_last = myhtml_node_last_child(m_raw_node)) {
-        return Node(raw_last);
-    }
+    myhtml_tree_node_t* raw_last = myhtml_node_last_child(m_raw_node);
 
-    return std::nullopt;
-}
-
-std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
-    if (auto raw_next = myhtml_node_next(m_raw_node)) {
-        return Node(raw_next);
-    }
-
-    return std::nullopt;
+    return raw_last != nullptr
+        ? std::make_optional(Node(raw_last))
+        : std::nullopt;
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::previous() const {
-    if (auto raw_prev = myhtml_node_prev(m_raw_node)) {
-        return Node(raw_prev);
-    }
+    myhtml_tree_node_t* raw_prev = myhtml_node_prev(m_raw_node);
 
-    return std::nullopt;
+    return raw_prev != nullptr
+        ? std::make_optional(Node(raw_prev))
+        : std::nullopt;
+}
+
+std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
+    myhtml_tree_node_t* raw_next = myhtml_node_next(m_raw_node);
+
+    return raw_next != nullptr
+        ? std::make_optional(Node(raw_next))
+        : std::nullopt;
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() const {
-    if (auto raw_parent = myhtml_node_parent(m_raw_node)) {
-        return Node(raw_parent);
-    }
+    myhtml_tree_node_t* raw_parent = myhtml_node_parent(m_raw_node);
 
-    return std::nullopt;
+    return raw_parent != nullptr
+        ? std::make_optional(Node(raw_parent))
+        : std::nullopt;
 }
 
 std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {

@@ -28,8 +28,8 @@ public:
 
     [[nodiscard]] std::optional<Node> first_child() const;
     [[nodiscard]] std::optional<Node> last_child() const;
-    [[nodiscard]] std::optional<Node> next() const;
     [[nodiscard]] std::optional<Node> previous() const;
+    [[nodiscard]] std::optional<Node> next() const;
     [[nodiscard]] std::optional<Node> parent() const;
     [[nodiscard]] std::vector<Node> children() const;
 
