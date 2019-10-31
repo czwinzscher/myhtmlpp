@@ -113,3 +113,8 @@ myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
 
     return Attribute(myhtml_node_tree(m_raw_node), raw_attr);
 }
+
+void myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {
+    myhtml_attribute_remove_by_key(m_raw_node, key.c_str(),
+                                   strlen(key.c_str()));
+}
