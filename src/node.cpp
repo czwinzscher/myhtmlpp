@@ -102,7 +102,7 @@ std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
 
     myhtml_tree_attr_t* raw_attr = myhtml_node_attribute_first(m_raw_node);
     while (raw_attr != nullptr) {
-        res.emplace_back(myhtml_node_tree(m_raw_node), raw_attr);
+        res.emplace_back(raw_attr);
         raw_attr = myhtml_attribute_next(raw_attr);
     }
 
@@ -115,7 +115,7 @@ myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
         m_raw_node, key.c_str(), strlen(key.c_str()), value.c_str(),
         strlen(value.c_str()), MyENCODING_UTF_8);
 
-    return Attribute(myhtml_node_tree(m_raw_node), raw_attr);
+    return Attribute(raw_attr);
 }
 
 void myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {

@@ -4,13 +4,8 @@
 #include <optional>
 #include <string>
 
-myhtmlpp::Attribute::Attribute(myhtml_tree_t* raw_tree,
-                               myhtml_tree_attr_t* raw_attribute)
-    : m_raw_tree(raw_tree), m_raw_attribute(raw_attribute) {}
-
-myhtmlpp::Attribute::~Attribute() {
-    myhtml_attribute_free(m_raw_tree, m_raw_attribute);
-}
+myhtmlpp::Attribute::Attribute(myhtml_tree_attr_t* raw_attribute)
+    : m_raw_attribute(raw_attribute) {}
 
 std::string myhtmlpp::Attribute::key() const {
     if (auto k = myhtml_attribute_key(m_raw_attribute, nullptr)) {
@@ -38,7 +33,7 @@ void myhtmlpp::Attribute::set_ns(myhtml_namespace_t new_ns) {
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::previous() const {
     if (auto raw_prev = myhtml_attribute_prev(m_raw_attribute)) {
-        return Attribute(m_raw_tree, raw_prev);
+        return Attribute(raw_prev);
     }
 
     return std::nullopt;
@@ -46,7 +41,7 @@ std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::previous() const {
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::next() const {
     if (auto raw_next = myhtml_attribute_next(m_raw_attribute)) {
-        return Attribute(m_raw_tree, raw_next);
+        return Attribute(raw_next);
     }
 
     return std::nullopt;

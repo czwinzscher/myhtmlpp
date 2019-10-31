@@ -61,8 +61,7 @@ private:
         myhtml_tree_attr_t* raw_attr = f(m_raw_node);
 
         return raw_attr != nullptr
-                   ? std::make_optional(
-                         Attribute(myhtml_node_tree(m_raw_node), raw_attr))
+                   ? std::make_optional(Attribute(raw_attr))
                    : std::nullopt;
     }
 };

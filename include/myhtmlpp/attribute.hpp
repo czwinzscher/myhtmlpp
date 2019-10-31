@@ -8,8 +8,7 @@ namespace myhtmlpp {
 
 class Attribute {
 public:
-    Attribute(myhtml_tree_t* raw_tree, myhtml_tree_attr_t* raw_attribute);
-    ~Attribute();
+    explicit Attribute(myhtml_tree_attr_t* raw_attribute);
 
     [[nodiscard]] std::string key() const;
     [[nodiscard]] std::string value() const;
@@ -21,7 +20,6 @@ public:
     [[nodiscard]] std::optional<Attribute> next() const;
 
 private:
-    myhtml_tree_t* m_raw_tree;
     myhtml_tree_attr_t* m_raw_attribute;
 };
 
