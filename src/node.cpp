@@ -126,3 +126,15 @@ std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
                ? std::make_optional(Attribute(nullptr, raw_last_attr))
                : std::nullopt;
 }
+
+std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
+    std::vector<Attribute> res;
+
+    myhtml_tree_attr_t* raw_attr = myhtml_node_attribute_first(m_raw_node);
+    while (raw_attr != nullptr) {
+        res.emplace_back(nullptr, raw_attr);
+        raw_attr = myhtml_attribute_next(raw_attr);
+    }
+
+    return res;
+}
