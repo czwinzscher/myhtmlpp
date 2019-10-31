@@ -1,8 +1,9 @@
 add_library(doctest_main OBJECT "test_main.cpp")
 
 set(TEST_FILES
-  test_parser.cpp
+  test_attribute.cpp
   test_node.cpp
+  test_parser.cpp
   test_tree.cpp)
 
 foreach(file ${TEST_FILES})
