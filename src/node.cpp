@@ -1,4 +1,6 @@
 #include "myhtmlpp/node.hpp"
+
+#include "myhtmlpp/attribute.hpp"
 #include "myhtmlpp/tree.hpp"
 
 #include <myhtml/api.h>
@@ -38,6 +40,10 @@ myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
 
 myhtml_namespace_t myhtmlpp::Node::ns() const {
     return myhtml_node_namespace(m_raw_node);
+}
+
+void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
+    myhtml_node_namespace_set(m_raw_node, new_ns);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
@@ -102,4 +108,21 @@ void myhtmlpp::Node::insert_before(const Node& node) {
 
 void myhtmlpp::Node::insert_after(const Node& node) {
     myhtml_tree_node_insert_after(m_raw_node, node.m_raw_node);
+}
+
+std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
+    myhtml_tree_attr_t* raw_first_attr =
+        myhtml_node_attribute_first(m_raw_node);
+
+    return raw_first_attr != nullptr
+               ? std::make_optional(Attribute(nullptr, raw_first_attr))
+               : std::nullopt;
+}
+
+std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
+    myhtml_tree_attr_t* raw_last_attr = myhtml_node_attribute_last(m_raw_node);
+
+    return raw_last_attr != nullptr
+               ? std::make_optional(Attribute(nullptr, raw_last_attr))
+               : std::nullopt;
 }
