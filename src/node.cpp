@@ -24,11 +24,9 @@ bool myhtmlpp::Node::operator!=(const Node& other) const {
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
 std::string myhtmlpp::Node::text() const {
-    if (auto raw_text = myhtml_node_text(m_raw_node, nullptr)) {
-        return std::string(raw_text);
-    }
+    const char* raw_text = myhtml_node_text(m_raw_node, nullptr);
 
-    return "";
+    return raw_text != nullptr ? raw_text : "";
 }
 
 myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
