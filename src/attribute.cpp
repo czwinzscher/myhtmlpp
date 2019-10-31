@@ -4,8 +4,9 @@
 #include <optional>
 #include <string>
 
-myhtmlpp::Attribute::Attribute(myhtml_tree_t* raw_tree, myhtml_tree_attr_t* raw_attribute)
-    : m_raw_tree(raw_tree), m_raw_attribute(raw_attribute) {}    
+myhtmlpp::Attribute::Attribute(myhtml_tree_t* raw_tree,
+                               myhtml_tree_attr_t* raw_attribute)
+    : m_raw_tree(raw_tree), m_raw_attribute(raw_attribute) {}
 
 myhtmlpp::Attribute::~Attribute() {
     myhtml_attribute_free(m_raw_tree, m_raw_attribute);
