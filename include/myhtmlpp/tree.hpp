@@ -13,12 +13,6 @@ public:
     Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree);
     ~Tree();
 
-    friend std::ostream& operator<<(std::ostream& os, const Tree& t) {
-        os << t.html_string();
-
-        return os;
-    }
-
     [[nodiscard]] Node document_node() const;
     [[nodiscard]] Node html_node() const;
     [[nodiscard]] Node head_node() const;
@@ -72,5 +66,7 @@ private:
     myhtml_t* m_raw_myhtml;
     myhtml_tree_t* m_raw_tree;
 };
+
+std::ostream& operator<<(std::ostream& os, const Tree& t);
 
 }  // namespace myhtmlpp

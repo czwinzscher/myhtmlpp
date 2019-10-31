@@ -91,3 +91,9 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
     return ConstIterator(m_raw_tree, Node(nullptr));
 }
+
+std::ostream& myhtmlpp::operator<<(std::ostream& os, const Tree& t) {
+    os << t.html_string();
+
+    return os;
+}
