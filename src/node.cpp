@@ -85,6 +85,10 @@ void myhtmlpp::Node::insert_after(const Node& node) {
     myhtml_tree_node_insert_after(m_raw_node, node.m_raw_node);
 }
 
+void myhtmlpp::Node::remove() {
+    myhtml_node_remove(m_raw_node);
+}
+
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
     return optional_attribute_helper(myhtml_node_attribute_first);
 }

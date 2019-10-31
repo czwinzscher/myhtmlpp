@@ -36,6 +36,8 @@ public:
     void insert_before(const Node& node);
     void insert_after(const Node& node);
 
+    void remove();
+
     [[nodiscard]] std::optional<Attribute> first_attribute() const;
     [[nodiscard]] std::optional<Attribute> last_attribute() const;
     [[nodiscard]] std::vector<Attribute> attributes() const;
