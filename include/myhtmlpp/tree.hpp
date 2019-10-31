@@ -2,10 +2,8 @@
 
 #include "node.hpp"
 
-#include <cstddef>
 #include <myhtml/api.h>
 #include <ostream>
-#include <string>
 
 namespace myhtmlpp {
 
