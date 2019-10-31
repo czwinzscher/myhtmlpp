@@ -16,10 +16,10 @@ public:
 
     friend std::ostream& operator<<(std::ostream& os, const Tree& t);
 
-    [[nodiscard]] Node document() const;
-    [[nodiscard]] Node root() const;
-    [[nodiscard]] Node head() const;
-    [[nodiscard]] Node body() const;
+    [[nodiscard]] Node document_node() const;
+    [[nodiscard]] Node html_node() const;
+    [[nodiscard]] Node head_node() const;
+    [[nodiscard]] Node body_node() const;
 
     Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 

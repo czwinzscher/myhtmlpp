@@ -28,19 +28,19 @@ std::ostream& operator<<(std::ostream& os, const Tree& t) {
 
 }  // namespace myhtmlpp
 
-myhtmlpp::Node myhtmlpp::Tree::document() const {
+myhtmlpp::Node myhtmlpp::Tree::document_node() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
 }
 
-myhtmlpp::Node myhtmlpp::Tree::root() const {
+myhtmlpp::Node myhtmlpp::Tree::html_node() const {
     return Node(myhtml_tree_get_node_html(m_raw_tree));
 }
 
-myhtmlpp::Node myhtmlpp::Tree::head() const {
+myhtmlpp::Node myhtmlpp::Tree::head_node() const {
     return Node(myhtml_tree_get_node_head(m_raw_tree));
 }
 
-myhtmlpp::Node myhtmlpp::Tree::body() const {
+myhtmlpp::Node myhtmlpp::Tree::body_node() const {
     return Node(myhtml_tree_get_node_body(m_raw_tree));
 }
 
@@ -68,7 +68,7 @@ myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
 }
 
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
-    return Iterator(m_raw_tree, document());
+    return Iterator(m_raw_tree, document_node());
 }
 
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
@@ -92,7 +92,7 @@ myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
-    return ConstIterator(m_raw_tree, document());
+    return ConstIterator(m_raw_tree, document_node());
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
