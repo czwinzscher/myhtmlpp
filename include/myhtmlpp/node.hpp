@@ -48,21 +48,13 @@ public:
 private:
     myhtml_tree_node_t* m_raw_node;
 
-    template <typename Func>
-    std::optional<Node> optional_node_helper(Func f) const {
-        myhtml_tree_node_t* raw_node = f(m_raw_node);
+    template <typename Ret, typename Func>
+    std::optional<Ret> optional_helper(Func f) const {
+        if (auto raw = f(m_raw_node)) {
+            return Ret(raw);
+        }
 
-        return raw_node != nullptr ? std::make_optional(Node(raw_node))
-                                   : std::nullopt;
-    }
-
-    template <typename Func>
-    std::optional<Attribute> optional_attribute_helper(Func f) const {
-        myhtml_tree_attr_t* raw_attr = f(m_raw_node);
-
-        return raw_attr != nullptr
-                   ? std::make_optional(Attribute(raw_attr))
-                   : std::nullopt;
+        return std::nullopt;
     }
 };
 

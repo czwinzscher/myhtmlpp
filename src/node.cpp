@@ -42,23 +42,23 @@ void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
-    return optional_node_helper(myhtml_node_child);
+    return optional_helper<Node>(myhtml_node_child);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::last_child() const {
-    return optional_node_helper(myhtml_node_last_child);
+    return optional_helper<Node>(myhtml_node_last_child);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::previous() const {
-    return optional_node_helper(myhtml_node_prev);
+    return optional_helper<Node>(myhtml_node_prev);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
-    return optional_node_helper(myhtml_node_next);
+    return optional_helper<Node>(myhtml_node_next);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() const {
-    return optional_node_helper(myhtml_node_parent);
+    return optional_helper<Node>(myhtml_node_parent);
 }
 
 std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {
@@ -90,11 +90,11 @@ void myhtmlpp::Node::remove() {
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
-    return optional_attribute_helper(myhtml_node_attribute_first);
+    return optional_helper<Attribute>(myhtml_node_attribute_first);
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
-    return optional_attribute_helper(myhtml_node_attribute_last);
+    return optional_helper<Attribute>(myhtml_node_attribute_last);
 }
 
 std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
