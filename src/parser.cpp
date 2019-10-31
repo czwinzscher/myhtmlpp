@@ -3,7 +3,9 @@
 #include "myhtmlpp/tree.hpp"
 
 #include <cstddef>
+#include <mycore/myosi.h>
 #include <myhtml/api.h>
+#include <stdexcept>
 #include <string>
 
 template <typename ParseFunc, typename... ParseArgs>
@@ -11,12 +13,25 @@ myhtmlpp::Tree parse_helper(ParseFunc f, const std::string& html,
                             myhtml_options opt, size_t thread_count,
                             size_t queue_size, ParseArgs... args) {
     myhtml_t* raw_myhtml = myhtml_create();
-    myhtml_init(raw_myhtml, opt, thread_count, queue_size);
+    mystatus_t init_st = myhtml_init(raw_myhtml, opt, thread_count, queue_size);
+    if (init_st != MyHTML_STATUS_OK) {
+        throw std::runtime_error("myhtml_init failed with status " +
+                                 std::to_string(init_st));
+    }
 
     myhtml_tree_t* raw_tree = myhtml_tree_create();
-    myhtml_tree_init(raw_tree, raw_myhtml);
+    mystatus_t tree_st = myhtml_tree_init(raw_tree, raw_myhtml);
+    if (tree_st != MyHTML_STATUS_OK) {
+        throw std::runtime_error("myhtml_tree_init failed with status " +
+                                 std::to_string(tree_st));
+    }
 
-    f(raw_tree, MyENCODING_UTF_8, html.c_str(), strlen(html.c_str()), args...);
+    mystatus_t parse_st = f(raw_tree, MyENCODING_UTF_8, html.c_str(),
+                            strlen(html.c_str()), args...);
+    if (parse_st != MyHTML_STATUS_OK) {
+        throw std::runtime_error("parsing failed with status " +
+                                 std::to_string(parse_st));
+    }
 
     return myhtmlpp::Tree(raw_myhtml, raw_tree);
 }
