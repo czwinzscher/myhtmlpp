@@ -4,6 +4,7 @@
 
 #include <myhtml/api.h>
 #include <ostream>
+#include <string>
 
 namespace myhtmlpp {
 
@@ -12,12 +13,18 @@ public:
     Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree);
     ~Tree();
 
-    friend std::ostream& operator<<(std::ostream& os, const Tree& t);
+    friend std::ostream& operator<<(std::ostream& os, const Tree& t) {
+        os << t.html_string();
+
+        return os;
+    }
 
     [[nodiscard]] Node document_node() const;
     [[nodiscard]] Node html_node() const;
     [[nodiscard]] Node head_node() const;
     [[nodiscard]] Node body_node() const;
+
+    [[nodiscard]] std::string html_string() const;
 
     Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 

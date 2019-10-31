@@ -13,21 +13,6 @@ myhtmlpp::Tree::~Tree() {
     myhtml_destroy(m_raw_myhtml);
 }
 
-// use namespace here so we don't get a warning because it's a friend function
-namespace myhtmlpp {
-
-std::ostream& operator<<(std::ostream& os, const Tree& t) {
-    mycore_string_raw_t str = {nullptr, 0, 0};
-    myhtml_serialization_tree_buffer(myhtml_tree_get_document(t.m_raw_tree),
-                                     &str);
-
-    os << str.data;
-
-    return os;
-}
-
-}  // namespace myhtmlpp
-
 myhtmlpp::Node myhtmlpp::Tree::document_node() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
 }
@@ -42,6 +27,14 @@ myhtmlpp::Node myhtmlpp::Tree::head_node() const {
 
 myhtmlpp::Node myhtmlpp::Tree::body_node() const {
     return Node(myhtml_tree_get_node_body(m_raw_tree));
+}
+
+std::string myhtmlpp::Tree::html_string() const {
+    mycore_string_raw_t str = {nullptr, 0, 0};
+    myhtml_serialization_tree_buffer(myhtml_tree_get_document(m_raw_tree),
+                                     &str);
+
+    return str.data != nullptr ? str.data : "";
 }
 
 myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
