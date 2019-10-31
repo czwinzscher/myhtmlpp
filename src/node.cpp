@@ -23,10 +23,6 @@ bool myhtmlpp::Node::operator!=(const Node& other) const {
 
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
-// myhtmlpp::Tree myhtmlpp::Node::tree() const {
-//     return m_tree;
-// }
-
 std::string myhtmlpp::Node::text() const {
     if (auto raw_text = myhtml_node_text(m_raw_node, nullptr)) {
         return std::string(raw_text);
@@ -48,38 +44,23 @@ void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
-    myhtml_tree_node_t* raw_first = myhtml_node_child(m_raw_node);
-
-    return raw_first != nullptr ? std::make_optional(Node(raw_first))
-                                : std::nullopt;
+    return optional_node_helper(myhtml_node_child);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::last_child() const {
-    myhtml_tree_node_t* raw_last = myhtml_node_last_child(m_raw_node);
-
-    return raw_last != nullptr ? std::make_optional(Node(raw_last))
-                               : std::nullopt;
+    return optional_node_helper(myhtml_node_last_child);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::previous() const {
-    myhtml_tree_node_t* raw_prev = myhtml_node_prev(m_raw_node);
-
-    return raw_prev != nullptr ? std::make_optional(Node(raw_prev))
-                               : std::nullopt;
+    return optional_node_helper(myhtml_node_prev);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
-    myhtml_tree_node_t* raw_next = myhtml_node_next(m_raw_node);
-
-    return raw_next != nullptr ? std::make_optional(Node(raw_next))
-                               : std::nullopt;
+    return optional_node_helper(myhtml_node_next);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() const {
-    myhtml_tree_node_t* raw_parent = myhtml_node_parent(m_raw_node);
-
-    return raw_parent != nullptr ? std::make_optional(Node(raw_parent))
-                                 : std::nullopt;
+    return optional_node_helper(myhtml_node_parent);
 }
 
 std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {
@@ -107,20 +88,11 @@ void myhtmlpp::Node::insert_after(const Node& node) {
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
-    myhtml_tree_attr_t* raw_first_attr =
-        myhtml_node_attribute_first(m_raw_node);
-
-    return raw_first_attr != nullptr
-               ? std::make_optional(Attribute(nullptr, raw_first_attr))
-               : std::nullopt;
+    return optional_attribute_helper(myhtml_node_attribute_first);
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
-    myhtml_tree_attr_t* raw_last_attr = myhtml_node_attribute_last(m_raw_node);
-
-    return raw_last_attr != nullptr
-               ? std::make_optional(Attribute(nullptr, raw_last_attr))
-               : std::nullopt;
+    return optional_attribute_helper(myhtml_node_attribute_last);
 }
 
 std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
@@ -128,7 +100,7 @@ std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
 
     myhtml_tree_attr_t* raw_attr = myhtml_node_attribute_first(m_raw_node);
     while (raw_attr != nullptr) {
-        res.emplace_back(nullptr, raw_attr);
+        res.emplace_back(myhtml_node_tree(m_raw_node), raw_attr);
         raw_attr = myhtml_attribute_next(raw_attr);
     }
 
@@ -141,5 +113,5 @@ myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
         m_raw_node, key.c_str(), strlen(key.c_str()), value.c_str(),
         strlen(value.c_str()), MyENCODING_UTF_8);
 
-    return Attribute(nullptr, raw_attr);
+    return Attribute(myhtml_node_tree(m_raw_node), raw_attr);
 }

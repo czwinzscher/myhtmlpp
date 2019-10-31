@@ -19,7 +19,6 @@ public:
 
     [[nodiscard]] bool good() const;
 
-    // [[nodiscard]] Tree tree() const;
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
     [[nodiscard]] myhtml_namespace_t ns() const;
@@ -46,6 +45,24 @@ public:
 
 private:
     myhtml_tree_node_t* m_raw_node;
+
+    template <typename Func>
+    std::optional<Node> optional_node_helper(Func f) const {
+        myhtml_tree_node_t* raw_node = f(m_raw_node);
+
+        return raw_node != nullptr ? std::make_optional(Node(raw_node))
+                                   : std::nullopt;
+    }
+
+    template <typename Func>
+    std::optional<Attribute> optional_attribute_helper(Func f) const {
+        myhtml_tree_attr_t* raw_attr = f(m_raw_node);
+
+        return raw_attr != nullptr
+                   ? std::make_optional(
+                         Attribute(myhtml_node_tree(m_raw_node), raw_attr))
+                   : std::nullopt;
+    }
 };
 
 }  // namespace myhtmlpp
