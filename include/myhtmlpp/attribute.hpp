@@ -13,8 +13,8 @@ public:
 
     [[nodiscard]] std::string key() const;
     [[nodiscard]] std::string value() const;
-
     [[nodiscard]] myhtml_namespace_t ns() const;
+
     void set_ns(myhtml_namespace_t new_ns);
 
     [[nodiscard]] std::optional<Attribute> previous() const;
