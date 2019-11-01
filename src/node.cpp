@@ -23,6 +23,13 @@ bool myhtmlpp::Node::operator!=(const Node& other) const {
 
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
+std::string myhtmlpp::Node::html_string() const {
+    mycore_string_raw_t str = {nullptr, 0, 0};
+    myhtml_serialization_node_buffer(m_raw_node, &str);
+
+    return str.data != nullptr ? str.data : "";
+}
+
 std::string myhtmlpp::Node::text() const {
     const char* raw_text = myhtml_node_text(m_raw_node, nullptr);
 
@@ -119,4 +126,10 @@ myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
 void myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {
     myhtml_attribute_remove_by_key(m_raw_node, key.c_str(),
                                    strlen(key.c_str()));
+}
+
+std::ostream& myhtmlpp::operator<<(std::ostream& os, const myhtmlpp::Node& n) {
+    os << n.html_string();
+
+    return os;
 }

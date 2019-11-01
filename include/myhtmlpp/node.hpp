@@ -4,6 +4,7 @@
 
 #include <myhtml/api.h>
 #include <optional>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -18,6 +19,8 @@ public:
     bool operator!=(const Node& other) const;
 
     [[nodiscard]] bool good() const;
+
+    [[nodiscard]] std::string html_string() const;
 
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
@@ -57,5 +60,7 @@ private:
         return std::nullopt;
     }
 };
+
+std::ostream& operator<<(std::ostream& os, const Node& n);
 
 }  // namespace myhtmlpp
