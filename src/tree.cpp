@@ -148,12 +148,11 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::cbegin() const noexcept {
-    return ConstIterator(html_node());
+    return begin();
 }
 
-// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::cend() const noexcept {
-    return ConstIterator(Node(nullptr));
+    return end();
 }
 
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const Tree& t) {
