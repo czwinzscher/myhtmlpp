@@ -2,6 +2,7 @@
 
 #include "myhtmlpp/node.hpp"
 
+#include <functional>
 #include <mycore/myosi.h>
 #include <mycore/mystring.h>
 #include <myhtml/api.h>
@@ -41,7 +42,27 @@ std::string myhtmlpp::Tree::html_string() const {
     return str.data != nullptr ? str.data : "";
 }
 
-std::string myhtmlpp::Tree::pretty_html_string() const { return html_string(); }
+std::string myhtmlpp::Tree::pretty_html_string() const {
+    std::function<std::string(Node, int)> to_html = [&](const Node& node,
+                                                        int level) {
+        std::string res = std::string(level * 4, ' ') + node.html_string();
+
+        for (const auto& ch : node.children()) {
+            res += "\n" + to_html(ch, level + 1);
+        }
+
+        if (auto tag = node.tag_id();
+            tag != MyHTML_TAG__TEXT && tag != MyHTML_TAG__COMMENT &&
+            tag != MyHTML_TAG__UNDEF && tag != MyHTML_TAG__DOCTYPE) {
+            res += "\n" + std::string(level * 4, ' ') + "</" +
+                   node.tag_string() + ">";
+        }
+
+        return res;
+    };
+
+    return to_html(html_node(), 0);
+}
 
 myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
                                            myhtml_namespace_t ns) {
