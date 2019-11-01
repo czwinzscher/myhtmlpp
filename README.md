@@ -6,7 +6,7 @@ myhtmlpp is a modern C++17 wrapper around the [MyHTML C library](https://github.
 ```bash
 mkdir build
 cd build
-cmake ..
+cmake -DCMAKE_BUILD_TYPE=Release ..
 make
 make test
 sudo make install
