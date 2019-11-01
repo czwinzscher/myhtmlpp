@@ -55,11 +55,9 @@ private:
 
     template <typename Ret, typename Func>
     std::optional<Ret> optional_helper(Func f) const {
-        if (auto raw = f(m_raw_node)) {
-            return Ret(raw);
-        }
+        auto raw = f(m_raw_node);
 
-        return std::nullopt;
+        return raw != nullptr ? std::make_optional(Ret(raw)) : std::nullopt;
     }
 };
 
