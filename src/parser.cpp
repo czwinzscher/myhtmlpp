@@ -3,7 +3,9 @@
 #include "myhtmlpp/tree.hpp"
 
 #include <cstddef>
+#include <cstring>
 #include <mycore/myosi.h>
+#include <myencoding/myosi.h>
 #include <myhtml/api.h>
 #include <stdexcept>
 #include <string>

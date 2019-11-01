@@ -3,7 +3,9 @@
 #include "myhtmlpp/node.hpp"
 
 #include <mycore/myosi.h>
+#include <mycore/mystring.h>
 #include <myhtml/api.h>
+#include <optional>
 #include <string>
 #include <vector>
 

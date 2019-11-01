@@ -1,8 +1,10 @@
 #include "myhtmlpp/node.hpp"
 
 #include "myhtmlpp/attribute.hpp"
-#include "myhtmlpp/tree.hpp"
 
+#include <cstring>
+#include <mycore/myosi.h>
+#include <mycore/mystring.h>
 #include <myencoding/myosi.h>
 #include <myhtml/api.h>
 #include <optional>
