@@ -61,6 +61,10 @@ myhtml_namespace_t myhtmlpp::Node::ns() const {
     return myhtml_node_namespace(m_raw_node);
 }
 
+bool myhtmlpp::Node::is_void_element() const {
+    return myhtml_node_is_void_element(m_raw_node);
+}
+
 void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
     myhtml_node_namespace_set(m_raw_node, new_ns);
 }

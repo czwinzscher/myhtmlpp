@@ -27,6 +27,7 @@ public:
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
     [[nodiscard]] std::string tag_string() const;
     [[nodiscard]] myhtml_namespace_t ns() const;
+    [[nodiscard]] bool is_void_element() const;
 
     void set_ns(myhtml_namespace_t new_ns);
 
