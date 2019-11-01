@@ -33,7 +33,7 @@ myhtmlpp::Node myhtmlpp::Tree::body_node() const {
 
 std::string myhtmlpp::Tree::html_string() const {
     mycore_string_raw_t str = {nullptr, 0, 0};
-    myhtml_serialization_tree_buffer(myhtml_tree_get_document(m_raw_tree),
+    myhtml_serialization_tree_buffer(myhtml_tree_get_node_html(m_raw_tree),
                                      &str);
 
     return str.data != nullptr ? str.data : "";
