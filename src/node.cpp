@@ -1,6 +1,7 @@
 #include "myhtmlpp/node.hpp"
 
 #include "myhtmlpp/attribute.hpp"
+#include "utils.hpp"
 
 #include <cstring>
 #include <mycore/myosi.h>
@@ -58,23 +59,23 @@ void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
-    return optional_helper<Node>(myhtml_node_child);
+    return optional_helper<Node>(myhtml_node_child, m_raw_node);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::last_child() const {
-    return optional_helper<Node>(myhtml_node_last_child);
+    return optional_helper<Node>(myhtml_node_last_child, m_raw_node);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::previous() const {
-    return optional_helper<Node>(myhtml_node_prev);
+    return optional_helper<Node>(myhtml_node_prev, m_raw_node);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::next() const {
-    return optional_helper<Node>(myhtml_node_next);
+    return optional_helper<Node>(myhtml_node_next, m_raw_node);
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::parent() const {
-    return optional_helper<Node>(myhtml_node_parent);
+    return optional_helper<Node>(myhtml_node_parent, m_raw_node);
 }
 
 std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {
@@ -116,11 +117,11 @@ myhtmlpp::Attribute myhtmlpp::Node::at(const std::string& key) const {
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
-    return optional_helper<Attribute>(myhtml_node_attribute_first);
+    return optional_helper<Attribute>(myhtml_node_attribute_first, m_raw_node);
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
-    return optional_helper<Attribute>(myhtml_node_attribute_last);
+    return optional_helper<Attribute>(myhtml_node_attribute_last, m_raw_node);
 }
 
 std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {

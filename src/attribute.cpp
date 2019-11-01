@@ -1,5 +1,7 @@
 #include "myhtmlpp/attribute.hpp"
 
+#include "utils.hpp"
+
 #include <myhtml/api.h>
 #include <optional>
 #include <string>
@@ -40,17 +42,9 @@ void myhtmlpp::Attribute::set_ns(myhtml_namespace_t new_ns) {
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::previous() const {
-    if (auto raw_prev = myhtml_attribute_prev(m_raw_attribute)) {
-        return Attribute(raw_prev);
-    }
-
-    return std::nullopt;
+    return optional_helper<Attribute>(myhtml_attribute_prev, m_raw_attribute);
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::next() const {
-    if (auto raw_next = myhtml_attribute_next(m_raw_attribute)) {
-        return Attribute(raw_next);
-    }
-
-    return std::nullopt;
+    return optional_helper<Attribute>(myhtml_attribute_next, m_raw_attribute);
 }
