@@ -39,9 +39,7 @@ std::string myhtmlpp::Tree::html_string() const {
     return str.data != nullptr ? str.data : "";
 }
 
-std::string myhtmlpp::Tree::pretty_html_string() const {
-    return html_string();
-}
+std::string myhtmlpp::Tree::pretty_html_string() const { return html_string(); }
 
 myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
                                            myhtml_namespace_t ns) {
@@ -51,8 +49,7 @@ myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
 }
 
 // Iterator
-myhtmlpp::Tree::Iterator::Iterator(const Node& node)
-    : m_node(node) {}
+myhtmlpp::Tree::Iterator::Iterator(const Node& node) : m_node(node) {}
 
 myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
     Node new_node(nullptr);
@@ -62,7 +59,7 @@ myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
     } else if (auto next = m_node.next()) {
         new_node = next.value();
     } else {
-        while(auto parent = m_node.parent()) {
+        while (auto parent = m_node.parent()) {
             m_node = parent.value();
 
             if (auto parent_next = m_node.next()) {
@@ -86,8 +83,7 @@ myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
 }
 
 // ConstIterator
-myhtmlpp::Tree::ConstIterator::ConstIterator(const Node& node)
-    : m_node(node) {}
+myhtmlpp::Tree::ConstIterator::ConstIterator(const Node& node) : m_node(node) {}
 
 myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
     // TODO check which version is faster
@@ -124,7 +120,6 @@ myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
     // m_node = new_node;
 
     // return *this;
-
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
