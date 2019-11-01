@@ -19,40 +19,39 @@ public:
     [[nodiscard]] Node body_node() const;
 
     [[nodiscard]] std::string html_string() const;
+    [[nodiscard]] std::string pretty_html_string() const;
 
     Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 
     class Iterator {
     public:
-        Iterator(myhtml_tree_t* t, const Node& node);
+        explicit Iterator(const Node& node);
 
-        constexpr Node& operator*() { return m_node; }
+        Node& operator*() { return m_node; }
 
         Iterator& operator++();
 
-        constexpr bool operator!=(const Iterator& other) const {
-            return m_data != other.m_data || m_node != other.m_node;
+        bool operator!=(const Iterator& other) const {
+            return m_node != other.m_node;
         }
 
     private:
-        myhtml_tree_t* m_data;
         Node m_node;
     };
 
     class ConstIterator {
     public:
-        ConstIterator(myhtml_tree_t* t, const Node& node);
+        explicit ConstIterator(const Node& node);
 
-        constexpr Node& operator*() { return m_node; }
+        Node& operator*() { return m_node; }
 
         ConstIterator& operator++();
 
-        constexpr bool operator!=(const ConstIterator& other) const {
-            return m_data != other.m_data || m_node != other.m_node;
+        bool operator!=(const ConstIterator& other) const {
+            return m_node != other.m_node;
         }
 
     private:
-        myhtml_tree_t* m_data;
         Node m_node;
     };
 
