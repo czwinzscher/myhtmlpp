@@ -35,7 +35,7 @@ public:
 
         explicit Iterator(const Node& node);
 
-        Node& operator*() { return m_node; }
+        reference operator*() { return m_node; }
 
         Iterator& operator++();
 
@@ -58,7 +58,7 @@ public:
 
         explicit ConstIterator(const Node& node);
 
-        Node& operator*() { return m_node; }
+        reference operator*() { return m_node; }
 
         ConstIterator& operator++();
 
@@ -76,6 +76,9 @@ public:
 
     [[nodiscard]] ConstIterator begin() const noexcept;
     [[nodiscard]] ConstIterator end() const noexcept;
+
+    [[nodiscard]] ConstIterator cbegin() const noexcept;
+    [[nodiscard]] ConstIterator cend() const noexcept;
 
 private:
     myhtml_t* m_raw_myhtml;

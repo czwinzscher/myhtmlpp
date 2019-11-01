@@ -147,6 +147,15 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
     return ConstIterator(Node(nullptr));
 }
 
+myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::cbegin() const noexcept {
+    return ConstIterator(html_node());
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::cend() const noexcept {
+    return ConstIterator(Node(nullptr));
+}
+
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const Tree& t) {
     os << t.pretty_html_string();
 
