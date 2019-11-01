@@ -50,6 +50,13 @@ myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
     return myhtml_node_tag_id(m_raw_node);
 }
 
+std::string myhtmlpp::Node::tag_string() const {
+    const char* tag_name =
+        myhtml_tag_name_by_id(myhtml_node_tree(m_raw_node), tag_id(), nullptr);
+
+    return tag_name != nullptr ? tag_name : "";
+}
+
 myhtml_namespace_t myhtmlpp::Node::ns() const {
     return myhtml_node_namespace(m_raw_node);
 }

@@ -25,6 +25,7 @@ public:
 
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
+    [[nodiscard]] std::string tag_string() const;
     [[nodiscard]] myhtml_namespace_t ns() const;
 
     void set_ns(myhtml_namespace_t new_ns);
@@ -47,7 +48,7 @@ public:
     [[nodiscard]] std::optional<Attribute> last_attribute() const;
     [[nodiscard]] std::vector<Attribute> attributes() const;
     Attribute add_attribute(const std::string& key, const std::string& value);
-    void remove_attribute(const Attribute& attribute);
+    // void remove_attribute(const Attribute& attribute);
     bool remove_attribute_by_key(const std::string& key);
 
     class Iterator {
