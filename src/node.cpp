@@ -12,8 +12,6 @@
 
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
-myhtmlpp::Node::~Node() { myhtml_node_free(m_raw_node); }
-
 bool myhtmlpp::Node::operator==(const Node& other) const {
     return m_raw_node == other.m_raw_node;
 }

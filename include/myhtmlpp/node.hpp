@@ -13,7 +13,6 @@ namespace myhtmlpp {
 class Node {
 public:
     explicit Node(myhtml_tree_node_t* raw_node);
-    ~Node();
 
     [[nodiscard]] bool operator==(const Node& other) const;
     [[nodiscard]] bool operator!=(const Node& other) const;
