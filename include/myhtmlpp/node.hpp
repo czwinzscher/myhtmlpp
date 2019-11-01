@@ -105,13 +105,6 @@ public:
 
 private:
     myhtml_tree_node_t* m_raw_node;
-
-    template <typename Ret, typename Func>
-    std::optional<Ret> optional_helper(Func f) const {
-        auto raw = f(m_raw_node);
-
-        return raw != nullptr ? std::make_optional(Ret(raw)) : std::nullopt;
-    }
 };
 
 std::ostream& operator<<(std::ostream& os, const Node& n);
