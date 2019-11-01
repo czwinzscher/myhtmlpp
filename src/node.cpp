@@ -124,15 +124,7 @@ std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
 }
 
 std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
-    std::vector<Attribute> res;
-
-    myhtml_tree_attr_t* raw_attr = myhtml_node_attribute_first(m_raw_node);
-    while (raw_attr != nullptr) {
-        res.emplace_back(raw_attr);
-        raw_attr = myhtml_attribute_next(raw_attr);
-    }
-
-    return res;
+    return std::vector(begin(), end());
 }
 
 myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
@@ -147,6 +139,59 @@ myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
 void myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {
     myhtml_attribute_remove_by_key(m_raw_node, key.c_str(),
                                    strlen(key.c_str()));
+}
+
+// Iterator
+myhtmlpp::Node::Iterator::Iterator(const Attribute& attr) : m_attr(attr) {}
+
+myhtmlpp::Node::Iterator& myhtmlpp::Node::Iterator::operator++() {
+    if (auto next = m_attr.next()) {
+        m_attr = next.value();
+    } else {
+        m_attr = Attribute(nullptr);
+    }
+
+    return *this;
+}
+
+myhtmlpp::Node::Iterator myhtmlpp::Node::begin() noexcept {
+    return Iterator(Attribute(myhtml_node_attribute_first(m_raw_node)));
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+myhtmlpp::Node::Iterator myhtmlpp::Node::end() noexcept {
+    return Iterator(Attribute(nullptr));
+}
+
+// ConstIterator
+myhtmlpp::Node::ConstIterator::ConstIterator(const Attribute& attr)
+    : m_attr(attr) {}
+
+myhtmlpp::Node::ConstIterator& myhtmlpp::Node::ConstIterator::operator++() {
+    if (auto next = m_attr.next()) {
+        m_attr = next.value();
+    } else {
+        m_attr = Attribute(nullptr);
+    }
+
+    return *this;
+}
+
+myhtmlpp::Node::ConstIterator myhtmlpp::Node::begin() const noexcept {
+    return ConstIterator(Attribute(myhtml_node_attribute_first(m_raw_node)));
+}
+
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
+myhtmlpp::Node::ConstIterator myhtmlpp::Node::end() const noexcept {
+    return ConstIterator(Attribute(nullptr));
+}
+
+myhtmlpp::Node::ConstIterator myhtmlpp::Node::cbegin() const noexcept {
+    return begin();
+}
+
+myhtmlpp::Node::ConstIterator myhtmlpp::Node::cend() const noexcept {
+    return end();
 }
 
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const myhtmlpp::Node& n) {

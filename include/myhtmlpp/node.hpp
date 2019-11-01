@@ -50,6 +50,59 @@ public:
     void remove_attribute(const Attribute& attribute);
     void remove_attribute_by_key(const std::string& key);
 
+    class Iterator {
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = Attribute;
+        using difference_type = std::ptrdiff_t;
+        using pointer = value_type*;
+        using reference = value_type&;
+
+        explicit Iterator(const Attribute& attr);
+
+        reference operator*() { return m_attr; }
+
+        Iterator& operator++();
+
+        bool operator!=(const Iterator& other) const {
+            return m_attr != other.m_attr;
+        }
+
+    private:
+        Attribute m_attr;
+    };
+
+    class ConstIterator {
+    public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = Attribute;
+        using difference_type = std::ptrdiff_t;
+        using pointer = const value_type*;
+        using reference = const value_type&;
+
+        explicit ConstIterator(const Attribute& attr);
+
+        reference operator*() { return m_attr; }
+
+        ConstIterator& operator++();
+
+        bool operator!=(const ConstIterator& other) const {
+            return m_attr != other.m_attr;
+        }
+
+    private:
+        Attribute m_attr;
+    };
+
+    Iterator begin() noexcept;
+    Iterator end() noexcept;
+
+    [[nodiscard]] ConstIterator begin() const noexcept;
+    [[nodiscard]] ConstIterator end() const noexcept;
+
+    [[nodiscard]] ConstIterator cbegin() const noexcept;
+    [[nodiscard]] ConstIterator cend() const noexcept;
+
 private:
     myhtml_tree_node_t* m_raw_node;
 
