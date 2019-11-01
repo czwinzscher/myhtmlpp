@@ -17,7 +17,7 @@ public:
     [[nodiscard]] bool operator==(const Node& other) const;
     [[nodiscard]] bool operator!=(const Node& other) const;
 
-    [[nodiscard]] Attribute operator[](const std::string& key) const;
+    [[nodiscard]] Attribute operator[](const std::string& key) const noexcept;
 
     [[nodiscard]] bool good() const;
 

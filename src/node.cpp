@@ -22,7 +22,8 @@ bool myhtmlpp::Node::operator!=(const Node& other) const {
     return !operator==(other);
 }
 
-myhtmlpp::Attribute myhtmlpp::Node::operator[](const std::string& key) const {
+myhtmlpp::Attribute myhtmlpp::Node::operator[](const std::string& key) const
+    noexcept {
     myhtml_tree_attr_t* attr =
         myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
 
