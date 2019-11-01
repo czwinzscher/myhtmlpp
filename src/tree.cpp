@@ -93,6 +93,7 @@ myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
     return Iterator(html_node());
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
     return Iterator(Node(nullptr));
 }
@@ -141,6 +142,7 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
     return ConstIterator(html_node());
 }
 
+// NOLINTNEXTLINE(readability-convert-member-functions-to-static)
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
     return ConstIterator(Node(nullptr));
 }
