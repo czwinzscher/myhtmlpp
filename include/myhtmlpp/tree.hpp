@@ -5,6 +5,7 @@
 #include <myhtml/api.h>
 #include <ostream>
 #include <string>
+#include <vector>
 
 namespace myhtmlpp {
 
@@ -37,6 +38,7 @@ public:
 
     private:
         Node m_node;
+        std::vector<Node> m_stack;
     };
 
     class ConstIterator {
@@ -53,6 +55,7 @@ public:
 
     private:
         Node m_node;
+        std::vector<Node> m_stack;
     };
 
     Iterator begin() noexcept;
