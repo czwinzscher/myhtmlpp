@@ -54,26 +54,39 @@ myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
 myhtmlpp::Tree::Iterator::Iterator(const Node& node) : m_node(node) {}
 
 myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
-    Node new_node(nullptr);
+    std::vector<Node> children = m_node.children();
+    m_stack.insert(m_stack.end(), children.rbegin(), children.rend());
 
-    if (auto child = m_node.first_child()) {
-        new_node = child.value();
-    } else if (auto next = m_node.next()) {
-        new_node = next.value();
-    } else {
-        while (auto parent = m_node.parent()) {
-            m_node = parent.value();
-
-            if (auto parent_next = m_node.next()) {
-                new_node = parent_next.value();
-                break;
-            }
-        }
+    if (m_stack.empty()) {
+        m_node = Node(nullptr);
+        return *this;
     }
 
-    m_node = new_node;
+    m_node = m_stack.back();
+    m_stack.pop_back();
 
     return *this;
+
+    // Node new_node(nullptr);
+
+    // if (auto child = m_node.first_child()) {
+    //     new_node = child.value();
+    // } else if (auto next = m_node.next()) {
+    //     new_node = next.value();
+    // } else {
+    //     while (auto parent = m_node.parent()) {
+    //         m_node = parent.value();
+
+    //         if (auto parent_next = m_node.next()) {
+    //             new_node = parent_next.value();
+    //             break;
+    //         }
+    //     }
+    // }
+
+    // m_node = new_node;
+
+    // return *this;
 }
 
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
