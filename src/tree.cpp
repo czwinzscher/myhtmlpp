@@ -53,7 +53,8 @@ std::string myhtmlpp::Tree::pretty_html_string() const {
 
         if (auto tag = node.tag_id();
             tag != MyHTML_TAG__TEXT && tag != MyHTML_TAG__COMMENT &&
-            tag != MyHTML_TAG__UNDEF && tag != MyHTML_TAG__DOCTYPE) {
+            tag != MyHTML_TAG__UNDEF && tag != MyHTML_TAG__DOCTYPE &&
+            !node.is_void_element()) {
             res += "\n" + std::string(level * 4, ' ') + "</" +
                    node.tag_string() + ">";
         }
