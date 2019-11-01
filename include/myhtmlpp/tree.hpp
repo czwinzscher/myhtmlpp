@@ -14,6 +14,10 @@ class Tree {
 public:
     Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree);
     ~Tree();
+    Tree(const Tree&) = default;
+    Tree& operator=(const Tree&) = default;
+    Tree(Tree&&) = default;
+    Tree& operator=(Tree&&) = default;
 
     [[nodiscard]] Node document_node() const;
     [[nodiscard]] Node html_node() const;
