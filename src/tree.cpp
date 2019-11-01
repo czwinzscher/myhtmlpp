@@ -4,6 +4,7 @@
 
 #include <mycore/myosi.h>
 #include <myhtml/api.h>
+#include <string>
 
 myhtmlpp::Tree::Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree)
     : m_raw_myhtml(raw_myhtml), m_raw_tree(raw_tree) {}
@@ -117,7 +118,7 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::end() const noexcept {
 }
 
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const Tree& t) {
-    os << t.html_string();
+    os << t.pretty_html_string();
 
     return os;
 }
