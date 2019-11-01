@@ -30,8 +30,8 @@ public:
         using iterator_category = std::forward_iterator_tag;
         using value_type = Node;
         using difference_type = std::ptrdiff_t;
-        using pointer = Node*;
-        using reference = Node&;
+        using pointer = value_type*;
+        using reference = value_type&;
 
         explicit Iterator(const Node& node);
 
@@ -53,8 +53,8 @@ public:
         using iterator_category = std::forward_iterator_tag;
         using value_type = Node;
         using difference_type = std::ptrdiff_t;
-        using pointer = Node*;
-        using reference = Node&;
+        using pointer = const value_type*;
+        using reference = const value_type&;
 
         explicit ConstIterator(const Node& node);
 
