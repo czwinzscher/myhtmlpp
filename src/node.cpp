@@ -6,6 +6,7 @@
 #include <myencoding/myosi.h>
 #include <myhtml/api.h>
 #include <optional>
+#include <stdexcept>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,13 @@ bool myhtmlpp::Node::operator==(const Node& other) const {
 
 bool myhtmlpp::Node::operator!=(const Node& other) const {
     return !operator==(other);
+}
+
+myhtmlpp::Attribute myhtmlpp::Node::operator[](const std::string& key) const {
+    myhtml_tree_attr_t* attr =
+        myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
+
+    return Attribute(attr);
 }
 
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
@@ -93,6 +101,18 @@ void myhtmlpp::Node::insert_after(const Node& node) {
 }
 
 void myhtmlpp::Node::remove() { myhtml_node_remove(m_raw_node); }
+
+myhtmlpp::Attribute myhtmlpp::Node::at(const std::string& key) const {
+    myhtml_tree_attr_t* attr =
+        myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
+
+    if (attr == nullptr) {
+        throw std::out_of_range("attribute with key " + key +
+                                " does not exist.");
+    }
+
+    return Attribute(attr);
+}
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
     return optional_helper<Attribute>(myhtml_node_attribute_first);

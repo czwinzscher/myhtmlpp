@@ -15,8 +15,10 @@ public:
     explicit Node(myhtml_tree_node_t* raw_node);
     ~Node();
 
-    bool operator==(const Node& other) const;
-    bool operator!=(const Node& other) const;
+    [[nodiscard]] bool operator==(const Node& other) const;
+    [[nodiscard]] bool operator!=(const Node& other) const;
+
+    [[nodiscard]] Attribute operator[](const std::string& key) const;
 
     [[nodiscard]] bool good() const;
 
@@ -41,6 +43,7 @@ public:
 
     void remove();
 
+    [[nodiscard]] Attribute at(const std::string& key) const;
     [[nodiscard]] std::optional<Attribute> first_attribute() const;
     [[nodiscard]] std::optional<Attribute> last_attribute() const;
     [[nodiscard]] std::vector<Attribute> attributes() const;
