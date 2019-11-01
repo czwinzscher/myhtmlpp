@@ -48,7 +48,7 @@ public:
     [[nodiscard]] std::vector<Attribute> attributes() const;
     Attribute add_attribute(const std::string& key, const std::string& value);
     void remove_attribute(const Attribute& attribute);
-    void remove_attribute_by_key(const std::string& key);
+    bool remove_attribute_by_key(const std::string& key);
 
     class Iterator {
     public:
