@@ -7,6 +7,14 @@
 myhtmlpp::Attribute::Attribute(myhtml_tree_attr_t* raw_attribute)
     : m_raw_attribute(raw_attribute) {}
 
+bool myhtmlpp::Attribute::operator==(const Attribute& other) const {
+    return m_raw_attribute == other.m_raw_attribute;
+}
+
+bool myhtmlpp::Attribute::operator!=(const Attribute& other) const {
+    return !operator==(other);
+}
+
 std::string myhtmlpp::Attribute::key() const {
     if (auto k = myhtml_attribute_key(m_raw_attribute, nullptr)) {
         return k;

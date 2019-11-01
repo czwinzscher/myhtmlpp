@@ -10,6 +10,9 @@ class Attribute {
 public:
     explicit Attribute(myhtml_tree_attr_t* raw_attribute);
 
+    [[nodiscard]] bool operator==(const Attribute& other) const;
+    [[nodiscard]] bool operator!=(const Attribute& other) const;
+
     [[nodiscard]] std::string key() const;
     [[nodiscard]] std::string value() const;
     [[nodiscard]] myhtml_namespace_t ns() const;
