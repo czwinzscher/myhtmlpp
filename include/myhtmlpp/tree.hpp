@@ -2,6 +2,7 @@
 
 #include "node.hpp"
 
+#include <cstddef>
 #include <myhtml/api.h>
 #include <ostream>
 #include <string>
@@ -26,6 +27,12 @@ public:
 
     class Iterator {
     public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = Node;
+        using difference_type = std::ptrdiff_t;
+        using pointer = Node*;
+        using reference = Node&;
+
         explicit Iterator(const Node& node);
 
         Node& operator*() { return m_node; }
@@ -43,6 +50,12 @@ public:
 
     class ConstIterator {
     public:
+        using iterator_category = std::forward_iterator_tag;
+        using value_type = Node;
+        using difference_type = std::ptrdiff_t;
+        using pointer = Node*;
+        using reference = Node&;
+
         explicit ConstIterator(const Node& node);
 
         Node& operator*() { return m_node; }
