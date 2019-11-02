@@ -164,7 +164,7 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::cend() const noexcept {
 }
 
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const Tree& t) {
-    os << t.pretty_html();
+    os << t.html();
 
     return os;
 }
