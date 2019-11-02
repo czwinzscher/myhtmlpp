@@ -40,6 +40,34 @@ std::string myhtmlpp::Node::html() const {
     return str.data != nullptr ? str.data : "";
 }
 
+std::string myhtmlpp::Node::html_deep() const {
+    mycore_string_raw_t str = {nullptr, 0, 0};
+    myhtml_serialization_tree_buffer(m_raw_node, &str);
+
+    return str.data != nullptr ? str.data : "";
+}
+
+std::string myhtmlpp::Node::pretty_html_deep(int level, int indent) const {
+    // skip the document node
+    std::string res =
+        level == -1 ? "" : std::string(level * indent, ' ') + html() + "\n";
+
+    std::optional<Node> ch = first_child();
+    while (ch.has_value()) {
+        res += ch.value().pretty_html_deep(level + 1, indent);
+        ch = ch.value().next();
+    }
+
+    if (auto tag = tag_id(); tag != MyHTML_TAG__TEXT &&
+                             tag != MyHTML_TAG__COMMENT &&
+                             tag != MyHTML_TAG__UNDEF &&
+                             tag != MyHTML_TAG__DOCTYPE && !is_void_element()) {
+        res += std::string(level * 4, ' ') + "</" + tag_string() + ">\n";
+    }
+
+    return res;
+}
+
 std::string myhtmlpp::Node::text() const {
     const char* raw_text = myhtml_node_text(m_raw_node, nullptr);
 

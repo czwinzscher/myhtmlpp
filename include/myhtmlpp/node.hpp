@@ -22,6 +22,8 @@ public:
     [[nodiscard]] bool good() const;
 
     [[nodiscard]] std::string html() const;
+    [[nodiscard]] std::string html_deep() const;
+    [[nodiscard]] std::string pretty_html_deep(int level, int indent) const;
 
     [[nodiscard]] std::string text() const;
     [[nodiscard]] myhtml_tag_id_t tag_id() const;
