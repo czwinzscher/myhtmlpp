@@ -25,7 +25,7 @@ public:
     [[nodiscard]] Node body_node() const;
 
     [[nodiscard]] std::string html() const;
-    [[nodiscard]] std::string pretty_html() const;
+    [[nodiscard]] std::string pretty_html(int indent = 4) const;
 
     Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 

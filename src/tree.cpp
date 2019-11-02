@@ -42,8 +42,8 @@ std::string myhtmlpp::Tree::html() const {
     return str.data != nullptr ? str.data : "";
 }
 
-std::string myhtmlpp::Tree::pretty_html() const {
-    std::string pretty = document_node().pretty_html_deep(-1, 4);
+std::string myhtmlpp::Tree::pretty_html(int indent) const {
+    std::string pretty = document_node().pretty_html_deep(-1, indent);
     if (!pretty.empty()) {
         pretty.pop_back();
     }
