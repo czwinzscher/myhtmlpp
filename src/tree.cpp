@@ -36,35 +36,19 @@ myhtmlpp::Node myhtmlpp::Tree::body_node() const {
 
 std::string myhtmlpp::Tree::html() const {
     mycore_string_raw_t str = {nullptr, 0, 0};
-    myhtml_serialization_tree_buffer(myhtml_tree_get_node_html(m_raw_tree),
+    myhtml_serialization_tree_buffer(myhtml_tree_get_document(m_raw_tree),
                                      &str);
 
     return str.data != nullptr ? str.data : "";
 }
 
 std::string myhtmlpp::Tree::pretty_html() const {
-    std::function<std::string(Node, int)> to_html = [&](const Node& node,
-                                                        int level) {
-        std::string res = std::string(level * 4, ' ') + node.html();
+    std::string pretty = document_node().pretty_html_deep(-1, 4);
+    if (!pretty.empty()) {
+        pretty.pop_back();
+    }
 
-        std::optional<Node> ch = node.first_child();
-        while (ch.has_value()) {
-            res += "\n" + to_html(ch.value(), level + 1);
-            ch = ch.value().next();
-        }
-
-        if (auto tag = node.tag_id();
-            tag != MyHTML_TAG__TEXT && tag != MyHTML_TAG__COMMENT &&
-            tag != MyHTML_TAG__UNDEF && tag != MyHTML_TAG__DOCTYPE &&
-            !node.is_void_element()) {
-            res += "\n" + std::string(level * 4, ' ') + "</" +
-                   node.tag_string() + ">";
-        }
-
-        return res;
-    };
-
-    return to_html(html_node(), 0);
+    return pretty;
 }
 
 myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
