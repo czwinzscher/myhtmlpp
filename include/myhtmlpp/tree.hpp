@@ -24,8 +24,8 @@ public:
     [[nodiscard]] Node head_node() const;
     [[nodiscard]] Node body_node() const;
 
-    [[nodiscard]] std::string html_string() const;
-    [[nodiscard]] std::string pretty_html_string() const;
+    [[nodiscard]] std::string html() const;
+    [[nodiscard]] std::string pretty_html() const;
 
     Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
 

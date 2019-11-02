@@ -33,7 +33,7 @@ myhtmlpp::Attribute myhtmlpp::Node::operator[](const std::string& key) const
 
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
-std::string myhtmlpp::Node::html_string() const {
+std::string myhtmlpp::Node::html() const {
     mycore_string_raw_t str = {nullptr, 0, 0};
     myhtml_serialization_node_buffer(m_raw_node, &str);
 
@@ -209,7 +209,7 @@ myhtmlpp::Node::ConstIterator myhtmlpp::Node::cend() const noexcept {
 }
 
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const myhtmlpp::Node& n) {
-    os << n.html_string();
+    os << n.html();
 
     return os;
 }

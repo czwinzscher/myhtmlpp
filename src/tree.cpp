@@ -34,7 +34,7 @@ myhtmlpp::Node myhtmlpp::Tree::body_node() const {
     return Node(myhtml_tree_get_node_body(m_raw_tree));
 }
 
-std::string myhtmlpp::Tree::html_string() const {
+std::string myhtmlpp::Tree::html() const {
     mycore_string_raw_t str = {nullptr, 0, 0};
     myhtml_serialization_tree_buffer(myhtml_tree_get_node_html(m_raw_tree),
                                      &str);
@@ -42,13 +42,15 @@ std::string myhtmlpp::Tree::html_string() const {
     return str.data != nullptr ? str.data : "";
 }
 
-std::string myhtmlpp::Tree::pretty_html_string() const {
+std::string myhtmlpp::Tree::pretty_html() const {
     std::function<std::string(Node, int)> to_html = [&](const Node& node,
                                                         int level) {
-        std::string res = std::string(level * 4, ' ') + node.html_string();
+        std::string res = std::string(level * 4, ' ') + node.html();
 
-        for (const auto& ch : node.children()) {
-            res += "\n" + to_html(ch, level + 1);
+        std::optional<Node> ch = node.first_child();
+        while (ch.has_value()) {
+            res += "\n" + to_html(ch.value(), level + 1);
+            ch = ch.value().next();
         }
 
         if (auto tag = node.tag_id();
@@ -178,7 +180,7 @@ myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::cend() const noexcept {
 }
 
 std::ostream& myhtmlpp::operator<<(std::ostream& os, const Tree& t) {
-    os << t.pretty_html_string();
+    os << t.pretty_html();
 
     return os;
 }
