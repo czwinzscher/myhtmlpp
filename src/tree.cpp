@@ -98,7 +98,7 @@ myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
 }
 
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
-    return Iterator(html_node());
+    return Iterator(document_node());
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
@@ -110,7 +110,6 @@ myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
 myhtmlpp::Tree::ConstIterator::ConstIterator(const Node& node) : m_node(node) {}
 
 myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
-    // TODO check which version is faster
     std::vector<Node> children = m_node.children();
     m_stack.insert(m_stack.end(), children.rbegin(), children.rend());
 
@@ -147,7 +146,7 @@ myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
-    return ConstIterator(html_node());
+    return ConstIterator(document_node());
 }
 
 // NOLINTNEXTLINE(readability-convert-member-functions-to-static)
