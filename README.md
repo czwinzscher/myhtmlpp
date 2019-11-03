@@ -2,7 +2,7 @@
 
 myhtmlpp is a modern C++17 wrapper around the [MyHTML C library](https://github.com/lexborisov/myhtml), a fast HTML Parser.
 
-## Examples
+## Usage examples
 ```cpp
 #include <algorithm>
 #include <cassert>
@@ -49,8 +49,12 @@ int main() {
     auto div_node = *div_node_it;
 
     // add attributes to nodes
-    div_node.add_attribute("style", "color:green");
+    auto style_attr = div_node.add_attribute("style", "color:green");
     assert(div_node.attributes().size() == 3);
+
+    // access attributes with operator[]
+    auto also_style_attr = div_node["style"];
+    assert(style_attr == also_style_attr);
 
     // iterate over all attributes of a node
     for (const auto& attr : div_node) {
