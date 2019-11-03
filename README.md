@@ -1,6 +1,6 @@
 # myhtmlpp
 
-myhtmlpp is a modern C++17 wrapper around the [MyHTML C library](https://github.com/lexborisov/myhtml), a fast HTML Parser. (*WIP*)
+myhtmlpp is a modern C++17 wrapper around the [MyHTML C library](https://github.com/lexborisov/myhtml), a fast HTML Parser. (**WIP**)
 
 ## Usage examples
 ```cpp
