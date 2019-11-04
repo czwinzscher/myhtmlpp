@@ -57,8 +57,9 @@ int main() {
     assert(style_attr == also_style_attr);
 
     // iterate over all attributes of a node
-    for (const auto& attr : div_node) {
-        std::cout << attr.key() << "=\"" << attr.value() << "\"\n";
+    // attributes support structured bindings
+    for (const auto& [key, value] : div_node) {
+        std::cout << key << "=\"" << value << "\"\n";
     }
 
     // create new nodes
