@@ -178,7 +178,8 @@ TEST_CASE("node") {
         CHECK(v == "class");
         CHECK(div_node.last_attribute().value() == class_attr);
         CHECK(class_attr.previous().has_value());
-        CHECK(class_attr.previous().value() == div_node.first_attribute().value());
+        CHECK(class_attr.previous().value() ==
+              div_node.first_attribute().value());
         CHECK(!class_attr.next().has_value());
         CHECK(class_attr.ns() == MyHTML_NAMESPACE_HTML);
 
