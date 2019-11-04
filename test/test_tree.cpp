@@ -36,6 +36,13 @@ TEST_CASE("tree") {
 
     auto tree = myhtmlpp::parse(html);
 
+    SUBCASE("good") {
+        CHECK(tree.good());
+
+        tree.html_node().remove();
+        CHECK(tree.good());
+    }
+
     SUBCASE("serialization") {
         std::string html_str(
             R"(<!DOCTYPE html><html><head>
