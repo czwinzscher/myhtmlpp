@@ -24,7 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(MYHTMLPP_TARGET_NAME ${PROJECT_NAME})
 
-# these variables could be useful if this project is embedded inside another project
+#these variables could be useful if this project is embedded inside another \
+    project
 set(MYHTMLPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "")
 set(MYHTMLPP_LIBRARIES myhtml CACHE INTERNAL "")
 
@@ -56,20 +57,21 @@ endif()
 ## DOCUMENTATION
 
 find_package(Doxygen)
-if(DOXYGEN_FOUND AND MYHTMLPP_BUILD_DOC)
+if(MYHTMLPP_BUILD_DOC)
+  if(DOXYGEN_FOUND)
     set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in)
     set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
 
     configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
-    message("Doxygen build started")
 
     add_custom_target(doc
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
         WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         COMMENT "Generating API documentation with Doxygen"
         VERBATIM)
-else()
-  message("Doxygen need to be installed to generate the doxygen documentation")
+  else()
+    message("Doxygen need to be installed to generate the documentation.")
+  endif()
 endif()
 
 
