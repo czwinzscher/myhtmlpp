@@ -18,6 +18,10 @@ myhtmlpp::Tree::~Tree() {
     myhtml_destroy(m_raw_myhtml);
 }
 
+bool myhtmlpp::Tree::good() const {
+    return m_raw_tree != nullptr && m_raw_myhtml != nullptr;
+}
+
 myhtmlpp::Node myhtmlpp::Tree::document_node() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
 }

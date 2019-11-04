@@ -19,6 +19,8 @@ public:
     Tree(Tree&&) = default;
     Tree& operator=(Tree&&) = default;
 
+    [[nodiscard]] bool good() const;
+
     [[nodiscard]] Node document_node() const;
     [[nodiscard]] Node html_node() const;
     [[nodiscard]] Node head_node() const;
