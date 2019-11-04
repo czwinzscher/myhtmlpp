@@ -17,9 +17,7 @@ bool myhtmlpp::Attribute::operator!=(const Attribute& other) const {
     return !operator==(other);
 }
 
-bool myhtmlpp::Attribute::good() const {
-    return m_raw_attribute != nullptr;
-}
+bool myhtmlpp::Attribute::good() const { return m_raw_attribute != nullptr; }
 
 std::string myhtmlpp::Attribute::key() const {
     if (auto k = myhtml_attribute_key(m_raw_attribute, nullptr)) {
