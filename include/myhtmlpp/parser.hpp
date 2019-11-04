@@ -8,11 +8,47 @@
 
 namespace myhtmlpp {
 
+/**
+ * @brief Parses a HTML string into a Tree structure.
+ *
+ * @param html The HTML code that will be parsed.
+ * @throw std::runtime_error if one of myhtml_init, myhtml_tree_init
+ *        or myhtml_parse does not return MyHTML_STATUS_OK.
+ * @return A Tree with the parsed HTML nodes.
+ */
 Tree parse(const std::string& html);
+
+/**
+ * @brief Parses a HTML string into a Tree structure with the given options.
+ *
+ * @param html The HTML code that will be parsed.
+ * @throw std::runtime_error if one of myhtml_init, myhtml_tree_init
+ *        or myhtml_parse does not return MyHTML_STATUS_OK.
+ * @return A Tree with the parsed HTML nodes.
+ */
 Tree parse_with_options(const std::string& html, myhtml_options opt,
                         size_t thread_count, size_t queue_size);
+
+/**
+ * @brief Parses a fragment of a HTML string into a Tree structure.
+ *
+ * @param html The HTML code that will be parsed.
+ * @throw std::runtime_error if one of myhtml_init, myhtml_tree_init
+ *        or myhtml_parse_fragment does not return MyHTML_STATUS_OK.
+ * @return A Tree with the parsed HTML nodes.
+ */
 Tree parse_fragment(const std::string& html, myhtml_tag_id_t tag_id,
                     myhtml_namespace ns);
+
+/**
+ * @brief Parses a fragment of a HTML string into a Tree structure
+ *        with the given options.
+ *
+ * @param html The HTML code that will be parsed.
+ * @throw std::runtime_error if one of myhtml_init, myhtml_tree_init
+ *        or myhtml_parse_fragment does not return MyHTML_STATUS_OK.
+ * @return A Tree with the parsed HTML nodes.
+ */
 Tree parse_fragment_with_options(const std::string& html,
                                  myhtml_tag_id_t tag_id, myhtml_namespace ns,
                                  myhtml_options opt, size_t thread_count,

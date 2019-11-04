@@ -6,9 +6,7 @@
 
 namespace myhtmlpp {
 
-/**
- * @brief A HTML Attribute class.
- */
+/// A HTML Attribute class.
 class Attribute {
 public:
     /**
