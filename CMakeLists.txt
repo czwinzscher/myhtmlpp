@@ -24,8 +24,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(MYHTMLPP_TARGET_NAME ${PROJECT_NAME})
 
-#these variables could be useful if this project is embedded inside another \
-    project
+# these variables could be useful if this project is embedded
+# inside another project
 set(MYHTMLPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "")
 set(MYHTMLPP_LIBRARIES myhtml CACHE INTERNAL "")
 
