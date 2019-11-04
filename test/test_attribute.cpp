@@ -51,4 +51,10 @@ TEST_CASE("attribute") {
     CHECK(hidden_attr.previous().value() == src_attr);
 
     CHECK(class_attr != src_attr);
+
+    SUBCASE("structured bindings") {
+        auto [key, value] = src_attr;
+        CHECK(key == "src");
+        CHECK(value == "image.jpg");
+    }
 }

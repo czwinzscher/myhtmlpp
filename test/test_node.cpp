@@ -171,8 +171,11 @@ TEST_CASE("node") {
 
         auto div_node = *div_node_it;
         auto class_attr = div_node["class"];
+        auto [k, v] = class_attr;
         CHECK(class_attr.key() == "class");
+        CHECK(k == "class");
         CHECK(class_attr.value() == "class");
+        CHECK(v == "class");
         CHECK(div_node.last_attribute().value() == class_attr);
         CHECK(class_attr.previous().has_value());
         CHECK(class_attr.previous().value() == div_node.first_attribute().value());
@@ -203,6 +206,11 @@ TEST_CASE("node") {
 
         CHECK(div_node.attributes().size() == 2);
         CHECK(std::distance(div_node.begin(), div_node.end()) == 2);
+
+        for (const auto& [k, v] : div_node) {
+            CHECK(!k.empty());
+            CHECK(!v.empty());
+        }
 
         auto it_begin = div_node.begin();
         CHECK((*it_begin).key() == "id");
