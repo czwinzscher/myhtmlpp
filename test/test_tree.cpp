@@ -93,10 +93,16 @@ TEST_CASE("tree") {
     }
 
     SUBCASE("create nodes") {
-        auto node = tree.create_node(MyHTML_TAG_DIV, MyHTML_NAMESPACE_HTML);
+        auto node = tree.create_node(MyHTML_TAG_DIV, MyHTML_NAMESPACE_XML);
 
         CHECK(node.good());
         CHECK(node.tag_id() == MyHTML_TAG_DIV);
-        CHECK(node.ns() == MyHTML_NAMESPACE_HTML);
+        CHECK(node.ns() == MyHTML_NAMESPACE_XML);
+
+        auto node_default_namespace = tree.create_node(MyHTML_TAG_IMG);
+
+        CHECK(node_default_namespace.good());
+        CHECK(node_default_namespace.tag_id() == MyHTML_TAG_IMG);
+        CHECK(node_default_namespace.ns() == MyHTML_NAMESPACE_HTML);
     }
 }
