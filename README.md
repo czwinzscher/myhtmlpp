@@ -84,3 +84,10 @@ sudo make install
 ```
 
 link with `-lmyhtml` and `-lmyhtmlpp` when using the library.
+
+## CMake options
+- use `-DMYHTMLPP_BUILD_TESTS=OFF` to disable tests
+- use `-DMYHTMLPP_BUILD_DOC=OFF` to disable doxygen documentation
+
+## Documentation
+You can build docs with `make doc`.
