@@ -14,6 +14,7 @@ include(GNUInstallDirs)
 ## OPTIONS
 
 option(MYHTMLPP_BUILD_TESTS "Build myhtmlpp tests if ON." ON)
+option(MYHTMLPP_BUILD_DOC "Build documentation if ON" ON)
 
 
 ## CONFIGURATION
@@ -35,11 +36,13 @@ add_library(${MYHTMLPP_TARGET_NAME} STATIC ${MYHTMLPP_SRCFILES})
 
 target_compile_options(${MYHTMLPP_TARGET_NAME} PRIVATE -Wall -Wextra -pedantic)
 
-target_include_directories(${MYHTMLPP_TARGET_NAME} PUBLIC ${MYHTMLPP_INCLUDE_DIR})
+target_include_directories(${MYHTMLPP_TARGET_NAME}
+  PUBLIC ${MYHTMLPP_INCLUDE_DIR})
 
 target_link_libraries(${MYHTMLPP_TARGET_NAME} ${MYHTMLPP_LIBRARIES})
 
-set_target_properties(${MYHTMLPP_TARGET_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+set_target_properties(${MYHTMLPP_TARGET_NAME}
+  PROPERTIES VERSION ${PROJECT_VERSION})
 
 
 ## TESTS
@@ -50,7 +53,29 @@ if(MYHTMLPP_BUILD_TESTS)
 endif()
 
 
+## DOCUMENTATION
+
+find_package(Doxygen)
+if(DOXYGEN_FOUND AND MYHTMLPP_BUILD_DOC)
+    set(DOXYGEN_IN ${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in)
+    set(DOXYGEN_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+
+    configure_file(${DOXYGEN_IN} ${DOXYGEN_OUT} @ONLY)
+    message("Doxygen build started")
+
+    add_custom_target(doc
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYGEN_OUT}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM)
+else()
+  message("Doxygen need to be installed to generate the doxygen documentation")
+endif()
+
+
 ## INSTALL
 
-install(TARGETS ${MYHTMLPP_TARGET_NAME} LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
-install(DIRECTORY ${MYHTMLPP_INCLUDE_DIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(TARGETS ${MYHTMLPP_TARGET_NAME} LIBRARY
+  DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(DIRECTORY ${MYHTMLPP_INCLUDE_DIR}/
+  DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
