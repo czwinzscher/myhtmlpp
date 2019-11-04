@@ -65,6 +65,10 @@ myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
 // Iterator
 myhtmlpp::Tree::Iterator::Iterator(const Node& node) : m_node(node) {}
 
+myhtmlpp::Tree::Iterator::reference myhtmlpp::Tree::Iterator::operator*() {
+    return m_node;
+}
+
 myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
     std::vector<Node> children = m_node.children();
     m_stack.insert(m_stack.end(), children.rbegin(), children.rend());
@@ -101,6 +105,10 @@ myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
     // return *this;
 }
 
+bool myhtmlpp::Tree::Iterator::operator!=(const Iterator& other) const {
+    return m_node != other.m_node;
+}
+
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
     return Iterator(document_node());
 }
@@ -112,6 +120,11 @@ myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
 
 // ConstIterator
 myhtmlpp::Tree::ConstIterator::ConstIterator(const Node& node) : m_node(node) {}
+
+myhtmlpp::Tree::ConstIterator::reference
+    myhtmlpp::Tree::ConstIterator::operator*() {
+    return m_node;
+}
 
 myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
     std::vector<Node> children = m_node.children();
@@ -147,6 +160,11 @@ myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
     // m_node = new_node;
 
     // return *this;
+}
+
+bool myhtmlpp::Tree::ConstIterator::operator!=(
+    const ConstIterator& other) const {
+    return m_node != other.m_node;
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {

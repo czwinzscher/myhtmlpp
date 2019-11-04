@@ -64,13 +64,11 @@ public:
 
         explicit Iterator(const Attribute& attr);
 
-        reference operator*() { return m_attr; }
+        reference operator*();
 
         Iterator& operator++();
 
-        bool operator!=(const Iterator& other) const {
-            return m_attr != other.m_attr;
-        }
+        bool operator!=(const Iterator& other) const;
 
     private:
         Attribute m_attr;
@@ -86,13 +84,11 @@ public:
 
         explicit ConstIterator(const Attribute& attr);
 
-        reference operator*() { return m_attr; }
+        reference operator*();
 
         ConstIterator& operator++();
 
-        bool operator!=(const ConstIterator& other) const {
-            return m_attr != other.m_attr;
-        }
+        bool operator!=(const ConstIterator& other) const;
 
     private:
         Attribute m_attr;

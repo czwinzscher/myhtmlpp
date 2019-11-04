@@ -186,6 +186,10 @@ bool myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {
 // Iterator
 myhtmlpp::Node::Iterator::Iterator(const Attribute& attr) : m_attr(attr) {}
 
+myhtmlpp::Node::Iterator::reference myhtmlpp::Node::Iterator::operator*() {
+    return m_attr;
+}
+
 myhtmlpp::Node::Iterator& myhtmlpp::Node::Iterator::operator++() {
     if (auto next = m_attr.next()) {
         m_attr = next.value();
@@ -194,6 +198,10 @@ myhtmlpp::Node::Iterator& myhtmlpp::Node::Iterator::operator++() {
     }
 
     return *this;
+}
+
+bool myhtmlpp::Node::Iterator::operator!=(const Iterator& other) const {
+    return m_attr != other.m_attr;
 }
 
 myhtmlpp::Node::Iterator myhtmlpp::Node::begin() noexcept {
@@ -209,6 +217,11 @@ myhtmlpp::Node::Iterator myhtmlpp::Node::end() noexcept {
 myhtmlpp::Node::ConstIterator::ConstIterator(const Attribute& attr)
     : m_attr(attr) {}
 
+myhtmlpp::Node::ConstIterator::reference
+    myhtmlpp::Node::ConstIterator::operator*() {
+    return m_attr;
+}
+
 myhtmlpp::Node::ConstIterator& myhtmlpp::Node::ConstIterator::operator++() {
     if (auto next = m_attr.next()) {
         m_attr = next.value();
@@ -217,6 +230,11 @@ myhtmlpp::Node::ConstIterator& myhtmlpp::Node::ConstIterator::operator++() {
     }
 
     return *this;
+}
+
+bool myhtmlpp::Node::ConstIterator::operator!=(
+    const ConstIterator& other) const {
+    return m_attr != other.m_attr;
 }
 
 myhtmlpp::Node::ConstIterator myhtmlpp::Node::begin() const noexcept {

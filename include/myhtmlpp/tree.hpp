@@ -42,13 +42,11 @@ public:
 
         explicit Iterator(const Node& node);
 
-        reference operator*() { return m_node; }
+        reference operator*();
 
         Iterator& operator++();
 
-        bool operator!=(const Iterator& other) const {
-            return m_node != other.m_node;
-        }
+        bool operator!=(const Iterator& other) const;
 
     private:
         Node m_node;
@@ -65,13 +63,11 @@ public:
 
         explicit ConstIterator(const Node& node);
 
-        reference operator*() { return m_node; }
+        reference operator*();
 
         ConstIterator& operator++();
 
-        bool operator!=(const ConstIterator& other) const {
-            return m_node != other.m_node;
-        }
+        bool operator!=(const ConstIterator& other) const;
 
     private:
         Node m_node;
