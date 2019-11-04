@@ -29,7 +29,8 @@ public:
     [[nodiscard]] std::string html() const;
     [[nodiscard]] std::string pretty_html(int indent = 4) const;
 
-    Node create_node(myhtml_tag_id_t tag_id, myhtml_namespace_t ns);
+    Node create_node(myhtml_tag_id_t tag_id,
+                     myhtml_namespace_t ns = MyHTML_NAMESPACE_HTML);
 
     class Iterator {
     public:
