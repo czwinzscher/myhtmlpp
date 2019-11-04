@@ -91,3 +91,7 @@ link with `-lmyhtml` and `-lmyhtmlpp` when using the library.
 
 ## Documentation
 You can build docs with `make doc`.
+
+## License
+- myhtmlpp - [MIT](https://github.com/czwinzscher/myhtmlpp/blob/master/LICENSE)
+- MyHTML - [LGPL 2.1](https://github.com/lexborisov/myhtml/blob/master/LICENSE)
