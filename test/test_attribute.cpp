@@ -13,7 +13,6 @@ TEST_CASE("attribute") {
 </head>
 <body>
     <p class="hello">Hello World</p>
-    <div id="bla" class="class"></div>
     <img src="image.jpg" hidden>
 </body>
 </html>)");
@@ -51,6 +50,12 @@ TEST_CASE("attribute") {
     CHECK(hidden_attr.previous().value() == src_attr);
 
     CHECK(class_attr != src_attr);
+
+    SUBCASE("good") {
+        CHECK(class_attr.good());
+        CHECK(src_attr.good());
+        CHECK(!(*p_node.end()).good());
+    }
 
     SUBCASE("structured bindings") {
         auto [key, value] = src_attr;
