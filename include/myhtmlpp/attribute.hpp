@@ -13,6 +13,8 @@ public:
     [[nodiscard]] bool operator==(const Attribute& other) const;
     [[nodiscard]] bool operator!=(const Attribute& other) const;
 
+    [[nodiscard]] bool good() const;
+
     [[nodiscard]] std::string key() const;
     [[nodiscard]] std::string value() const;
     [[nodiscard]] myhtml_namespace_t ns() const;
