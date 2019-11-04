@@ -2,11 +2,9 @@
 
 #include "myhtmlpp/node.hpp"
 
-#include <functional>
 #include <mycore/myosi.h>
 #include <mycore/mystring.h>
 #include <myhtml/api.h>
-#include <optional>
 #include <string>
 #include <vector>
 

@@ -1,8 +1,8 @@
 #include "doctest/doctest.h"
-
 #include "myhtmlpp/parser.hpp"
 
 #include <algorithm>
+#include <myhtml/api.h>
 
 TEST_CASE("attribute") {
     std::string html(

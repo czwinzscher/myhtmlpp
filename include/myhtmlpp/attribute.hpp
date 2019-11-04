@@ -3,6 +3,7 @@
 #include <myhtml/api.h>
 #include <optional>
 #include <string>
+#include <utility>
 
 namespace myhtmlpp {
 

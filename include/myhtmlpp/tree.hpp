@@ -2,7 +2,7 @@
 
 #include "node.hpp"
 
-#include <cstddef>
+#include <iterator>
 #include <myhtml/api.h>
 #include <ostream>
 #include <string>

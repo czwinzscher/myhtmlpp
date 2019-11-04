@@ -2,6 +2,7 @@
 
 #include "myhtmlpp/attribute.hpp"
 
+#include <iterator>
 #include <myhtml/api.h>
 #include <optional>
 #include <ostream>

@@ -7,7 +7,6 @@
 #include <iostream>
 #include <iterator>
 #include <myhtml/api.h>
-#include <numeric>
 #include <sstream>
 #include <string>
 #include <vector>
