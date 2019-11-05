@@ -31,7 +31,7 @@ int main() {
     auto head = tree.head_node();
     auto body = tree.body_node();
 
-    // tree traversal with previous(), next(), parent(), first_child()
+    // tree traversal with previous(), next(), parent(), first_child(), last_child()
     // all these methods return std::optional<Node>
     assert(root.parent().value() == doc);
     assert(root.first_child().value() == head);
