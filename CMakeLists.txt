@@ -22,12 +22,14 @@ option(MYHTMLPP_BUILD_DOC "Build documentation if ON" ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(MYHTML_LIBRARIES myhtml)
+
 set(MYHTMLPP_TARGET_NAME ${PROJECT_NAME})
 
 # these variables could be useful if this project is embedded
 # inside another project
 set(MYHTMLPP_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include CACHE INTERNAL "")
-set(MYHTMLPP_LIBRARIES myhtml CACHE INTERNAL "")
+set(MYHTMLPP_LIBRARIES myhtmlpp CACHE INTERNAL "")
 
 
 ## TARGET
@@ -40,7 +42,7 @@ target_compile_options(${MYHTMLPP_TARGET_NAME} PRIVATE -Wall -Wextra -pedantic)
 target_include_directories(${MYHTMLPP_TARGET_NAME}
   PUBLIC ${MYHTMLPP_INCLUDE_DIR})
 
-target_link_libraries(${MYHTMLPP_TARGET_NAME} ${MYHTMLPP_LIBRARIES})
+target_link_libraries(${MYHTMLPP_TARGET_NAME} ${MYHTML_LIBRARIES})
 
 set_target_properties(${MYHTMLPP_TARGET_NAME}
   PROPERTIES VERSION ${PROJECT_VERSION})
