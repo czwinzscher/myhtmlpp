@@ -102,7 +102,7 @@ add_subdirectory(path/to/myhtmlpp)
 add_library(your_project ...)
 ...
 target_include_directories(your_project PRIVATE ${MYHTMLPP_INCLUDE_DIR})
-target_link_directories(your_project PRIVATE ${MYHTMLPP_LIBRARIES})
+target_link_libraries(your_project PRIVATE ${MYHTMLPP_LIBRARIES})
 ```
 
 ## Documentation
