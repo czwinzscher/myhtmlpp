@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8.0)
 
 ## PROJECT
 
-project(myhtmlpp VERSION 0.2.0 DESCRIPTION "c++ wrapper for myhtml")
+project(myhtmlpp VERSION 0.2.1 DESCRIPTION "c++ wrapper for myhtml")
 
 
 ## INCLUDE
