@@ -83,14 +83,33 @@ make test
 sudo make install
 ```
 
-link with `-lmyhtml` and `-lmyhtmlpp` when using the library.
-
-## CMake options
+### CMake options
 - use `-DMYHTMLPP_BUILD_TESTS=OFF` to disable tests
 - use `-DMYHTMLPP_BUILD_DOC=OFF` to disable doxygen documentation
 
+link with `-lmyhtml` and `-lmyhtmlpp` when using the library.
+
+## Embed into existing CMake project
+Instead of installing the library systemwide you can also copy the entire project into your project and call `add_subdirectory()` from CMake.
+
+```cmake
+# you probably want to disable tests and docs
+set(MYHTMLPP_BUILD_TESTS OFF)
+set(MYHTMLPP_BUILD_DOC OFF)
+
+add_subdirectory(path/to/myhtmlpp)
+...
+add_library(your_project ...)
+...
+target_include_directories(your_project PRIVATE ${MYHTMLPP_INCLUDE_DIR})
+target_link_directories(your_project PRIVATE ${MYHTMLPP_LIBRARIES})
+```
+
 ## Documentation
 You can build docs with `make doc`.
+
+## Notes
+This library was tested with MyHTML version 4.0.5.
 
 ## License
 - myhtmlpp - [MIT](https://github.com/czwinzscher/myhtmlpp/blob/master/LICENSE)
