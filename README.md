@@ -83,11 +83,11 @@ make test
 sudo make install
 ```
 
+link with `-lmyhtml` and `-lmyhtmlpp` when using the library.
+
 ### CMake options
 - use `-DMYHTMLPP_BUILD_TESTS=OFF` to disable tests
 - use `-DMYHTMLPP_BUILD_DOC=OFF` to disable doxygen documentation
-
-link with `-lmyhtml` and `-lmyhtmlpp` when using the library.
 
 ## Embed into existing CMake project
 Instead of installing the library systemwide you can also copy the entire project into your project and call `add_subdirectory()` from CMake.
