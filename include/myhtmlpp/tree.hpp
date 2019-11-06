@@ -31,8 +31,11 @@ public:
      */
     ~Tree();
 
-    Tree(const Tree&) = default;
-    Tree& operator=(const Tree&) = default;
+    // delete copy constructor and copy assignment operator
+    // to prevent double free
+    Tree(const Tree&) = delete;
+    Tree& operator=(const Tree&) = delete;
+
     Tree(Tree&&) = default;
     Tree& operator=(Tree&&) = default;
 
