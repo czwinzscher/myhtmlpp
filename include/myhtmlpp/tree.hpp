@@ -118,6 +118,7 @@ public:
 
         Iterator& operator++();
 
+        bool operator==(const Iterator& other) const;
         bool operator!=(const Iterator& other) const;
 
     private:
@@ -140,6 +141,7 @@ public:
 
         ConstIterator& operator++();
 
+        bool operator==(const ConstIterator& other) const;
         bool operator!=(const ConstIterator& other) const;
 
     private:

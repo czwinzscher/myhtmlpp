@@ -94,8 +94,12 @@ myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
     // return *this;
 }
 
+bool myhtmlpp::Tree::Iterator::operator==(const Iterator& other) const {
+    return m_node == other.m_node;
+}
+
 bool myhtmlpp::Tree::Iterator::operator!=(const Iterator& other) const {
-    return m_node != other.m_node;
+    return !operator==(other);
 }
 
 myhtmlpp::Tree::Iterator myhtmlpp::Tree::begin() noexcept {
@@ -151,9 +155,14 @@ myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
     // return *this;
 }
 
+bool myhtmlpp::Tree::ConstIterator::operator==(
+    const ConstIterator& other) const {
+    return m_node == other.m_node;
+}
+
 bool myhtmlpp::Tree::ConstIterator::operator!=(
     const ConstIterator& other) const {
-    return m_node != other.m_node;
+    return !operator==(other);
 }
 
 myhtmlpp::Tree::ConstIterator myhtmlpp::Tree::begin() const noexcept {
