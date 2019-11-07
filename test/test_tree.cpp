@@ -44,7 +44,7 @@ TEST_CASE("tree") {
 
         auto tree2 = std::move(tree);
         CHECK(tree2.good());
-        CHECK(!tree.good());
+        CHECK(!tree.good()); // NOLINT
     }
 
     SUBCASE("serialization") {
