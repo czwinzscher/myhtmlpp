@@ -70,9 +70,6 @@ public:
      */
     [[nodiscard]] std::string html_deep() const;
 
-    /// Try to return a prettified HTML string.
-    [[nodiscard]] std::string pretty_html_deep(int level, int indent) const;
-
     /**
      * @brief Returns a string of the text in the node.
      *
