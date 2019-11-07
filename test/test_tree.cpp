@@ -88,10 +88,10 @@ TEST_CASE("tree") {
             [](const auto& node) { return node.tag_id() == MyHTML_TAG__TEXT; });
         CHECK(text_nodes.size() == 21);
 
-        auto a_it = std::find_if(tree.begin(), tree.end(),
-                                 [](const auto& node) {
-                                     return node.tag_id() == MyHTML_TAG_A;
-                                 });
+        auto a_it =
+            std::find_if(tree.begin(), tree.end(), [](const auto& node) {
+                return node.tag_id() == MyHTML_TAG_A;
+            });
         CHECK(a_it == tree.end());
     }
 
