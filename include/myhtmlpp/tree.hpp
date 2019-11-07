@@ -31,13 +31,24 @@ public:
      */
     ~Tree();
 
-    // delete copy constructor and copy assignment operator
-    // to prevent double free
     Tree(const Tree&) = delete;
     Tree& operator=(const Tree&) = delete;
 
-    Tree(Tree&&) = default;
-    Tree& operator=(Tree&&) = default;
+    Tree(Tree&& other) noexcept
+        : m_raw_myhtml(other.m_raw_myhtml), m_raw_tree(other.m_raw_tree) {
+        other.m_raw_tree = nullptr;
+        other.m_raw_myhtml = nullptr;
+    }
+
+    Tree& operator=(Tree&& other) noexcept {
+        m_raw_tree = other.m_raw_tree;
+        m_raw_myhtml = other.m_raw_myhtml;
+
+        other.m_raw_tree = nullptr;
+        other.m_raw_myhtml = nullptr;
+
+        return *this;
+    }
 
     /**
      * @brief Check if myhtml and myhtml_tree pointers are not nullptr.
