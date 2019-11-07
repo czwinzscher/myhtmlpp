@@ -301,7 +301,7 @@ public:
     /**
      * @brief Returns an iterator to after the last attribute.
      *
-     * @return Iterator to `Attribute(nullptr)` otherwhise.
+     * @return Iterator to `Attribute(nullptr)`.
      */
     Iterator end() noexcept;
 
@@ -316,7 +316,7 @@ public:
     /**
      * @brief Returns an const iterator to after the last attribute.
      *
-     * @return ConstIterator to `Attribute(nullptr)` otherwhise.
+     * @return ConstIterator to `Attribute(nullptr)`.
      */
     [[nodiscard]] ConstIterator end() const noexcept;
 
@@ -331,7 +331,7 @@ public:
     /**
      * @brief Returns an const iterator to after the last attribute.
      *
-     * @return ConstIterator to `Attribute(nullptr)` otherwhise.
+     * @return ConstIterator to `Attribute(nullptr)`.
      */
     [[nodiscard]] ConstIterator cend() const noexcept;
 

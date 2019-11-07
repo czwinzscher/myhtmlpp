@@ -173,7 +173,7 @@ public:
     /**
      * @brief Returns an const iterator to after the last node.
      *
-     * @return ConstIterator to `Node(nullptr)` otherwhise.
+     * @return ConstIterator to `Node(nullptr)`.
      */
     [[nodiscard]] ConstIterator end() const noexcept;
 
@@ -188,7 +188,7 @@ public:
     /**
      * @brief Returns an const iterator to after the last node.
      *
-     * @return ConstIterator to `Node(nullptr)` otherwhise.
+     * @return ConstIterator to `Node(nullptr)`.
      */
     [[nodiscard]] ConstIterator cend() const noexcept;
 
