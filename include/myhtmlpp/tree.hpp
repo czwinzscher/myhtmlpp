@@ -158,7 +158,7 @@ public:
     /**
      * @brief Returns an iterator to after the last node.
      *
-     * @return Iterator to `Node(nullptr)` otherwhise.
+     * @return Iterator to `Node(nullptr)`.
      */
     Iterator end() noexcept;
 
