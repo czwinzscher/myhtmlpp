@@ -9,6 +9,7 @@
 #include <myhtml/api.h>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 TEST_CASE("tree") {
@@ -40,6 +41,10 @@ TEST_CASE("tree") {
 
         tree.html_node().remove();
         CHECK(tree.good());
+
+        auto tree2 = std::move(tree);
+        CHECK(tree2.good());
+        CHECK(!tree.good());
     }
 
     SUBCASE("serialization") {
@@ -82,6 +87,12 @@ TEST_CASE("tree") {
             tree.begin(), tree.end(), std::back_inserter(text_nodes),
             [](const auto& node) { return node.tag_id() == MyHTML_TAG__TEXT; });
         CHECK(text_nodes.size() == 21);
+
+        auto a_it = std::find_if(tree.begin(), tree.end(),
+                                 [](const auto& node) {
+                                     return node.tag_id() == MyHTML_TAG_A;
+                                 });
+        CHECK(a_it == tree.end());
     }
 
     SUBCASE("nodes") {
