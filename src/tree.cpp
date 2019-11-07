@@ -44,15 +44,6 @@ std::string myhtmlpp::Tree::html() const {
     return str.data != nullptr ? str.data : "";
 }
 
-std::string myhtmlpp::Tree::pretty_html(int indent) const {
-    std::string pretty = document_node().pretty_html_deep(-1, indent);
-    if (!pretty.empty()) {
-        pretty.pop_back();
-    }
-
-    return pretty;
-}
-
 myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
                                            myhtml_namespace_t ns) {
     myhtml_tree_node_t* n = myhtml_node_create(m_raw_tree, tag_id, ns);

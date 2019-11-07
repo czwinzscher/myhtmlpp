@@ -92,9 +92,6 @@ public:
      */
     [[nodiscard]] std::string html() const;
 
-    /// Tries to return a pretty representation of the tree
-    [[nodiscard]] std::string pretty_html(int indent = 4) const;
-
     /**
      * Creates a new node in the tree.
      *
