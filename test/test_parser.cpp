@@ -24,11 +24,21 @@ TEST_CASE("parser") {
 </html>)");
 
     REQUIRE_NOTHROW(myhtmlpp::parse(html));
-    REQUIRE_NOTHROW(myhtmlpp::parse_with_options(
-        html, MyHTML_OPTIONS_PARSE_MODE_SINGLE, 2, 4096));
     REQUIRE_NOTHROW(
-        myhtmlpp::parse_fragment(html, MyHTML_TAG_DIV, MyHTML_NAMESPACE_HTML));
-    REQUIRE_NOTHROW(myhtmlpp::parse_fragment_with_options(
-        html, MyHTML_TAG_A, MyHTML_NAMESPACE_HTML,
-        MyHTML_OPTIONS_PARSE_MODE_SEPARATELY, 2, 0));
+        myhtmlpp::parse(html, MyHTML_OPTIONS_PARSE_MODE_SEPARATELY));
+    REQUIRE_NOTHROW(myhtmlpp::parse(html, MyHTML_OPTIONS_DEFAULT, 3));
+    REQUIRE_NOTHROW(
+        myhtmlpp::parse(html, MyHTML_OPTIONS_PARSE_MODE_SINGLE, 2, 4096));
+    REQUIRE_NOTHROW(myhtmlpp::parse_fragment(html, MyHTML_TAG_DIV));
+    REQUIRE_NOTHROW(
+        myhtmlpp::parse_fragment(html, MyHTML_TAG_A, MyHTML_NAMESPACE_XML));
+    REQUIRE_NOTHROW(
+        myhtmlpp::parse_fragment(html, MyHTML_TAG_DIV, MyHTML_NAMESPACE_HTML,
+                                 MyHTML_OPTIONS_PARSE_MODE_SEPARATELY));
+    REQUIRE_NOTHROW(myhtmlpp::parse_fragment(html, MyHTML_TAG_DIV,
+                                             MyHTML_NAMESPACE_HTML,
+                                             MyHTML_OPTIONS_DEFAULT, 4));
+    REQUIRE_NOTHROW(
+        myhtmlpp::parse_fragment(html, MyHTML_TAG_A, MyHTML_NAMESPACE_HTML,
+                                 MyHTML_OPTIONS_PARSE_MODE_SEPARATELY, 2, 0));
 }

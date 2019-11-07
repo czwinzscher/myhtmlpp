@@ -38,27 +38,16 @@ myhtmlpp::Tree parse_helper(ParseFunc f, const std::string& html,
     return myhtmlpp::Tree(raw_myhtml, raw_tree);
 }
 
-myhtmlpp::Tree myhtmlpp::parse(const std::string& html) {
-    return parse_helper(myhtml_parse, html, MyHTML_OPTIONS_DEFAULT, 1, 0);
-}
-
-myhtmlpp::Tree myhtmlpp::parse_with_options(const std::string& html,
-                                            myhtml_options opt,
-                                            size_t thread_count,
-                                            size_t queue_size) {
+myhtmlpp::Tree myhtmlpp::parse(const std::string& html, myhtml_options opt,
+                               size_t thread_count, size_t queue_size) {
     return parse_helper(myhtml_parse, html, opt, thread_count, queue_size);
 }
 
 myhtmlpp::Tree myhtmlpp::parse_fragment(const std::string& html,
                                         myhtml_tag_id_t tag_id,
-                                        myhtml_namespace ns) {
-    return parse_helper(myhtml_parse_fragment, html, MyHTML_OPTIONS_DEFAULT, 1,
-                        0, tag_id, ns);
-}
-
-myhtmlpp::Tree myhtmlpp::parse_fragment_with_options(
-    const std::string& html, myhtml_tag_id_t tag_id, myhtml_namespace ns,
-    myhtml_options opt, size_t thread_count, size_t queue_size) {
+                                        myhtml_namespace ns, myhtml_options opt,
+                                        size_t thread_count,
+                                        size_t queue_size) {
     return parse_helper(myhtml_parse_fragment, html, opt, thread_count,
                         queue_size, tag_id, ns);
 }
