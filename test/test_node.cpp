@@ -140,8 +140,12 @@ TEST_CASE("node") {
         CHECK(doc.parent() == std::nullopt);
         CHECK(doc.first_child() != html_node);
         CHECK(doc.children().at(0) == doc.first_child());
+        CHECK(doc.siblings().size() == 0);
         CHECK(html_node.parent().value() == doc);
         CHECK(html_node.first_child().value().previous() == std::nullopt);
+        CHECK(body_node.siblings().size() == 2);
+        CHECK(body_node.siblings().at(0).tag_id() == MyHTML_TAG__TEXT);
+        CHECK(body_node.siblings().at(1) == head_node);
 
         auto ul_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
@@ -150,6 +154,9 @@ TEST_CASE("node") {
         REQUIRE(ul_node_it != tree.end());
 
         auto ul_node = *ul_node_it;
+        CHECK(ul_node.siblings().size() == 8);
+        CHECK(ul_node.siblings().at(1).tag_string() == "p");
+        CHECK(ul_node.siblings().at(6).tag_string() == "img");
 
         for (const auto& child_node : ul_node.children()) {
             CHECK(child_node.parent().value() == ul_node);
