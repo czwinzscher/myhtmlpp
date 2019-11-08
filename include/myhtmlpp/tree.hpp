@@ -140,7 +140,7 @@ public:
      * @brief Returns an iterator to the first node.
      *
      * @return Iterator to first node if exists,
-     *         Iterator to `Node(nullptr)` otherwhise.
+     *         Iterator to `Node(nullptr)` otherwise.
      */
     Iterator begin() noexcept;
 
@@ -155,7 +155,7 @@ public:
      * @brief Returns a const iterator to the first node.
      *
      * @return ConstIterator to first node if exists,
-     *         ConstIterator to `Node(nullptr)` otherwhise.
+     *         ConstIterator to `Node(nullptr)` otherwise.
      */
     [[nodiscard]] ConstIterator begin() const noexcept;
 
@@ -170,7 +170,7 @@ public:
      * @brief Returns a const iterator to the first node.
      *
      * @return ConstIterator to first node if exists,
-     *         ConstIterator to `Node(nullptr)` otherwhise.
+     *         ConstIterator to `Node(nullptr)` otherwise.
      */
     [[nodiscard]] ConstIterator cbegin() const noexcept;
 

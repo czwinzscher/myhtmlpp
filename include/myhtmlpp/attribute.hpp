@@ -86,7 +86,7 @@ public:
      * @brief Get the previous attribute in the node.
      *
      * @return An optional with the previous attribute if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Attribute> previous() const;
 
@@ -94,7 +94,7 @@ public:
      * @brief Get the next attribute in the node.
      *
      * @return An optional with the next attribute if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Attribute> next() const;
 

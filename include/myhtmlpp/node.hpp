@@ -53,7 +53,7 @@ public:
      *
      * @param key the key of the attribute to access.
      * @return Attribute with the key `key` if it exists,
-     *         Attribute that gets initialised with nullptr otherwhise.
+     *         Attribute that gets initialised with nullptr otherwise.
      */
     [[nodiscard]] Attribute operator[](const std::string& key) const noexcept;
 
@@ -113,7 +113,7 @@ public:
     /**
      * @brief Returns if the node is a void element or not.
      *
-     * @return true if the node is a void element, false otherwhise.
+     * @return true if the node is a void element, false otherwise.
      *
      * @see http://w3c.github.io/html-reference/syntax.html#void-elements
      */
@@ -137,7 +137,7 @@ public:
      * @brief Returns the first child in the node.
      *
      * @return An optional with the first child node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Node> first_child() const;
 
@@ -145,7 +145,7 @@ public:
      * @brief Returns the last child in the node.
      *
      * @return An optional with the last child node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Node> last_child() const;
 
@@ -153,7 +153,7 @@ public:
      * @brief Returns the previous sibling of the node.
      *
      * @return An optional with the previous sibling node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Node> previous() const;
 
@@ -161,7 +161,7 @@ public:
      * @brief Returns the next sibling of the node.
      *
      * @return An optional with the next sibling node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Node> next() const;
 
@@ -169,7 +169,7 @@ public:
      * @brief Returns the parent of the node.
      *
      * @return An optional with the parent node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Node> parent() const;
 
@@ -223,14 +223,14 @@ public:
      * @throw std::out_of_range if node does not have attribute with
      *        key `key`.
      * @return Attribute with the key `key` if it exists,
-     *         Attribute that gets initialised with nullptr otherwhise.
+     *         Attribute that gets initialised with nullptr otherwise.
      */
     [[nodiscard]] Attribute at(const std::string& key) const;
 
     /**
      * @brief Checks if the node has at least one attribute.
      *
-     * @return true if the node has one or more attributes, false otherwhise.
+     * @return true if the node has one or more attributes, false otherwise.
      */
     [[nodiscard]] bool has_attributes() const;
 
@@ -238,7 +238,7 @@ public:
      * @brief Returns the first attribute in the node.
      *
      * @return An optional with the first attribute in the node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Attribute> first_attribute() const;
 
@@ -246,7 +246,7 @@ public:
      * @brief Returns the last attribute in the node.
      *
      * @return An optional with the last attribute in the node if it exists,
-     *         std::nullopt otherwhise.
+     *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<Attribute> last_attribute() const;
 
@@ -274,7 +274,7 @@ public:
      * @brief Removes the attribute with key `key` from the node, if it exists.
      *
      * @param key The key of the removed attribute.
-     * @return true if an attribute was removed, false otherwhise.
+     * @return true if an attribute was removed, false otherwise.
      */
     bool remove_attribute_by_key(const std::string& key);
 
@@ -326,7 +326,7 @@ public:
      * @brief Returns an iterator to the first attribute.
      *
      * @return Iterator to first attribute if it exists,
-     *         Iterator to `Attribute(nullptr)` otherwhise.
+     *         Iterator to `Attribute(nullptr)` otherwise.
      */
     Iterator begin() noexcept;
 
@@ -341,7 +341,7 @@ public:
      * @brief Returns a const iterator to the first attribute.
      *
      * @return ConstIterator to first attribute if it exists,
-     *         ConstIterator to `Attribute(nullptr)` otherwhise.
+     *         ConstIterator to `Attribute(nullptr)` otherwise.
      */
     [[nodiscard]] ConstIterator begin() const noexcept;
 
@@ -356,7 +356,7 @@ public:
      * @brief Returns a const iterator to the first attribute.
      *
      * @return ConstIterator to first attribute if it exists,
-     *         ConstIterator to `Attribute(nullptr)` otherwhise.
+     *         ConstIterator to `Attribute(nullptr)` otherwise.
      */
     [[nodiscard]] ConstIterator cbegin() const noexcept;
 
