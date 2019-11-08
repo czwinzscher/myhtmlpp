@@ -99,7 +99,7 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
 
-        explicit Iterator(const Node& node);
+        explicit Iterator(Node node);
 
         reference operator*();
 
@@ -122,7 +122,7 @@ public:
         using pointer = const value_type*;
         using reference = const value_type&;
 
-        explicit ConstIterator(const Node& node);
+        explicit ConstIterator(Node node);
 
         reference operator*();
 

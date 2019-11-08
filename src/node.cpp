@@ -12,6 +12,7 @@
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
@@ -201,7 +202,7 @@ bool myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {
 }
 
 // Iterator
-myhtmlpp::Node::Iterator::Iterator(const Attribute& attr) : m_attr(attr) {}
+myhtmlpp::Node::Iterator::Iterator(Attribute attr) : m_attr(std::move(attr)) {}
 
 myhtmlpp::Node::Iterator::reference myhtmlpp::Node::Iterator::operator*() {
     return m_attr;
@@ -235,8 +236,8 @@ myhtmlpp::Node::Iterator myhtmlpp::Node::end() noexcept {
 }
 
 // ConstIterator
-myhtmlpp::Node::ConstIterator::ConstIterator(const Attribute& attr)
-    : m_attr(attr) {}
+myhtmlpp::Node::ConstIterator::ConstIterator(Attribute attr)
+    : m_attr(std::move(attr)) {}
 
 myhtmlpp::Node::ConstIterator::reference
     myhtmlpp::Node::ConstIterator::operator*() {

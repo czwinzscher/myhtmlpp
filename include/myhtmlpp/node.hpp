@@ -287,7 +287,7 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
 
-        explicit Iterator(const Attribute& attr);
+        explicit Iterator(Attribute attr);
 
         reference operator*();
 
@@ -309,7 +309,7 @@ public:
         using pointer = const value_type*;
         using reference = const value_type&;
 
-        explicit ConstIterator(const Attribute& attr);
+        explicit ConstIterator(Attribute attr);
 
         reference operator*();
 

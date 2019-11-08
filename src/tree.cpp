@@ -7,6 +7,7 @@
 #include <mycore/mystring.h>
 #include <myhtml/api.h>
 #include <string>
+#include <utility>
 #include <vector>
 
 myhtmlpp::Tree::Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree)
@@ -81,7 +82,7 @@ myhtmlpp::Node myhtmlpp::Tree::create_node(myhtmlpp::TAG tag_id,
 }
 
 // Iterator
-myhtmlpp::Tree::Iterator::Iterator(const Node& node) : m_node(node) {}
+myhtmlpp::Tree::Iterator::Iterator(Node node) : m_node(std::move(node)) {}
 
 myhtmlpp::Tree::Iterator::reference myhtmlpp::Tree::Iterator::operator*() {
     return m_node;
@@ -141,7 +142,8 @@ myhtmlpp::Tree::Iterator myhtmlpp::Tree::end() noexcept {
 }
 
 // ConstIterator
-myhtmlpp::Tree::ConstIterator::ConstIterator(const Node& node) : m_node(node) {}
+myhtmlpp::Tree::ConstIterator::ConstIterator(Node node)
+    : m_node(std::move(node)) {}
 
 myhtmlpp::Tree::ConstIterator::reference
     myhtmlpp::Tree::ConstIterator::operator*() {
