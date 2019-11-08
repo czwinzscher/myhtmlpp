@@ -120,6 +120,13 @@ public:
     [[nodiscard]] bool is_void_element() const;
 
     /**
+     * Returns if the node is a text node or not.
+     *
+     * @return true if `tag_id` return `myhtmlpp::TAG::TEXT_`, false otherwise.
+     */
+    [[nodiscard]] bool is_text_node() const;
+
+    /**
      * Set the namespace of the node.
      *
      * @param new_ns The new namespace.
