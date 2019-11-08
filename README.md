@@ -20,7 +20,7 @@ int main() {
 
     // iterate over all nodes in the tree
     for (const auto& node : tree) {
-        if (node.tag_id() == MyHTML_TAG__TEXT) {
+        if (node.tag_id() == myhtmlpp::TAG::TEXT_) {
             std::cout << node.text() << "\n";
         }
     }
@@ -42,7 +42,7 @@ int main() {
     // use stl algorithms on the tree
     auto div_node_it =
         std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-            return node.tag_id() == MyHTML_TAG_DIV;
+            return node.tag_id() == myhtmlpp::TAG::DIV;
         });
 
     assert(div_node_it != tree.end());
@@ -63,7 +63,7 @@ int main() {
     }
 
     // create new nodes
-    auto p_node = tree.create_node(MyHTML_TAG_P, MyHTML_NAMESPACE_HTML);
+    auto p_node = tree.create_node(myhtmlpp::TAG::P, myhtmlpp::NAMESPACE::HTML);
 
     // ... and insert them into the tree
     div_node.insert_after(p_node); // or insert_before or add_child
