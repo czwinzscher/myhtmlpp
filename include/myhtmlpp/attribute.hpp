@@ -19,6 +19,14 @@ public:
      */
     explicit Attribute(myhtml_tree_attr_t* raw_attribute);
 
+    ~Attribute() = default;
+
+    Attribute(const Attribute&) = default;
+    Attribute& operator=(const Attribute&) = default;
+
+    Attribute(Attribute&& other) noexcept;
+    Attribute& operator=(Attribute&& other) noexcept;
+
     /**
      * @brief Check if two attributes are equal.
      *

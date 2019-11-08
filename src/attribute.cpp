@@ -9,6 +9,19 @@
 myhtmlpp::Attribute::Attribute(myhtml_tree_attr_t* raw_attribute)
     : m_raw_attribute(raw_attribute) {}
 
+myhtmlpp::Attribute::Attribute(Attribute&& other) noexcept
+    : m_raw_attribute(other.m_raw_attribute) {
+    other.m_raw_attribute = nullptr;
+}
+
+myhtmlpp::Attribute& myhtmlpp::Attribute::operator=(Attribute&& other) noexcept {
+    m_raw_attribute = other.m_raw_attribute;
+
+    other.m_raw_attribute = nullptr;
+
+    return *this;
+}
+
 bool myhtmlpp::Attribute::operator==(const Attribute& other) const {
     return m_raw_attribute == other.m_raw_attribute;
 }
