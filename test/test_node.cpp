@@ -227,5 +227,12 @@ TEST_CASE("node") {
         CHECK((*it_begin).key() == "id");
         CHECK((*it_begin).value() == "bla");
         CHECK(++it_begin != div_node.end());
+        CHECK(++it_begin == div_node.end());
+
+        auto it_cbegin = div_node.cbegin();
+        CHECK((*it_cbegin).key() == "id");
+        CHECK((*it_cbegin).value() == "bla");
+        CHECK(++it_cbegin != div_node.cend());
+        CHECK(++it_cbegin == div_node.cend());
     }
 }
