@@ -63,6 +63,17 @@ TEST_CASE("node") {
         CHECK(!doc.good());  // NOLINT
     }
 
+    SUBCASE("move semantics") {
+        head_node = std::move(doc);
+        CHECK(!doc.good());  // NOLINT
+        CHECK(tree.document_node() == head_node);
+        CHECK(tree.head_node().good());
+
+        auto body2 = std::move(body_node);
+        CHECK(body2.good());
+        CHECK(!body_node.good()); // NOLINT
+    }
+
     SUBCASE("node attributes") {
         CHECK(doc.text().empty());
         CHECK(doc.tag_id() == MyHTML_TAG__UNDEF);
