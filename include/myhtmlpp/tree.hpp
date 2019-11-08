@@ -34,21 +34,8 @@ public:
     Tree(const Tree&) = delete;
     Tree& operator=(const Tree&) = delete;
 
-    Tree(Tree&& other) noexcept
-        : m_raw_myhtml(other.m_raw_myhtml), m_raw_tree(other.m_raw_tree) {
-        other.m_raw_tree = nullptr;
-        other.m_raw_myhtml = nullptr;
-    }
-
-    Tree& operator=(Tree&& other) noexcept {
-        m_raw_tree = other.m_raw_tree;
-        m_raw_myhtml = other.m_raw_myhtml;
-
-        other.m_raw_tree = nullptr;
-        other.m_raw_myhtml = nullptr;
-
-        return *this;
-    }
+    Tree(Tree&& other) noexcept;
+    Tree& operator=(Tree&& other) noexcept;
 
     /**
      * @brief Check if myhtml and myhtml_tree pointers are not nullptr.

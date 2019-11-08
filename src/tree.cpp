@@ -16,6 +16,23 @@ myhtmlpp::Tree::~Tree() {
     myhtml_destroy(m_raw_myhtml);
 }
 
+myhtmlpp::Tree::Tree(Tree&& other) noexcept
+    : m_raw_myhtml(other.m_raw_myhtml), m_raw_tree(other.m_raw_tree) {
+    other.m_raw_tree = nullptr;
+    other.m_raw_myhtml = nullptr;
+}
+
+// TODO destroy resources if it's another tree
+myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
+    m_raw_tree = other.m_raw_tree;
+    m_raw_myhtml = other.m_raw_myhtml;
+
+    other.m_raw_tree = nullptr;
+    other.m_raw_myhtml = nullptr;
+
+    return *this;
+}
+
 bool myhtmlpp::Tree::good() const {
     return m_raw_tree != nullptr && m_raw_myhtml != nullptr;
 }
