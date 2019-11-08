@@ -11,6 +11,7 @@
 #include <optional>
 #include <stdexcept>
 #include <string>
+#include <utility>
 #include <vector>
 
 TEST_CASE("node") {
@@ -52,6 +53,15 @@ TEST_CASE("node") {
 
     auto body_node = html_children.at(2);
     REQUIRE(body_node == tree.body_node());
+
+    SUBCASE("good") {
+        for (const auto& node : tree) {
+            CHECK(node.good());
+        }
+
+        auto n = std::move(doc);
+        CHECK(!doc.good());  // NOLINT
+    }
 
     SUBCASE("node attributes") {
         CHECK(doc.text().empty());
