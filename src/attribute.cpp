@@ -14,7 +14,8 @@ myhtmlpp::Attribute::Attribute(Attribute&& other) noexcept
     other.m_raw_attribute = nullptr;
 }
 
-myhtmlpp::Attribute& myhtmlpp::Attribute::operator=(Attribute&& other) noexcept {
+myhtmlpp::Attribute&
+myhtmlpp::Attribute::operator=(Attribute&& other) noexcept {
     m_raw_attribute = other.m_raw_attribute;
 
     other.m_raw_attribute = nullptr;
