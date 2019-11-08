@@ -1,5 +1,6 @@
 #include "myhtmlpp/parser.hpp"
 
+#include "myhtmlpp/error.hpp"
 #include "myhtmlpp/tree.hpp"
 
 #include <cstddef>
@@ -17,22 +18,19 @@ myhtmlpp::Tree parse_helper(ParseFunc f, const std::string& html,
     myhtml_t* raw_myhtml = myhtml_create();
     mystatus_t init_st = myhtml_init(raw_myhtml, opt, thread_count, queue_size);
     if (init_st != MyHTML_STATUS_OK) {
-        throw std::runtime_error("myhtml_init failed with status " +
-                                 std::to_string(init_st));
+        throw myhtmlpp::init_error(init_st);
     }
 
     myhtml_tree_t* raw_tree = myhtml_tree_create();
     mystatus_t tree_st = myhtml_tree_init(raw_tree, raw_myhtml);
     if (tree_st != MyHTML_STATUS_OK) {
-        throw std::runtime_error("myhtml_tree_init failed with status " +
-                                 std::to_string(tree_st));
+        throw myhtmlpp::tree_init_error(tree_st);
     }
 
     mystatus_t parse_st = f(raw_tree, MyENCODING_UTF_8, html.c_str(),
                             strlen(html.c_str()), args...);
     if (parse_st != MyHTML_STATUS_OK) {
-        throw std::runtime_error("parsing failed with status " +
-                                 std::to_string(parse_st));
+        throw myhtmlpp::parse_error(parse_st);
     }
 
     return myhtmlpp::Tree(raw_myhtml, raw_tree);
