@@ -1,5 +1,6 @@
 #include "myhtmlpp/attribute.hpp"
 
+#include "myhtmlpp/constants.hpp"
 #include "utils.hpp"
 
 #include <myhtml/api.h>
@@ -49,12 +50,13 @@ std::string myhtmlpp::Attribute::value() const {
     return "";
 }
 
-myhtml_namespace_t myhtmlpp::Attribute::get_namespace() const {
-    return myhtml_attribute_namespace(m_raw_attribute);
+myhtmlpp::NAMESPACE myhtmlpp::Attribute::get_namespace() const {
+    return static_cast<NAMESPACE>(myhtml_attribute_namespace(m_raw_attribute));
 }
 
-void myhtmlpp::Attribute::set_namespace(myhtml_namespace_t new_ns) {
-    myhtml_attribute_namespace_set(m_raw_attribute, new_ns);
+void myhtmlpp::Attribute::set_namespace(myhtmlpp::NAMESPACE new_ns) {
+    myhtml_attribute_namespace_set(m_raw_attribute,
+                                   static_cast<myhtml_namespace_t>(new_ns));
 }
 
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::previous() const {

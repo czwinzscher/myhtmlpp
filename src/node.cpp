@@ -1,6 +1,7 @@
 #include "myhtmlpp/node.hpp"
 
 #include "myhtmlpp/attribute.hpp"
+#include "myhtmlpp/constants.hpp"
 #include "utils.hpp"
 
 #include <cstring>
@@ -65,27 +66,28 @@ std::string myhtmlpp::Node::text() const {
     return raw_text != nullptr ? raw_text : "";
 }
 
-myhtml_tag_id_t myhtmlpp::Node::tag_id() const {
-    return myhtml_node_tag_id(m_raw_node);
+myhtmlpp::TAG myhtmlpp::Node::tag_id() const {
+    return static_cast<TAG>(myhtml_node_tag_id(m_raw_node));
 }
 
 std::string myhtmlpp::Node::tag_string() const {
-    const char* tag_name =
-        myhtml_tag_name_by_id(myhtml_node_tree(m_raw_node), tag_id(), nullptr);
+    const char* tag_name = myhtml_tag_name_by_id(
+        myhtml_node_tree(m_raw_node), myhtml_node_tag_id(m_raw_node), nullptr);
 
     return tag_name != nullptr ? tag_name : "";
 }
 
-myhtml_namespace_t myhtmlpp::Node::get_namespace() const {
-    return myhtml_node_namespace(m_raw_node);
+myhtmlpp::NAMESPACE myhtmlpp::Node::get_namespace() const {
+    return static_cast<NAMESPACE>(myhtml_node_namespace(m_raw_node));
 }
 
 bool myhtmlpp::Node::is_void_element() const {
     return myhtml_node_is_void_element(m_raw_node);
 }
 
-void myhtmlpp::Node::set_namespace(myhtml_namespace_t new_ns) {
-    myhtml_node_namespace_set(m_raw_node, new_ns);
+void myhtmlpp::Node::set_namespace(myhtmlpp::NAMESPACE new_ns) {
+    myhtml_node_namespace_set(m_raw_node,
+                              static_cast<myhtml_namespace_t>(new_ns));
 }
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {

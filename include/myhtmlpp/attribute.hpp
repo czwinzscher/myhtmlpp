@@ -1,5 +1,7 @@
 #pragma once
 
+#include "constants.hpp"
+
 #include <myhtml/api.h>
 #include <optional>
 #include <string>
@@ -70,7 +72,7 @@ public:
      * @return An enum member of myhtml_namespace_t with the attribute
      *         namespace.
      */
-    [[nodiscard]] myhtml_namespace_t get_namespace() const;
+    [[nodiscard]] NAMESPACE get_namespace() const;
 
     /**
      * @brief Set the namespace of the attribute.
@@ -78,7 +80,7 @@ public:
      * @param new_ns An enum member of myhtml_namespace_t that will be
      *               the new namespace of the attribute.
      */
-    void set_namespace(myhtml_namespace_t new_ns);
+    void set_namespace(NAMESPACE new_ns);
 
     /**
      * @brief Get the previous attribute in the node.

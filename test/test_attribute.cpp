@@ -22,7 +22,7 @@ TEST_CASE("attribute") {
 
     auto p_node_it =
         std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-            return node.tag_id() == MyHTML_TAG_P;
+            return node.tag_id() == myhtmlpp::TAG::P;
         });
     REQUIRE(p_node_it != tree.end());
 
@@ -35,7 +35,7 @@ TEST_CASE("attribute") {
 
     auto img_node_it =
         std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-            return node.tag_id() == MyHTML_TAG_IMG;
+            return node.tag_id() == myhtmlpp::TAG::IMG;
         });
     REQUIRE(img_node_it != tree.end());
 

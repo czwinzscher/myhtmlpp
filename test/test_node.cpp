@@ -37,7 +37,7 @@ TEST_CASE("node") {
 
     auto doc = tree.document_node();
     REQUIRE(doc.children().size() == 2);
-    REQUIRE(doc.get_namespace() == MyHTML_NAMESPACE_HTML);
+    REQUIRE(doc.get_namespace() == myhtmlpp::NAMESPACE::HTML);
 
     auto doctype_opt = doc.first_child();
     REQUIRE(doctype_opt.has_value());
@@ -79,19 +79,19 @@ TEST_CASE("node") {
 
     SUBCASE("node attributes") {
         CHECK(doc.text().empty());
-        CHECK(doc.tag_id() == MyHTML_TAG__UNDEF);
+        CHECK(doc.tag_id() == myhtmlpp::TAG::UNDEF_);
         CHECK(doc.tag_string() == "-undef");
-        CHECK(doc.get_namespace() == MyHTML_NAMESPACE_HTML);
+        CHECK(doc.get_namespace() == myhtmlpp::NAMESPACE::HTML);
 
         CHECK(html_node.text().empty());
-        CHECK(html_node.tag_id() == MyHTML_TAG_HTML);
+        CHECK(html_node.tag_id() == myhtmlpp::TAG::HTML);
 
-        CHECK(head_node.tag_id() == MyHTML_TAG_HEAD);
-        CHECK(body_node.tag_id() == MyHTML_TAG_BODY);
+        CHECK(head_node.tag_id() == myhtmlpp::TAG::HEAD);
+        CHECK(body_node.tag_id() == myhtmlpp::TAG::BODY);
 
         auto p_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_P;
+                return node.tag_id() == myhtmlpp::TAG::P;
             });
         REQUIRE(p_node_it != tree.end());
 
@@ -105,7 +105,7 @@ TEST_CASE("node") {
 
         auto img_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_IMG;
+                return node.tag_id() == myhtmlpp::TAG::IMG;
             });
         REQUIRE(img_node_it != tree.end());
 
@@ -116,7 +116,7 @@ TEST_CASE("node") {
     SUBCASE("node manipulation") {
         auto ul_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_UL;
+                return node.tag_id() == myhtmlpp::TAG::UL;
             });
         REQUIRE(ul_node_it != tree.end());
 
@@ -124,31 +124,34 @@ TEST_CASE("node") {
         auto ul_children = ul_node.children();
         CHECK(std::count_if(ul_children.begin(), ul_children.end(),
                             [](const auto& node) {
-                                return node.tag_id() == MyHTML_TAG_LI;
+                                return node.tag_id() == myhtmlpp::TAG::LI;
                             }) == 2);
 
-        auto new_node = tree.create_node(myhtmlpp::TAG::LI, myhtmlpp::NAMESPACE::HTML);
+        auto new_node =
+            tree.create_node(myhtmlpp::TAG::LI, myhtmlpp::NAMESPACE::HTML);
         ul_node.add_child(new_node);
 
         ul_children = ul_node.children();
         CHECK(std::count_if(ul_children.begin(), ul_children.end(),
                             [](const auto& node) {
-                                return node.tag_id() == MyHTML_TAG_LI;
+                                return node.tag_id() == myhtmlpp::TAG::LI;
                             }) == 3);
 
-        new_node = tree.create_node(myhtmlpp::TAG::A, myhtmlpp::NAMESPACE::HTML);
+        new_node =
+            tree.create_node(myhtmlpp::TAG::A, myhtmlpp::NAMESPACE::HTML);
         ul_node.insert_before(new_node);
         CHECK(ul_node.previous().value() == new_node);
 
-        new_node = tree.create_node(myhtmlpp::TAG::CITE, myhtmlpp::NAMESPACE::HTML);
+        new_node =
+            tree.create_node(myhtmlpp::TAG::CITE, myhtmlpp::NAMESPACE::HTML);
         ul_node.insert_after(new_node);
         CHECK(ul_node.next().value() == new_node);
 
         new_node.remove();
         CHECK(ul_node.next().value() != new_node);
 
-        ul_node.set_namespace(MyHTML_NAMESPACE_XML);
-        CHECK(ul_node.get_namespace() == MyHTML_NAMESPACE_XML);
+        ul_node.set_namespace(myhtmlpp::NAMESPACE::XML);
+        CHECK(ul_node.get_namespace() == myhtmlpp::NAMESPACE::XML);
     }
 
     SUBCASE("node traversal") {
@@ -161,12 +164,12 @@ TEST_CASE("node") {
         CHECK(html_node.parent().value() == doc);
         CHECK(html_node.first_child().value().previous() == std::nullopt);
         CHECK(body_node.siblings().size() == 2);
-        CHECK(body_node.siblings().at(0).tag_id() == MyHTML_TAG__TEXT);
+        CHECK(body_node.siblings().at(0).tag_id() == myhtmlpp::TAG::TEXT_);
         CHECK(body_node.siblings().at(1) == head_node);
 
         auto ul_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_UL;
+                return node.tag_id() == myhtmlpp::TAG::UL;
             });
         REQUIRE(ul_node_it != tree.end());
 
@@ -188,7 +191,7 @@ TEST_CASE("node") {
 
         auto img_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_IMG;
+                return node.tag_id() == myhtmlpp::TAG::IMG;
             });
         REQUIRE(img_node_it != tree.end());
 
@@ -203,7 +206,7 @@ TEST_CASE("node") {
 
         auto div_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_DIV;
+                return node.tag_id() == myhtmlpp::TAG::DIV;
             });
         REQUIRE(div_node_it != tree.end());
 
@@ -220,7 +223,7 @@ TEST_CASE("node") {
         CHECK(class_attr.previous().value() ==
               div_node.first_attribute().value());
         CHECK(!class_attr.next().has_value());
-        CHECK(class_attr.get_namespace() == MyHTML_NAMESPACE_HTML);
+        CHECK(class_attr.get_namespace() == myhtmlpp::NAMESPACE::HTML);
 
         CHECK_NOTHROW(auto c = div_node.at("class"));
         CHECK_THROWS_WITH_AS(auto s = div_node.at("style"),
@@ -238,7 +241,7 @@ TEST_CASE("node") {
     SUBCASE("iterator") {
         auto div_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_DIV;
+                return node.tag_id() == myhtmlpp::TAG::DIV;
             });
         REQUIRE(div_node_it != tree.end());
 

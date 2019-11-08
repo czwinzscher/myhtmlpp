@@ -90,14 +90,15 @@ TEST_CASE("tree") {
         CHECK(std::distance(tree.begin(), tree.end()) == 37);
 
         std::vector<myhtmlpp::Node> text_nodes;
-        std::copy_if(
-            tree.begin(), tree.end(), std::back_inserter(text_nodes),
-            [](const auto& node) { return node.tag_id() == MyHTML_TAG__TEXT; });
+        std::copy_if(tree.begin(), tree.end(), std::back_inserter(text_nodes),
+                     [](const auto& node) {
+                         return node.tag_id() == myhtmlpp::TAG::TEXT_;
+                     });
         CHECK(text_nodes.size() == 21);
 
         auto a_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == MyHTML_TAG_A;
+                return node.tag_id() == myhtmlpp::TAG::A;
             });
         CHECK(a_it == tree.end());
     }
@@ -110,16 +111,18 @@ TEST_CASE("tree") {
     }
 
     SUBCASE("create nodes") {
-        auto node = tree.create_node(myhtmlpp::TAG::DIV, myhtmlpp::NAMESPACE::XML);
+        auto node =
+            tree.create_node(myhtmlpp::TAG::DIV, myhtmlpp::NAMESPACE::XML);
 
         CHECK(node.good());
-        CHECK(node.tag_id() == MyHTML_TAG_DIV);
-        CHECK(node.get_namespace() == MyHTML_NAMESPACE_XML);
+        CHECK(node.tag_id() == myhtmlpp::TAG::DIV);
+        CHECK(node.get_namespace() == myhtmlpp::NAMESPACE::XML);
 
         auto node_default_namespace = tree.create_node(myhtmlpp::TAG::IMG);
 
         CHECK(node_default_namespace.good());
-        CHECK(node_default_namespace.tag_id() == MyHTML_TAG_IMG);
-        CHECK(node_default_namespace.get_namespace() == MyHTML_NAMESPACE_HTML);
+        CHECK(node_default_namespace.tag_id() == myhtmlpp::TAG::IMG);
+        CHECK(node_default_namespace.get_namespace() ==
+              myhtmlpp::NAMESPACE::HTML);
     }
 }

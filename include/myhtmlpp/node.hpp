@@ -1,6 +1,7 @@
 #pragma once
 
-#include "myhtmlpp/attribute.hpp"
+#include "attribute.hpp"
+#include "constants.hpp"
 
 #include <iterator>
 #include <myhtml/api.h>
@@ -88,9 +89,9 @@ public:
     /**
      * @brief Returns the tag id of the node.
      *
-     * @return An enum member of myhtml_tag_id_t with the tag id of the node.
+     * @return An enum member of myhtmlpp::TAG with the tag id of the node.
      */
-    [[nodiscard]] myhtml_tag_id_t tag_id() const;
+    [[nodiscard]] TAG tag_id() const;
 
     /**
      * @brief Returns a string of the tag_id of the node.
@@ -104,10 +105,10 @@ public:
     /**
      * @brief Returns the namespace of the node.
      *
-     * @return An enum member of myhtml_namespace_t
+     * @return An enum member of myhtmlpp::NAMESPACE
      *         with the namespace of the node.
      */
-    [[nodiscard]] myhtml_namespace_t get_namespace() const;
+    [[nodiscard]] NAMESPACE get_namespace() const;
 
     /**
      * @brief Returns if the node is a void element or not.
@@ -123,7 +124,7 @@ public:
      *
      * @param new_ns The new namespace.
      */
-    void set_namespace(myhtml_namespace_t new_ns);
+    void set_namespace(NAMESPACE new_ns);
 
     /**
      * @brief Returns the first child in the node.
