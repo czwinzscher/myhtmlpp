@@ -15,8 +15,7 @@
 
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
-myhtmlpp::Node::Node(Node&& other) noexcept
-    : m_raw_node(other.m_raw_node) {
+myhtmlpp::Node::Node(Node&& other) noexcept : m_raw_node(other.m_raw_node) {
     other.m_raw_node = nullptr;
 }
 
@@ -192,8 +191,12 @@ myhtmlpp::Node::Iterator& myhtmlpp::Node::Iterator::operator++() {
     return *this;
 }
 
+bool myhtmlpp::Node::Iterator::operator==(const Iterator& other) const {
+    return m_attr == other.m_attr;
+}
+
 bool myhtmlpp::Node::Iterator::operator!=(const Iterator& other) const {
-    return m_attr != other.m_attr;
+    return !operator==(other);
 }
 
 myhtmlpp::Node::Iterator myhtmlpp::Node::begin() noexcept {
@@ -224,9 +227,14 @@ myhtmlpp::Node::ConstIterator& myhtmlpp::Node::ConstIterator::operator++() {
     return *this;
 }
 
+bool myhtmlpp::Node::ConstIterator::operator==(
+    const ConstIterator& other) const {
+    return m_attr == other.m_attr;
+}
+
 bool myhtmlpp::Node::ConstIterator::operator!=(
     const ConstIterator& other) const {
-    return m_attr != other.m_attr;
+    return !operator==(other);
 }
 
 myhtmlpp::Node::ConstIterator myhtmlpp::Node::begin() const noexcept {
