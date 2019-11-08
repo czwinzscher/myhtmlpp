@@ -41,10 +41,17 @@ TEST_CASE("tree") {
 
         tree.html_node().remove();
         CHECK(tree.good());
+    }
 
+    SUBCASE("move semantics") {
         auto tree2 = std::move(tree);
         CHECK(tree2.good());
-        CHECK(!tree.good()); // NOLINT
+        CHECK(!tree.good());  // NOLINT
+
+        auto tree3 = myhtmlpp::parse("");
+        tree3 = std::move(tree2);
+        CHECK(tree3.good());
+        CHECK(!tree2.good());  // NOLINT
     }
 
     SUBCASE("serialization") {
