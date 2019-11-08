@@ -59,6 +59,8 @@ TEST_CASE("node") {
             CHECK(node.good());
         }
 
+        CHECK(!(*tree.end()).good());
+
         auto n = std::move(doc);
         CHECK(!doc.good());  // NOLINT
     }
@@ -77,6 +79,7 @@ TEST_CASE("node") {
     SUBCASE("node attributes") {
         CHECK(doc.text().empty());
         CHECK(doc.tag_id() == MyHTML_TAG__UNDEF);
+        CHECK(doc.tag_string() == "-undef");
         CHECK(doc.get_namespace() == MyHTML_NAMESPACE_HTML);
 
         CHECK(html_node.text().empty());
@@ -92,7 +95,9 @@ TEST_CASE("node") {
         REQUIRE(p_node_it != tree.end());
 
         auto p_node = *p_node_it;
-        CHECK(p_node.first_child().value().text() == "Hello World");
+        auto p_text_node = p_node.first_child().value();
+        CHECK(p_text_node.text() == "Hello World");
+        CHECK(p_text_node.tag_string() == "-text");
         CHECK(p_node.tag_string() == "p");
         CHECK(!p_node.is_void_element());
         CHECK(p_node.html() == R"(<p class="hello">)");
