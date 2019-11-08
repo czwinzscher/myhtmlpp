@@ -173,6 +173,13 @@ public:
     [[nodiscard]] std::vector<Node> children() const;
 
     /**
+     * @brief Returns a vector of all siblings of the node.
+     *
+     * @return A vector of all sibling nodes.
+     */
+    [[nodiscard]] std::vector<Node> siblings() const;
+
+    /**
      * @brief Adds the Node `node` as a child.
      *
      * If the node where it will get added already has children,

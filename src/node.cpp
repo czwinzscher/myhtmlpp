@@ -120,6 +120,24 @@ std::vector<myhtmlpp::Node> myhtmlpp::Node::children() const {
     return res;
 }
 
+std::vector<myhtmlpp::Node> myhtmlpp::Node::siblings() const {
+    std::vector<myhtmlpp::Node> res;
+
+    myhtml_tree_node_t* raw_prev = myhtml_node_prev(m_raw_node);
+    while (raw_prev != nullptr) {
+        res.emplace_back(raw_prev);
+        raw_prev = myhtml_node_prev(raw_prev);
+    }
+
+    myhtml_tree_node_t* raw_next = myhtml_node_next(m_raw_node);
+    while (raw_next != nullptr) {
+        res.emplace_back(raw_next);
+        raw_next = myhtml_node_next(raw_next);
+    }
+
+    return res;
+}
+
 void myhtmlpp::Node::add_child(const Node& node) {
     myhtml_tree_node_add_child(m_raw_node, node.m_raw_node);
 }
