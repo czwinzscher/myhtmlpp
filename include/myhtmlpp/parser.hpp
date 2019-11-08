@@ -27,7 +27,8 @@ Tree parse(const std::string& html, myhtml_options opt = MyHTML_OPTIONS_DEFAULT,
  *        or myhtml_parse_fragment does not return MyHTML_STATUS_OK.
  * @return A Tree with the parsed HTML nodes.
  */
-Tree parse_fragment(const std::string& html, myhtml_tag_id_t tag_id,
+Tree parse_fragment(const std::string& html,
+                    myhtml_tag_id_t tag_id = MyHTML_TAG_DIV,
                     myhtml_namespace ns = MyHTML_NAMESPACE_HTML,
                     myhtml_options opt = MyHTML_OPTIONS_DEFAULT,
                     size_t thread_count = 1, size_t queue_size = 4096);
