@@ -164,6 +164,10 @@ myhtmlpp::Attribute myhtmlpp::Node::at(const std::string& key) const {
     return Attribute(attr);
 }
 
+bool myhtmlpp::Node::has_attributes() const {
+    return first_attribute() != std::nullopt;
+}
+
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
     return optional_helper<Attribute>(myhtml_node_attribute_first, m_raw_node);
 }

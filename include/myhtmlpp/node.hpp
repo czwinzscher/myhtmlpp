@@ -220,6 +220,13 @@ public:
     [[nodiscard]] Attribute at(const std::string& key) const;
 
     /**
+     * @brief Checks if the node has at least one attribute.
+     *
+     * @return true if the node has one or more attributes, false otherwhise.
+     */
+    [[nodiscard]] bool has_attributes() const;
+
+    /**
      * @brief Returns the first attribute in the node.
      *
      * @return An optional with the first attribute in the node if it exists,

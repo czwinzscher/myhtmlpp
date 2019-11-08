@@ -195,7 +195,11 @@ TEST_CASE("node") {
         CHECK(img_node.html() == R"(<img src="image.jpg" hidden="">)");
     }
 
-    SUBCASE("attribute access") {
+    SUBCASE("attributes") {
+        CHECK(!doc.has_attributes());
+        CHECK(!html_node.has_attributes());
+        CHECK(!body_node.has_attributes());
+
         auto div_node_it =
             std::find_if(tree.begin(), tree.end(), [](const auto& node) {
                 return node.tag_id() == MyHTML_TAG_DIV;
@@ -203,6 +207,7 @@ TEST_CASE("node") {
         REQUIRE(div_node_it != tree.end());
 
         auto div_node = *div_node_it;
+        CHECK(div_node.has_attributes());
         auto class_attr = div_node["class"];
         auto [k, v] = class_attr;
         CHECK(class_attr.key() == "class");
