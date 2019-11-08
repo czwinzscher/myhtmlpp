@@ -63,7 +63,8 @@ int main() {
     }
 
     // create new nodes
-    auto p_node = tree.create_node(myhtmlpp::TAG::P, myhtmlpp::NAMESPACE::HTML);
+    auto p_node = tree.create_node(myhtmlpp::TAG::P);
+    p_node.add_attribute("class", "added");
 
     // ... and insert them into the tree
     div_node.insert_after(p_node); // or insert_before or add_child
