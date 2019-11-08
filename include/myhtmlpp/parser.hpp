@@ -4,7 +4,6 @@
 #include "tree.hpp"
 
 #include <cstddef>
-#include <myhtml/api.h>
 #include <string>
 
 namespace myhtmlpp {

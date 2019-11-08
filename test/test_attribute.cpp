@@ -1,8 +1,13 @@
 #include "doctest/doctest.h"
+#include "myhtmlpp/attribute.hpp"
+#include "myhtmlpp/constants.hpp"
+#include "myhtmlpp/node.hpp"
 #include "myhtmlpp/parser.hpp"
+#include "myhtmlpp/tree.hpp"
 
 #include <algorithm>
-#include <myhtml/api.h>
+#include <optional>
+#include <string>
 #include <utility>
 
 TEST_CASE("attribute") {

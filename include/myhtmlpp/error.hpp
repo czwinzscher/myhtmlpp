@@ -1,8 +1,7 @@
 #pragma once
 
-#include <myhtml/api.h>
+#include <mycore/myosi.h>
 #include <stdexcept>
-#include <string>
 
 namespace myhtmlpp {
 

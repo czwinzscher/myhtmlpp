@@ -1,4 +1,5 @@
 #include "doctest/doctest.h"
+#include "myhtmlpp/constants.hpp"
 #include "myhtmlpp/node.hpp"
 #include "myhtmlpp/parser.hpp"
 #include "myhtmlpp/tree.hpp"
@@ -6,7 +7,6 @@
 #include <algorithm>
 #include <iostream>
 #include <iterator>
-#include <myhtml/api.h>
 #include <sstream>
 #include <string>
 #include <utility>

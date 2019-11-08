@@ -9,7 +9,6 @@
 #include <mycore/myosi.h>
 #include <myencoding/myosi.h>
 #include <myhtml/api.h>
-#include <stdexcept>
 #include <string>
 
 template <typename ParseFunc, typename... ParseArgs>
