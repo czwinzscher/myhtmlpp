@@ -107,7 +107,7 @@ public:
      * @return An enum member of myhtml_namespace_t
      *         with the namespace of the node.
      */
-    [[nodiscard]] myhtml_namespace_t ns() const;
+    [[nodiscard]] myhtml_namespace_t get_namespace() const;
 
     /**
      * @brief Returns if the node is a void element or not.
@@ -123,7 +123,7 @@ public:
      *
      * @param new_ns The new namespace.
      */
-    void set_ns(myhtml_namespace_t new_ns);
+    void set_namespace(myhtml_namespace_t new_ns);
 
     /**
      * @brief Returns the first child in the node.

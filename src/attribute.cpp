@@ -35,11 +35,11 @@ std::string myhtmlpp::Attribute::value() const {
     return "";
 }
 
-myhtml_namespace_t myhtmlpp::Attribute::ns() const {
+myhtml_namespace_t myhtmlpp::Attribute::get_namespace() const {
     return myhtml_attribute_namespace(m_raw_attribute);
 }
 
-void myhtmlpp::Attribute::set_ns(myhtml_namespace_t new_ns) {
+void myhtmlpp::Attribute::set_namespace(myhtml_namespace_t new_ns) {
     myhtml_attribute_namespace_set(m_raw_attribute, new_ns);
 }
 

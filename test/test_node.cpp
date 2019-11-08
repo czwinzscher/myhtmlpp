@@ -36,7 +36,7 @@ TEST_CASE("node") {
 
     auto doc = tree.document_node();
     REQUIRE(doc.children().size() == 2);
-    REQUIRE(doc.ns() == MyHTML_NAMESPACE_HTML);
+    REQUIRE(doc.get_namespace() == MyHTML_NAMESPACE_HTML);
 
     auto doctype_opt = doc.first_child();
     REQUIRE(doctype_opt.has_value());
@@ -77,7 +77,7 @@ TEST_CASE("node") {
     SUBCASE("node attributes") {
         CHECK(doc.text().empty());
         CHECK(doc.tag_id() == MyHTML_TAG__UNDEF);
-        CHECK(doc.ns() == MyHTML_NAMESPACE_HTML);
+        CHECK(doc.get_namespace() == MyHTML_NAMESPACE_HTML);
 
         CHECK(html_node.text().empty());
         CHECK(html_node.tag_id() == MyHTML_TAG_HTML);
@@ -141,8 +141,8 @@ TEST_CASE("node") {
         new_node.remove();
         CHECK(ul_node.next().value() != new_node);
 
-        ul_node.set_ns(MyHTML_NAMESPACE_XML);
-        CHECK(ul_node.ns() == MyHTML_NAMESPACE_XML);
+        ul_node.set_namespace(MyHTML_NAMESPACE_XML);
+        CHECK(ul_node.get_namespace() == MyHTML_NAMESPACE_XML);
     }
 
     SUBCASE("node traversal") {
@@ -209,7 +209,7 @@ TEST_CASE("node") {
         CHECK(class_attr.previous().value() ==
               div_node.first_attribute().value());
         CHECK(!class_attr.next().has_value());
-        CHECK(class_attr.ns() == MyHTML_NAMESPACE_HTML);
+        CHECK(class_attr.get_namespace() == MyHTML_NAMESPACE_HTML);
 
         CHECK_NOTHROW(auto c = div_node.at("class"));
         CHECK_THROWS_WITH_AS(auto s = div_node.at("style"),

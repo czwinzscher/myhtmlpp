@@ -76,7 +76,7 @@ std::string myhtmlpp::Node::tag_string() const {
     return tag_name != nullptr ? tag_name : "";
 }
 
-myhtml_namespace_t myhtmlpp::Node::ns() const {
+myhtml_namespace_t myhtmlpp::Node::get_namespace() const {
     return myhtml_node_namespace(m_raw_node);
 }
 
@@ -84,7 +84,7 @@ bool myhtmlpp::Node::is_void_element() const {
     return myhtml_node_is_void_element(m_raw_node);
 }
 
-void myhtmlpp::Node::set_ns(myhtml_namespace_t new_ns) {
+void myhtmlpp::Node::set_namespace(myhtml_namespace_t new_ns) {
     myhtml_node_namespace_set(m_raw_node, new_ns);
 }
 
