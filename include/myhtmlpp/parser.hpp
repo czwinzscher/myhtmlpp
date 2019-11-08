@@ -1,5 +1,6 @@
 #pragma once
 
+#include "constants.hpp"
 #include "tree.hpp"
 
 #include <cstddef>
@@ -16,7 +17,7 @@ namespace myhtmlpp {
  *        or myhtml_parse does not return MyHTML_STATUS_OK.
  * @return A Tree with the parsed HTML nodes.
  */
-Tree parse(const std::string& html, myhtml_options opt = MyHTML_OPTIONS_DEFAULT,
+Tree parse(const std::string& html, OPTION opt = OPTION::DEFAULT,
            size_t thread_count = 1, size_t queue_size = 4096);
 
 /**
@@ -28,9 +29,9 @@ Tree parse(const std::string& html, myhtml_options opt = MyHTML_OPTIONS_DEFAULT,
  * @return A Tree with the parsed HTML nodes.
  */
 Tree parse_fragment(const std::string& html,
-                    myhtml_tag_id_t tag_id = MyHTML_TAG_DIV,
-                    myhtml_namespace ns = MyHTML_NAMESPACE_HTML,
-                    myhtml_options opt = MyHTML_OPTIONS_DEFAULT,
+                    TAG tag_id = TAG::DIV,
+                    NAMESPACE ns = NAMESPACE::HTML,
+                    OPTION opt = OPTION::DEFAULT,
                     size_t thread_count = 1, size_t queue_size = 4096);
 
 }  // namespace myhtmlpp
