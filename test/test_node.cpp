@@ -71,7 +71,7 @@ TEST_CASE("node") {
 
         auto body2 = std::move(body_node);
         CHECK(body2.good());
-        CHECK(!body_node.good()); // NOLINT
+        CHECK(!body_node.good());  // NOLINT
     }
 
     SUBCASE("node attributes") {
