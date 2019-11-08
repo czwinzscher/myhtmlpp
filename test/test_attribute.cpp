@@ -3,6 +3,7 @@
 
 #include <algorithm>
 #include <myhtml/api.h>
+#include <utility>
 
 TEST_CASE("attribute") {
     std::string html(
@@ -55,6 +56,18 @@ TEST_CASE("attribute") {
         CHECK(class_attr.good());
         CHECK(src_attr.good());
         CHECK(!(*p_node.end()).good());
+    }
+
+    SUBCASE("move semantics") {
+        CHECK(class_attr.good());
+        auto class_attr2 = std::move(class_attr);
+        CHECK(class_attr2.good());
+        CHECK(!class_attr.good());  // NOLINT
+
+        CHECK(src_attr.good());
+        hidden_attr = std::move(src_attr);
+        CHECK(hidden_attr.good());
+        CHECK(!src_attr.good());  // NOLINT
     }
 
     SUBCASE("structured bindings") {
