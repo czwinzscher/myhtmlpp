@@ -85,9 +85,7 @@ bool myhtmlpp::Node::is_void_element() const {
     return myhtml_node_is_void_element(m_raw_node);
 }
 
-bool myhtmlpp::Node::is_text_node() const {
-    return tag_id() == TAG::TEXT_;
-}
+bool myhtmlpp::Node::is_text_node() const { return tag_id() == TAG::TEXT_; }
 
 void myhtmlpp::Node::set_namespace(myhtmlpp::NAMESPACE new_ns) {
     myhtml_node_namespace_set(m_raw_node,
