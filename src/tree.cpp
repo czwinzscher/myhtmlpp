@@ -22,13 +22,22 @@ myhtmlpp::Tree::Tree(Tree&& other) noexcept
     other.m_raw_myhtml = nullptr;
 }
 
-// TODO destroy resources if it's another tree
 myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
-    m_raw_tree = other.m_raw_tree;
-    m_raw_myhtml = other.m_raw_myhtml;
+    // if the tree is not empty and the other tree is different
+    // we have to release the resources of the tree.
+    if (m_raw_myhtml != nullptr && m_raw_myhtml != other.m_raw_myhtml) {
+        myhtml_destroy(m_raw_myhtml);
+    }
 
-    other.m_raw_tree = nullptr;
+    if (m_raw_tree != nullptr && m_raw_tree != other.m_raw_tree) {
+        myhtml_tree_destroy(m_raw_tree);
+    }
+
+    m_raw_myhtml = other.m_raw_myhtml;
+    m_raw_tree = other.m_raw_tree;
+
     other.m_raw_myhtml = nullptr;
+    other.m_raw_tree = nullptr;
 
     return *this;
 }
