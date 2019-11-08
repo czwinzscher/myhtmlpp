@@ -1,5 +1,6 @@
 #include "myhtmlpp/tree.hpp"
 
+#include "myhtmlpp/constants.hpp"
 #include "myhtmlpp/node.hpp"
 
 #include <mycore/myosi.h>
@@ -70,9 +71,11 @@ std::string myhtmlpp::Tree::html() const {
     return str.data != nullptr ? str.data : "";
 }
 
-myhtmlpp::Node myhtmlpp::Tree::create_node(myhtml_tag_id_t tag_id,
-                                           myhtml_namespace_t ns) {
-    myhtml_tree_node_t* n = myhtml_node_create(m_raw_tree, tag_id, ns);
+myhtmlpp::Node myhtmlpp::Tree::create_node(myhtmlpp::TAG tag_id,
+                                           myhtmlpp::NAMESPACE ns) {
+    myhtml_tree_node_t* n =
+        myhtml_node_create(m_raw_tree, static_cast<myhtml_tag_id_t>(tag_id),
+                           static_cast<myhtml_namespace_t>(ns));
 
     return Node(n);
 }

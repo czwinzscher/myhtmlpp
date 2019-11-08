@@ -1,5 +1,6 @@
 #pragma once
 
+#include "constants.hpp"
 #include "node.hpp"
 
 #include <iterator>
@@ -87,8 +88,7 @@ public:
      *
      * @return the created node.
      */
-    Node create_node(myhtml_tag_id_t tag_id,
-                     myhtml_namespace_t ns = MyHTML_NAMESPACE_HTML);
+    Node create_node(TAG tag_id, NAMESPACE ns = NAMESPACE::HTML);
 
     /// A Tree Iterator class.
     class Iterator {

@@ -1,5 +1,6 @@
 #include "doctest/doctest.h"
 #include "myhtmlpp/attribute.hpp"
+#include "myhtmlpp/constants.hpp"
 #include "myhtmlpp/node.hpp"
 #include "myhtmlpp/parser.hpp"
 #include "myhtmlpp/tree.hpp"
@@ -126,7 +127,7 @@ TEST_CASE("node") {
                                 return node.tag_id() == MyHTML_TAG_LI;
                             }) == 2);
 
-        auto new_node = tree.create_node(MyHTML_TAG_LI, MyHTML_NAMESPACE_HTML);
+        auto new_node = tree.create_node(myhtmlpp::TAG::LI, myhtmlpp::NAMESPACE::HTML);
         ul_node.add_child(new_node);
 
         ul_children = ul_node.children();
@@ -135,11 +136,11 @@ TEST_CASE("node") {
                                 return node.tag_id() == MyHTML_TAG_LI;
                             }) == 3);
 
-        new_node = tree.create_node(MyHTML_TAG_A, MyHTML_NAMESPACE_HTML);
+        new_node = tree.create_node(myhtmlpp::TAG::A, myhtmlpp::NAMESPACE::HTML);
         ul_node.insert_before(new_node);
         CHECK(ul_node.previous().value() == new_node);
 
-        new_node = tree.create_node(MyHTML_TAG_CITE, MyHTML_NAMESPACE_HTML);
+        new_node = tree.create_node(myhtmlpp::TAG::CITE, myhtmlpp::NAMESPACE::HTML);
         ul_node.insert_after(new_node);
         CHECK(ul_node.next().value() == new_node);
 
