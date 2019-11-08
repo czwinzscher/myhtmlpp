@@ -20,7 +20,7 @@ int main() {
 
     // iterate over all nodes in the tree
     for (const auto& node : tree) {
-        if (node.tag_id() == myhtmlpp::TAG::TEXT_) {
+        if (node.is_text_node()) {
             std::cout << node.text() << "\n";
         }
     }
