@@ -15,6 +15,19 @@
 
 myhtmlpp::Node::Node(myhtml_tree_node_t* raw_node) : m_raw_node(raw_node) {}
 
+myhtmlpp::Node::Node(Node&& other) noexcept
+    : m_raw_node(other.m_raw_node) {
+    other.m_raw_node = nullptr;
+}
+
+myhtmlpp::Node& myhtmlpp::Node::operator=(Node&& other) noexcept {
+    m_raw_node = other.m_raw_node;
+
+    other.m_raw_node = nullptr;
+
+    return *this;
+}
+
 bool myhtmlpp::Node::operator==(const Node& other) const {
     return m_raw_node == other.m_raw_node;
 }

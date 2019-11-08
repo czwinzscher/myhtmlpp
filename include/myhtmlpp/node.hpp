@@ -23,6 +23,14 @@ public:
      */
     explicit Node(myhtml_tree_node_t* raw_node);
 
+    ~Node() = default;
+
+    Node(const Node&) = default;
+    Node& operator=(const Node&) = default;
+
+    Node(Node&& other) noexcept;
+    Node& operator=(Node&& other) noexcept;
+
     /**
      * @brief Check if two nodes are equal.
      *
