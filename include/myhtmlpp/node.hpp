@@ -247,6 +247,15 @@ public:
     [[nodiscard]] bool has_attributes() const;
 
     /**
+     * @brief Checks if the node has an attribute with the key `key`.
+     *
+     * @param key The key to check.
+     * @return true if the node has an attribute with the key `key`,
+     *         false otherwise.
+     */
+    [[nodiscard]] bool has_attribute(const std::string& key);
+
+    /**
      * @brief Returns the first attribute in the node.
      *
      * @return An optional with the first attribute in the node if it exists,

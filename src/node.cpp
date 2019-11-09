@@ -179,6 +179,13 @@ bool myhtmlpp::Node::has_attributes() const {
     return first_attribute() != std::nullopt;
 }
 
+bool myhtmlpp::Node::has_attribute(const std::string& key) {
+    myhtml_tree_attr_t* attr =
+        myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
+
+    return attr != nullptr;
+}
+
 std::optional<myhtmlpp::Attribute> myhtmlpp::Node::first_attribute() const {
     return optional_helper<Attribute>(myhtml_node_attribute_first, m_raw_node);
 }

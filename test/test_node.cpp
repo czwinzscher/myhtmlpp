@@ -230,6 +230,8 @@ TEST_CASE("node") {
 
         auto div_node = *div_node_it;
         CHECK(div_node.has_attributes());
+        CHECK(div_node.has_attribute("class"));
+        CHECK(!div_node.has_attribute("style"));
         auto class_attr = div_node["class"];
         auto [k, v] = class_attr;
         CHECK(class_attr.key() == "class");
@@ -249,6 +251,7 @@ TEST_CASE("node") {
                              std::out_of_range);
 
         auto style_attr = div_node.add_attribute("style", "bold");
+        CHECK(div_node.has_attribute("style"));
         CHECK(style_attr == div_node.at("style"));
 
         CHECK(!div_node.remove_attribute_by_key("href"));
