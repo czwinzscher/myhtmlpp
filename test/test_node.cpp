@@ -55,6 +55,8 @@ TEST_CASE("node") {
     auto body_node = html_children.at(2);
     REQUIRE(body_node == tree.body_node());
 
+    auto bad_node = *tree.end();
+
     SUBCASE("good") {
         for (const auto& node : tree) {
             CHECK(node.good());
@@ -64,6 +66,8 @@ TEST_CASE("node") {
 
         auto n = std::move(doc);
         CHECK(!doc.good());  // NOLINT
+
+        CHECK(!bad_node.good());
     }
 
     SUBCASE("move semantics") {
@@ -77,7 +81,7 @@ TEST_CASE("node") {
         CHECK(!body_node.good());  // NOLINT
     }
 
-    SUBCASE("node attributes") {
+    SUBCASE("getters") {
         CHECK(doc.text().empty());
         CHECK(doc.tag_id() == myhtmlpp::TAG::UNDEF_);
         CHECK(doc.tag_string() == "-undef");
@@ -112,6 +116,11 @@ TEST_CASE("node") {
 
         auto img_node = *img_node_it;
         CHECK(img_node.is_void_element());
+
+        CHECK(!bad_node.parent().has_value());
+        CHECK(!bad_node.next().has_value());
+        CHECK(!bad_node.previous().has_value());
+        CHECK(!bad_node["aaaaaa"].good());
     }
 
     SUBCASE("node manipulation") {
