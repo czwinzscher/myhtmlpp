@@ -149,10 +149,26 @@ TEST_CASE("node") {
         CHECK(ul_node.next().value() == new_node);
 
         new_node.remove_from_tree();
+        CHECK(new_node.good());
         CHECK(ul_node.next().value() != new_node);
 
         ul_node.set_namespace(myhtmlpp::NAMESPACE::XML);
         CHECK(ul_node.get_namespace() == myhtmlpp::NAMESPACE::XML);
+
+        ul_node.delete_from_tree_recursive();
+        CHECK(!ul_node.previous().has_value());
+        CHECK(!ul_node.next().has_value());
+        ul_node_it =
+            std::find_if(tree.begin(), tree.end(), [](const auto& node) {
+                return node.tag_id() == myhtmlpp::TAG::UL;
+            });
+        CHECK(ul_node_it == tree.end());
+
+        auto li_node_it =
+            std::find_if(tree.begin(), tree.end(), [](const auto& node) {
+                return node.tag_id() == myhtmlpp::TAG::LI;
+            });
+        CHECK(li_node_it == tree.end());
     }
 
     SUBCASE("node traversal") {
