@@ -33,10 +33,6 @@ TEST_CASE("attribute") {
 
     auto p_node = *p_node_it;
     auto class_attr = p_node["class"];
-    CHECK(class_attr.key() == "class");
-    CHECK(class_attr.value() == "hello");
-    CHECK(!class_attr.previous().has_value());
-    CHECK(!class_attr.next().has_value());
 
     auto img_node_it =
         std::find_if(tree.begin(), tree.end(), [](const auto& node) {
@@ -46,14 +42,9 @@ TEST_CASE("attribute") {
 
     auto img_node = *img_node_it;
     auto src_attr = img_node.at("src");
-    CHECK(src_attr.key() == "src");
-    CHECK(src_attr.value() == "image.jpg");
-    CHECK(!src_attr.previous().has_value());
-    CHECK(src_attr.next().has_value());
+    auto bad_attr = img_node["href"];
 
     auto hidden_attr = src_attr.next().value();
-    CHECK(hidden_attr.value().empty());
-    CHECK(hidden_attr.previous().value() == src_attr);
 
     CHECK(class_attr != src_attr);
 
@@ -61,6 +52,35 @@ TEST_CASE("attribute") {
         CHECK(class_attr.good());
         CHECK(src_attr.good());
         CHECK(!(*p_node.end()).good());
+
+        CHECK(!bad_attr.good());
+    }
+
+    SUBCASE("getters") {
+        CHECK(class_attr.key() == "class");
+        CHECK(class_attr.value() == "hello");
+
+        CHECK(src_attr.key() == "src");
+        CHECK(src_attr.value() == "image.jpg");
+
+        CHECK(hidden_attr.value().empty());
+
+        CHECK(bad_attr.key() == "");
+        CHECK(bad_attr.value() == "");
+        CHECK(bad_attr.get_namespace() == myhtmlpp::NAMESPACE::UNDEF);
+    }
+
+    SUBCASE("traversal") {
+        CHECK(!class_attr.previous().has_value());
+        CHECK(!class_attr.next().has_value());
+
+        CHECK(!src_attr.previous().has_value());
+        CHECK(src_attr.next().has_value());
+
+        CHECK(hidden_attr.previous().value() == src_attr);
+
+        CHECK(!bad_attr.previous().has_value());
+        CHECK(!bad_attr.next().has_value());
     }
 
     SUBCASE("move semantics") {
