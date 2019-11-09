@@ -213,8 +213,20 @@ public:
 
     /**
      * @brief Remove the node from the tree.
+     *
+     * @return The removed Node.
      */
-    void remove();
+    Node remove_from_tree();
+
+    /**
+     * @brief Remove the node from the tree and release resources.
+     */
+    void delete_from_tree();
+
+    /**
+     * @brief Remove nodes recursively from the tree and release resources.
+     */
+    void delete_from_tree_recursive();
 
     /**
      * Returns an Attribute in the node with the key `key`.
