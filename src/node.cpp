@@ -83,12 +83,20 @@ myhtmlpp::NAMESPACE myhtmlpp::Node::get_namespace() const {
 }
 
 bool myhtmlpp::Node::is_void_element() const {
+    if (!good()) {
+        return false;
+    }
+
     return myhtml_node_is_void_element(m_raw_node);
 }
 
 bool myhtmlpp::Node::is_text_node() const { return tag_id() == TAG::TEXT_; }
 
 void myhtmlpp::Node::set_namespace(myhtmlpp::NAMESPACE new_ns) {
+    if (!good()) {
+        return;
+    }
+
     myhtml_node_namespace_set(m_raw_node,
                               static_cast<myhtml_namespace_t>(new_ns));
 }
