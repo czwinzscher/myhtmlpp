@@ -216,7 +216,7 @@ public:
      *
      * @return The removed Node.
      */
-    Node remove_from_tree();
+    void remove_from_tree();
 
     /**
      * @brief Remove the node from the tree and release resources.

@@ -155,15 +155,9 @@ void myhtmlpp::Node::insert_after(const Node& node) {
     myhtml_tree_node_insert_after(m_raw_node, node.m_raw_node);
 }
 
-myhtmlpp::Node myhtmlpp::Node::remove_from_tree() {
-    myhtml_tree_node_t* raw_node = myhtml_node_remove(m_raw_node);
+void myhtmlpp::Node::remove_from_tree() { myhtml_node_remove(m_raw_node); }
 
-    return Node(raw_node);
-}
-
-void myhtmlpp::Node::delete_from_tree() {
-    myhtml_node_delete(m_raw_node);
-}
+void myhtmlpp::Node::delete_from_tree() { myhtml_node_delete(m_raw_node); }
 
 void myhtmlpp::Node::delete_from_tree_recursive() {
     myhtml_node_delete_recursive(m_raw_node);
