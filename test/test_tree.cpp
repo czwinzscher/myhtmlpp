@@ -39,7 +39,7 @@ TEST_CASE("tree") {
     SUBCASE("good") {
         CHECK(tree.good());
 
-        tree.html_node().remove();
+        tree.html_node().remove_from_tree();
         CHECK(tree.good());
     }
 

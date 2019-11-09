@@ -148,7 +148,7 @@ TEST_CASE("node") {
         ul_node.insert_after(new_node);
         CHECK(ul_node.next().value() == new_node);
 
-        new_node.remove();
+        new_node.remove_from_tree();
         CHECK(ul_node.next().value() != new_node);
 
         ul_node.set_namespace(myhtmlpp::NAMESPACE::XML);
