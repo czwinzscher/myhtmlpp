@@ -121,6 +121,7 @@ TEST_CASE("node") {
         CHECK(!bad_node.next().has_value());
         CHECK(!bad_node.previous().has_value());
         CHECK(!bad_node["aaaaaa"].good());
+        CHECK(bad_node.html_deep().empty());
     }
 
     SUBCASE("node manipulation") {
