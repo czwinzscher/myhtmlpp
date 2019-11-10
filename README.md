@@ -52,27 +52,15 @@ int main() {
     assert(div_node_it != tree.end());
     auto div_node = *div_node_it;
 
-    // add attributes to nodes
-    auto style_attr = div_node.add_attribute("style", "color:green");
-    assert(div_node.attributes().size() == 3);
-
     // access attributes with operator[]
-    auto also_style_attr = div_node["style"];
-    assert(style_attr == also_style_attr);
+    auto class_attr = div_node["class"];
+    assert(class_attr.value() == "test");
 
     // iterate over all attributes of a node
     // attributes support structured bindings
     for (const auto& [key, value] : div_node) {
         std::cout << key << "=\"" << value << "\"\n";
     }
-
-    // create new nodes
-    auto p_node = tree.create_node(myhtmlpp::TAG::P);
-    p_node.add_attribute("class", "added");
-
-    // ... and insert them into the tree
-    div_node.insert_after(p_node); // or insert_before or add_child
-    assert(div_node.next().value() == p_node);
 }
 ```
 
