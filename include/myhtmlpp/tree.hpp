@@ -81,6 +81,24 @@ public:
     [[nodiscard]] std::string html() const;
 
     /**
+     * Returns all nodes in the tree where the tag matches `tag`.
+     *
+     * @param tag The tag to search.
+     * @return A vector of all nodes in the tree where
+     *         `tag_string()` returns `tag`.
+     */
+    [[nodiscard]] std::vector<Node> find_all(const std::string& tag) const;
+
+    /**
+     * Returns all nodes in the tree where the tag matches `tag`.
+     *
+     * @param tag The tag to search.
+     * @return A vector of all nodes in the tree where
+     *         `tag_id()` returns `tag`.
+     */
+    [[nodiscard]] std::vector<Node> find_all(TAG tag) const;
+
+    /**
      * Creates a new node in the tree.
      *
      * @param tag_id the tag of the created node.

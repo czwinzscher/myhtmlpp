@@ -3,6 +3,8 @@
 #include "myhtmlpp/constants.hpp"
 #include "myhtmlpp/node.hpp"
 
+#include <algorithm>
+#include <iterator>
 #include <mycore/myosi.h>
 #include <mycore/mystring.h>
 #include <myhtml/api.h>
@@ -70,6 +72,24 @@ std::string myhtmlpp::Tree::html() const {
                                      &str);
 
     return str.data != nullptr ? str.data : "";
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_all(const std::string& tag) const {
+    std::vector<Node> res;
+    std::copy_if(begin(), end(), std::back_inserter(res),
+                 [&](const auto& node) { return node.tag_string() == tag; });
+
+    return res;
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_all(myhtmlpp::TAG tag) const {
+    std::vector<Node> res;
+    std::copy_if(begin(), end(), std::back_inserter(res),
+                 [&](const auto& node) { return node.tag_id() == tag; });
+
+    return res;
 }
 
 myhtmlpp::Node myhtmlpp::Tree::create_node(myhtmlpp::TAG tag_id,
