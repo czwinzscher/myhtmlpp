@@ -216,17 +216,7 @@ public:
      *
      * @return The removed Node.
      */
-    void remove_from_tree();
-
-    /**
-     * @brief Remove the node from the tree and release resources.
-     */
-    void delete_from_tree();
-
-    /**
-     * @brief Remove nodes recursively from the tree and release resources.
-     */
-    void delete_from_tree_recursive();
+    void remove();
 
     /**
      * Returns an Attribute in the node with the key `key`.
@@ -288,8 +278,6 @@ public:
      * @return The added attribute.
      */
     Attribute add_attribute(const std::string& key, const std::string& value);
-
-    // void remove_attribute(const Attribute& attribute);
 
     /**
      * @brief Removes the attribute with key `key` from the node, if it exists.
