@@ -25,6 +25,9 @@ int main() {
         }
     }
 
+    // find all nodes with a specified tag
+    auto divs = tree.find_all("div");
+
     // get special nodes from the tree
     auto doc = tree.document_node();
     auto root = tree.html_node();
