@@ -45,7 +45,8 @@ int main() {
     // use stl algorithms on the tree
     auto div_node_it =
         std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-            return node.tag_id() == myhtmlpp::TAG::DIV;
+            return node.tag_id() == myhtmlpp::TAG::DIV &&
+                   node.has_attribute("class");
         });
 
     assert(div_node_it != tree.end());
