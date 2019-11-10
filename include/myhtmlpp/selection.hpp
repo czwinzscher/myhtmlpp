@@ -69,7 +69,8 @@ public:
         using pointer = const value_type*;
         using reference = const value_type&;
 
-        ConstIterator(Tree::ConstIterator tree_iter, Tree::ConstIterator tree_end,
+        ConstIterator(Tree::ConstIterator tree_iter,
+                      Tree::ConstIterator tree_end,
                       const FilterFunc& filter_func)
             : m_tree_iter(std::move(tree_iter)),
               m_tree_end(std::move(tree_end)),
