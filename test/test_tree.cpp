@@ -2,6 +2,7 @@
 #include "myhtmlpp/constants.hpp"
 #include "myhtmlpp/node.hpp"
 #include "myhtmlpp/parser.hpp"
+#include "myhtmlpp/selection.hpp"
 #include "myhtmlpp/tree.hpp"
 
 #include <algorithm>
@@ -36,9 +37,7 @@ TEST_CASE("tree") {
 
     auto tree = myhtmlpp::parse(html);
 
-    SUBCASE("good") {
-        CHECK(tree.good());
-    }
+    SUBCASE("good") { CHECK(tree.good()); }
 
     SUBCASE("move semantics") {
         auto tree2 = std::move(tree);
@@ -118,5 +117,18 @@ TEST_CASE("tree") {
                 return node.tag_id() == myhtmlpp::TAG::A;
             });
         CHECK(a_it == tree.end());
+    }
+
+    SUBCASE("filter") {
+        auto nodes_with_attrs =
+            tree.filter([](const auto& node) { return node.has_attributes(); });
+
+        CHECK(nodes_with_attrs.to_vector().size() == 5);
+        for (const auto& node : nodes_with_attrs) {
+            CHECK(node.has_attributes());
+        }
+
+        CHECK(nodes_with_attrs.begin() != nodes_with_attrs.end());
+        CHECK((*nodes_with_attrs.begin()).tag_id() == myhtmlpp::TAG::DOCTYPE_);
     }
 }
