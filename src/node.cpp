@@ -165,16 +165,12 @@ void myhtmlpp::Node::insert_after(const Node& node) {
 
 void myhtmlpp::Node::remove() { myhtml_node_remove(m_raw_node); }
 
-myhtmlpp::Attribute myhtmlpp::Node::at(const std::string& key) const {
+std::optional<myhtmlpp::Attribute>
+myhtmlpp::Node::at(const std::string& key) const {
     myhtml_tree_attr_t* attr =
         myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
 
-    if (attr == nullptr) {
-        throw std::out_of_range("attribute with key " + key +
-                                " does not exist.");
-    }
-
-    return Attribute(attr);
+    return attr != nullptr ? std::make_optional(Attribute(attr)) : std::nullopt;
 }
 
 bool myhtmlpp::Node::has_attributes() const {

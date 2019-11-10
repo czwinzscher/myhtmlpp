@@ -246,10 +246,8 @@ TEST_CASE("node") {
         CHECK(!class_attr.next().has_value());
         CHECK(class_attr.get_namespace() == myhtmlpp::NAMESPACE::HTML);
 
-        CHECK_NOTHROW(auto c = div_node.at("class"));
-        CHECK_THROWS_WITH_AS(auto s = div_node.at("style"),
-                             "attribute with key style does not exist.",
-                             std::out_of_range);
+        CHECK(div_node.at("class").has_value());
+        CHECK(!div_node.at("style").has_value());
 
         auto style_attr = div_node.add_attribute("style", "bold");
         CHECK(div_node.has_attribute("style"));
@@ -257,7 +255,7 @@ TEST_CASE("node") {
 
         CHECK(!div_node.remove_attribute_by_key("href"));
         CHECK(div_node.remove_attribute_by_key("id"));
-        CHECK_THROWS(auto a = div_node.at("id"));
+        CHECK(!div_node.at("id").has_value());
     }
 
     SUBCASE("iterator") {

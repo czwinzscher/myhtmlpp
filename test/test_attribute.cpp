@@ -41,7 +41,7 @@ TEST_CASE("attribute") {
     REQUIRE(img_node_it != tree.end());
 
     auto img_node = *img_node_it;
-    auto src_attr = img_node.at("src");
+    auto src_attr = img_node.at("src").value();
     auto bad_attr = img_node["href"];
 
     auto hidden_attr = src_attr.next().value();

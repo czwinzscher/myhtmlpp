@@ -222,12 +222,10 @@ public:
      * Returns an Attribute in the node with the key `key`.
      *
      * @param key the key of the attribute to access.
-     * @throw std::out_of_range if node does not have attribute with
-     *        key `key`.
-     * @return Attribute with the key `key` if it exists,
-     *         Attribute that gets initialised with nullptr otherwise.
+     * @return Optional with the Attribute with the key `key` if it exists,
+     *         std::nullopt otherwise.
      */
-    [[nodiscard]] Attribute at(const std::string& key) const;
+    [[nodiscard]] std::optional<Attribute> at(const std::string& key) const;
 
     /**
      * @brief Checks if the node has at least one attribute.
