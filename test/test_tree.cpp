@@ -80,6 +80,42 @@ TEST_CASE("tree") {
         CHECK(tree.html() == html_str);
     }
 
+    SUBCASE("nodes") {
+        CHECK(tree.document_node().good());
+        CHECK(tree.html_node().good());
+        CHECK(tree.head_node().good());
+        CHECK(tree.body_node().good());
+    }
+
+    SUBCASE("find") {
+        auto p_by_string = tree.find_all("p");
+        auto p_by_tag = tree.find_all(myhtmlpp::TAG::P);
+        CHECK(p_by_string == p_by_tag);
+        CHECK(p_by_string.size() == 3);
+
+        CHECK(tree.find_all("").empty());
+        CHECK(tree.find_all("iudwibfoe").empty());
+
+        CHECK(tree.find_all("-text").size() == 21);
+        CHECK(tree.find_all(myhtmlpp::TAG::UNDEF_).size() == 1);
+    }
+
+    SUBCASE("create nodes") {
+        auto node =
+            tree.create_node(myhtmlpp::TAG::DIV, myhtmlpp::NAMESPACE::XML);
+
+        CHECK(node.good());
+        CHECK(node.tag_id() == myhtmlpp::TAG::DIV);
+        CHECK(node.get_namespace() == myhtmlpp::NAMESPACE::XML);
+
+        auto node_default_namespace = tree.create_node(myhtmlpp::TAG::IMG);
+
+        CHECK(node_default_namespace.good());
+        CHECK(node_default_namespace.tag_id() == myhtmlpp::TAG::IMG);
+        CHECK(node_default_namespace.get_namespace() ==
+              myhtmlpp::NAMESPACE::HTML);
+    }
+
     SUBCASE("iterator") {
         CHECK(*tree.begin() == tree.document_node());
         CHECK(!(*tree.end()).good());
@@ -101,28 +137,5 @@ TEST_CASE("tree") {
                 return node.tag_id() == myhtmlpp::TAG::A;
             });
         CHECK(a_it == tree.end());
-    }
-
-    SUBCASE("nodes") {
-        CHECK(tree.document_node().good());
-        CHECK(tree.html_node().good());
-        CHECK(tree.head_node().good());
-        CHECK(tree.body_node().good());
-    }
-
-    SUBCASE("create nodes") {
-        auto node =
-            tree.create_node(myhtmlpp::TAG::DIV, myhtmlpp::NAMESPACE::XML);
-
-        CHECK(node.good());
-        CHECK(node.tag_id() == myhtmlpp::TAG::DIV);
-        CHECK(node.get_namespace() == myhtmlpp::NAMESPACE::XML);
-
-        auto node_default_namespace = tree.create_node(myhtmlpp::TAG::IMG);
-
-        CHECK(node_default_namespace.good());
-        CHECK(node_default_namespace.tag_id() == myhtmlpp::TAG::IMG);
-        CHECK(node_default_namespace.get_namespace() ==
-              myhtmlpp::NAMESPACE::HTML);
     }
 }
