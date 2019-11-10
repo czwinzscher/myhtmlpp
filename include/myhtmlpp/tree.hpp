@@ -98,16 +98,6 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_all(TAG tag) const;
 
-    /**
-     * Creates a new node in the tree.
-     *
-     * @param tag_id the tag of the created node.
-     * @param ns the namespace of the created node.
-     *
-     * @return the created node.
-     */
-    Node create_node(TAG tag_id, NAMESPACE ns = NAMESPACE::HTML);
-
     /// A Tree Iterator class.
     class Iterator {
     public:

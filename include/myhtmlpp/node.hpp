@@ -127,13 +127,6 @@ public:
     [[nodiscard]] bool is_text_node() const;
 
     /**
-     * Set the namespace of the node.
-     *
-     * @param new_ns The new namespace.
-     */
-    void set_namespace(NAMESPACE new_ns);
-
-    /**
      * @brief Returns the first child in the node.
      *
      * @return An optional with the first child node if it exists,
@@ -188,37 +181,6 @@ public:
     [[nodiscard]] std::vector<Node> siblings() const;
 
     /**
-     * @brief Adds the Node `node` as a child.
-     *
-     * If the node where it will get added already has children,
-     * it will be inserted after the last child.
-     *
-     * @param node The node to add.
-     */
-    void add_child(const Node& node);
-
-    /**
-     * @brief Inserts the Node `node` before the node.
-     *
-     * @param node The node to insert.
-     */
-    void insert_before(const Node& node);
-
-    /**
-     * @brief Inserts the Node `node` after the node.
-     *
-     * @param node The node to insert.
-     */
-    void insert_after(const Node& node);
-
-    /**
-     * @brief Remove the node from the tree.
-     *
-     * @return The removed Node.
-     */
-    void remove();
-
-    /**
      * Returns an Attribute in the node with the key `key`.
      *
      * @param key the key of the attribute to access.
@@ -265,25 +227,6 @@ public:
      * @return A vector of all attributes of the node.
      */
     [[nodiscard]] std::vector<Attribute> attributes() const;
-
-    /**
-     * @brief Adds an attribute to the node with key `key`
-     *        and value `value`.
-     *
-     * @param key The key of the added attribute.
-     * @param value the value of the added attribute.
-     *
-     * @return The added attribute.
-     */
-    Attribute add_attribute(const std::string& key, const std::string& value);
-
-    /**
-     * @brief Removes the attribute with key `key` from the node, if it exists.
-     *
-     * @param key The key of the removed attribute.
-     * @return true if an attribute was removed, false otherwise.
-     */
-    bool remove_attribute_by_key(const std::string& key);
 
     /// A Node Iterator class
     class Iterator {

@@ -124,54 +124,6 @@ TEST_CASE("node") {
         CHECK(bad_node.html_deep().empty());
     }
 
-    SUBCASE("node manipulation") {
-        auto ul_node_it =
-            std::find_if(tree.begin(), tree.end(), [](const auto& node) {
-                return node.tag_id() == myhtmlpp::TAG::UL;
-            });
-        REQUIRE(ul_node_it != tree.end());
-
-        auto ul_node = *ul_node_it;
-        auto ul_children = ul_node.children();
-        CHECK(std::count_if(ul_children.begin(), ul_children.end(),
-                            [](const auto& node) {
-                                return node.tag_id() == myhtmlpp::TAG::LI;
-                            }) == 2);
-
-        auto new_node =
-            tree.create_node(myhtmlpp::TAG::LI, myhtmlpp::NAMESPACE::HTML);
-        ul_node.add_child(new_node);
-
-        ul_children = ul_node.children();
-        CHECK(std::count_if(ul_children.begin(), ul_children.end(),
-                            [](const auto& node) {
-                                return node.tag_id() == myhtmlpp::TAG::LI;
-                            }) == 3);
-
-        new_node =
-            tree.create_node(myhtmlpp::TAG::A, myhtmlpp::NAMESPACE::HTML);
-        ul_node.insert_before(new_node);
-        CHECK(ul_node.previous().value() == new_node);
-
-        new_node =
-            tree.create_node(myhtmlpp::TAG::CITE, myhtmlpp::NAMESPACE::HTML);
-        ul_node.insert_after(new_node);
-        CHECK(ul_node.next().value() == new_node);
-
-        new_node.remove();
-        CHECK(new_node.good());
-        CHECK(ul_node.next().value() != new_node);
-
-        ul_node.set_namespace(myhtmlpp::NAMESPACE::XML);
-        CHECK(ul_node.get_namespace() == myhtmlpp::NAMESPACE::XML);
-
-        ul_node.remove();
-        CHECK(!ul_node.previous().has_value());
-        CHECK(!ul_node.next().has_value());
-        CHECK(tree.find_all("ul").empty());
-        CHECK(tree.find_all("li").empty());
-    }
-
     SUBCASE("node traversal") {
         CHECK(doc.previous() == std::nullopt);
         CHECK(doc.next() == std::nullopt);
@@ -248,14 +200,6 @@ TEST_CASE("node") {
 
         CHECK(div_node.at("class").has_value());
         CHECK(!div_node.at("style").has_value());
-
-        auto style_attr = div_node.add_attribute("style", "bold");
-        CHECK(div_node.has_attribute("style"));
-        CHECK(style_attr == div_node.at("style"));
-
-        CHECK(!div_node.remove_attribute_by_key("href"));
-        CHECK(div_node.remove_attribute_by_key("id"));
-        CHECK(!div_node.at("id").has_value());
     }
 
     SUBCASE("iterator") {

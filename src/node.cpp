@@ -92,15 +92,6 @@ bool myhtmlpp::Node::is_void_element() const {
 
 bool myhtmlpp::Node::is_text_node() const { return tag_id() == TAG::TEXT_; }
 
-void myhtmlpp::Node::set_namespace(myhtmlpp::NAMESPACE new_ns) {
-    if (!good()) {
-        return;
-    }
-
-    myhtml_node_namespace_set(m_raw_node,
-                              static_cast<myhtml_namespace_t>(new_ns));
-}
-
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
     return optional_helper<Node>(myhtml_node_child, m_raw_node);
 }
@@ -151,20 +142,6 @@ std::vector<myhtmlpp::Node> myhtmlpp::Node::siblings() const {
     return res;
 }
 
-void myhtmlpp::Node::add_child(const Node& node) {
-    myhtml_tree_node_add_child(m_raw_node, node.m_raw_node);
-}
-
-void myhtmlpp::Node::insert_before(const Node& node) {
-    myhtml_tree_node_insert_before(m_raw_node, node.m_raw_node);
-}
-
-void myhtmlpp::Node::insert_after(const Node& node) {
-    myhtml_tree_node_insert_after(m_raw_node, node.m_raw_node);
-}
-
-void myhtmlpp::Node::remove() { myhtml_node_remove(m_raw_node); }
-
 std::optional<myhtmlpp::Attribute>
 myhtmlpp::Node::at(const std::string& key) const {
     myhtml_tree_attr_t* attr =
@@ -194,22 +171,6 @@ std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
 
 std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
     return std::vector(begin(), end());
-}
-
-myhtmlpp::Attribute myhtmlpp::Node::add_attribute(const std::string& key,
-                                                  const std::string& value) {
-    myhtml_tree_attr_t* raw_attr = myhtml_attribute_add(
-        m_raw_node, key.c_str(), strlen(key.c_str()), value.c_str(),
-        strlen(value.c_str()), MyENCODING_UTF_8);
-
-    return Attribute(raw_attr);
-}
-
-bool myhtmlpp::Node::remove_attribute_by_key(const std::string& key) {
-    myhtml_tree_attr_t* attr = myhtml_attribute_remove_by_key(
-        m_raw_node, key.c_str(), strlen(key.c_str()));
-
-    return attr != nullptr;
 }
 
 // Iterator

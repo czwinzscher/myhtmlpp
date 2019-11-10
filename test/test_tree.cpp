@@ -38,9 +38,6 @@ TEST_CASE("tree") {
 
     SUBCASE("good") {
         CHECK(tree.good());
-
-        tree.html_node().remove();
-        CHECK(tree.good());
     }
 
     SUBCASE("move semantics") {
@@ -98,22 +95,6 @@ TEST_CASE("tree") {
 
         CHECK(tree.find_all("-text").size() == 21);
         CHECK(tree.find_all(myhtmlpp::TAG::UNDEF_).size() == 1);
-    }
-
-    SUBCASE("create nodes") {
-        auto node =
-            tree.create_node(myhtmlpp::TAG::DIV, myhtmlpp::NAMESPACE::XML);
-
-        CHECK(node.good());
-        CHECK(node.tag_id() == myhtmlpp::TAG::DIV);
-        CHECK(node.get_namespace() == myhtmlpp::NAMESPACE::XML);
-
-        auto node_default_namespace = tree.create_node(myhtmlpp::TAG::IMG);
-
-        CHECK(node_default_namespace.good());
-        CHECK(node_default_namespace.tag_id() == myhtmlpp::TAG::IMG);
-        CHECK(node_default_namespace.get_namespace() ==
-              myhtmlpp::NAMESPACE::HTML);
     }
 
     SUBCASE("iterator") {

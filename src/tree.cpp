@@ -92,15 +92,6 @@ myhtmlpp::Tree::find_all(myhtmlpp::TAG tag) const {
     return res;
 }
 
-myhtmlpp::Node myhtmlpp::Tree::create_node(myhtmlpp::TAG tag_id,
-                                           myhtmlpp::NAMESPACE ns) {
-    myhtml_tree_node_t* n =
-        myhtml_node_create(m_raw_tree, static_cast<myhtml_tag_id_t>(tag_id),
-                           static_cast<myhtml_namespace_t>(ns));
-
-    return Node(n);
-}
-
 // Iterator
 myhtmlpp::Tree::Iterator::Iterator(Node node) : m_node(std::move(node)) {}
 
