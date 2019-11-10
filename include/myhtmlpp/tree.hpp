@@ -11,6 +11,10 @@
 
 namespace myhtmlpp {
 
+// forward declaration necessary
+template <typename FilterFunc>
+class Selection;
+
 /// A HTML Tree class
 class Tree {
 public:
@@ -97,6 +101,11 @@ public:
      *         `tag_id()` returns `tag`.
      */
     [[nodiscard]] std::vector<Node> find_all(TAG tag) const;
+
+    template <typename FilterFunc>
+    [[nodiscard]] myhtmlpp::Selection<FilterFunc> filter(FilterFunc f) {
+        return Selection(*this, f);
+    }
 
     /// A Tree Iterator class.
     class Iterator {
