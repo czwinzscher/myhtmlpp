@@ -120,9 +120,9 @@ public:
     [[nodiscard]] bool is_void_element() const;
 
     /**
-     * Returns if the node is a text node or not.
+     * @brief Returns if the node is a text node or not.
      *
-     * @return true if `tag_id` return `myhtmlpp::TAG::TEXT_`, false otherwise.
+     * @return true if `tag_id` returns `myhtmlpp::TAG::TEXT_`, false otherwise.
      */
     [[nodiscard]] bool is_text_node() const;
 
