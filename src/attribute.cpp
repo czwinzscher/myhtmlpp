@@ -66,15 +66,6 @@ myhtmlpp::NAMESPACE myhtmlpp::Attribute::get_namespace() const {
     return static_cast<NAMESPACE>(myhtml_attribute_namespace(m_raw_attribute));
 }
 
-void myhtmlpp::Attribute::set_namespace(myhtmlpp::NAMESPACE new_ns) {
-    if (!good()) {
-        return;
-    }
-
-    myhtml_attribute_namespace_set(m_raw_attribute,
-                                   static_cast<myhtml_namespace_t>(new_ns));
-}
-
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::previous() const {
     return optional_helper<Attribute>(myhtml_attribute_prev, m_raw_attribute);
 }

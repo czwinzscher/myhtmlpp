@@ -76,14 +76,6 @@ public:
     [[nodiscard]] NAMESPACE get_namespace() const;
 
     /**
-     * @brief Set the namespace of the attribute.
-     *
-     * @param new_ns An enum member of myhtml_namespace_t that will be
-     *               the new namespace of the attribute.
-     */
-    void set_namespace(NAMESPACE new_ns);
-
-    /**
      * @brief Get the previous attribute in the node.
      *
      * @return An optional with the previous attribute if it exists,
