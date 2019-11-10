@@ -1,3 +1,11 @@
+# 1.1.0 (2019-11-10)
+## parser
+- all thrown exceptions have a `status_code()` method to return the mystatus_t value
+## Tree
+- add `find_all(tag_string)` and `find_all(tag_id)` to filter nodes by tag
+## Node
+- add `has_attribute(key)`
+
 # 1.0.0 (2019-11-08)
 ## parser
 - remove `parse_with_options` and `parse_fragment_with_options`
