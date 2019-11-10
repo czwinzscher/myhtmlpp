@@ -253,7 +253,7 @@ public:
      * @return true if the node has an attribute with the key `key`,
      *         false otherwise.
      */
-    [[nodiscard]] bool has_attribute(const std::string& key);
+    [[nodiscard]] bool has_attribute(const std::string& key) const;
 
     /**
      * @brief Returns the first attribute in the node.
