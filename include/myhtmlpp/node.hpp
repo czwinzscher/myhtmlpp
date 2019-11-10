@@ -261,7 +261,7 @@ public:
 
         explicit ConstIterator(Attribute attr);
 
-        reference operator*();
+        reference operator*() const;
 
         ConstIterator& operator++();
 

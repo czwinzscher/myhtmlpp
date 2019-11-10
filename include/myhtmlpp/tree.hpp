@@ -132,7 +132,7 @@ public:
 
         explicit ConstIterator(Node node);
 
-        reference operator*();
+        reference operator*() const;
 
         ConstIterator& operator++();
 

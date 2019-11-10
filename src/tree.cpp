@@ -83,8 +83,7 @@ myhtmlpp::Tree::find_all(const std::string& tag) const {
     return res;
 }
 
-std::vector<myhtmlpp::Node>
-myhtmlpp::Tree::find_all(myhtmlpp::TAG tag) const {
+std::vector<myhtmlpp::Node> myhtmlpp::Tree::find_all(myhtmlpp::TAG tag) const {
     std::vector<Node> res;
     std::copy_if(begin(), end(), std::back_inserter(res),
                  [&](const auto& node) { return node.tag_id() == tag; });
@@ -157,7 +156,7 @@ myhtmlpp::Tree::ConstIterator::ConstIterator(Node node)
     : m_node(std::move(node)) {}
 
 myhtmlpp::Tree::ConstIterator::reference
-    myhtmlpp::Tree::ConstIterator::operator*() {
+    myhtmlpp::Tree::ConstIterator::operator*() const {
     return m_node;
 }
 
