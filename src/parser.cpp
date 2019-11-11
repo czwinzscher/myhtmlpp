@@ -8,6 +8,8 @@
 #include <cstring>
 #include <mycore/myosi.h>
 #include <myencoding/myosi.h>
+#include <myhtml/myosi.h>
+#include <myhtml/tree.h>
 #include <string>
 
 template <typename ParseFunc, typename... ParseArgs>

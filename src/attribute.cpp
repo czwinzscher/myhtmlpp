@@ -3,6 +3,7 @@
 #include "myhtmlpp/constants.hpp"
 #include "utils.hpp"
 
+#include <myhtml/tree.h>
 #include <optional>
 #include <string>
 

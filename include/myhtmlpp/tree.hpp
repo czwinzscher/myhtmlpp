@@ -1,8 +1,8 @@
 #pragma once
 
 #include "constants.hpp"
-#include "node.hpp"
 #include "filter.hpp"
+#include "node.hpp"
 
 #include <iterator>
 #include <myhtml/myhtml.h>

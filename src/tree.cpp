@@ -4,13 +4,21 @@
 #include "myhtmlpp/node.hpp"
 
 #include <algorithm>
-#include <cstddef>
 #include <cstring>
 #include <iterator>
 #include <modest/finder/finder.h>
+#include <modest/finder/myosi.h>
+#include <mycore/myosi.h>
+#include <mycore/mystring.h>
+#include <mycss/entry.h>
 #include <mycss/mycss.h>
+#include <mycss/myosi.h>
 #include <mycss/selectors/init.h>
+#include <mycss/selectors/list.h>
+#include <mycss/selectors/myosi.h>
+#include <myencoding/myosi.h>
 #include <myhtml/serialization.h>
+#include <myhtml/tree.h>
 #include <string>
 #include <utility>
 #include <vector>
