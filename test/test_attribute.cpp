@@ -32,7 +32,7 @@ TEST_CASE("attribute") {
     REQUIRE(p_node_it != tree.end());
 
     auto p_node = *p_node_it;
-    auto class_attr = p_node.at("class").value();
+    auto class_attr = p_node.first_attribute().value();
 
     auto img_node_it =
         std::find_if(tree.begin(), tree.end(), [](const auto& node) {
@@ -41,7 +41,7 @@ TEST_CASE("attribute") {
     REQUIRE(img_node_it != tree.end());
 
     auto img_node = *img_node_it;
-    auto src_attr = img_node.at("src").value();
+    auto src_attr = img_node.first_attribute().value();
     auto bad_attr = *img_node.end();
 
     auto hidden_attr = src_attr.next().value();

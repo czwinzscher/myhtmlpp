@@ -183,22 +183,23 @@ TEST_CASE("node") {
         CHECK(div_node.has_attributes());
         CHECK(div_node.has_attribute("class"));
         CHECK(div_node["class"] == "class");
+        CHECK(div_node.at("class").has_value());
+        CHECK(div_node.at("class").value() == "class");
+        CHECK(!div_node.at("style").has_value());
         CHECK(!div_node.has_attribute("style"));
-        auto class_attr = div_node.at("class").value();
+        auto class_attr = div_node.last_attribute().value();
         auto [k, v] = class_attr;
         CHECK(class_attr.key() == "class");
         CHECK(k == "class");
         CHECK(class_attr.value() == "class");
         CHECK(v == "class");
+
         CHECK(div_node.last_attribute().value() == class_attr);
         CHECK(class_attr.previous().has_value());
         CHECK(class_attr.previous().value() ==
               div_node.first_attribute().value());
         CHECK(!class_attr.next().has_value());
         CHECK(class_attr.get_namespace() == myhtmlpp::NAMESPACE::HTML);
-
-        CHECK(div_node.at("class").has_value());
-        CHECK(!div_node.at("style").has_value());
     }
 
     SUBCASE("iterator") {

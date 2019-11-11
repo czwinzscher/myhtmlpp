@@ -7,6 +7,7 @@
 #include <cstring>
 #include <mycore/myosi.h>
 #include <mycore/mystring.h>
+#include <myhtml/myhtml.h>
 #include <myhtml/serialization.h>
 #include <myhtml/tree.h>
 #include <optional>
@@ -141,12 +142,22 @@ std::vector<myhtmlpp::Node> myhtmlpp::Node::siblings() const {
     return res;
 }
 
-std::optional<myhtmlpp::Attribute>
+std::optional<std::string>
 myhtmlpp::Node::at(const std::string& key) const {
+    if (!good()) {
+        return std::nullopt;
+    }
+
     myhtml_tree_attr_t* attr =
         myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
 
-    return attr != nullptr ? std::make_optional(Attribute(attr)) : std::nullopt;
+    if (attr == nullptr) {
+        return std::nullopt;
+    }
+
+    const char* val = myhtml_attribute_value(attr, nullptr);
+
+    return val != nullptr ? std::make_optional(val) : std::nullopt;
 }
 
 bool myhtmlpp::Node::has_attributes() const {

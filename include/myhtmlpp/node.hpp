@@ -187,7 +187,7 @@ public:
      * @return Optional with the Attribute with the key `key` if it exists,
      *         std::nullopt otherwise.
      */
-    [[nodiscard]] std::optional<Attribute> at(const std::string& key) const;
+    [[nodiscard]] std::optional<std::string> at(const std::string& key) const;
 
     /**
      * @brief Checks if the node has at least one attribute.

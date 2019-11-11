@@ -155,11 +155,8 @@ myhtmlpp::Tree::find_by_class(const std::string& cl) const {
     std::vector<Node> res;
     std::copy_if(begin(), end(), std::back_inserter(res),
                  [&](const auto& node) {
-                     if (auto cl_attr = node.at("class")) {
-                         // the first value() gets the attribute from the
-                         // optional, the second value() gets the value of the
-                         // attribute
-                         return cl_attr.value().value() == cl;
+                     if (auto cl_value = node.at("class")) {
+                         return cl_value.value() == cl;
                      }
 
                      return false;
@@ -173,11 +170,8 @@ myhtmlpp::Tree::find_by_id(const std::string& id) const {
     std::vector<Node> res;
     std::copy_if(begin(), end(), std::back_inserter(res),
                  [&](const auto& node) {
-                     if (auto cl_attr = node.at("id")) {
-                         // the first value() gets the attribute from the
-                         // optional, the second value() gets the value of the
-                         // attribute
-                         return cl_attr.value().value() == id;
+                     if (auto id_value = node.at("id")) {
+                         return id_value.value() == id;
                      }
 
                      return false;
@@ -193,10 +187,7 @@ myhtmlpp::Tree::find_by_attr(const std::string& key,
     std::copy_if(begin(), end(), std::back_inserter(res),
                  [&](const auto& node) {
                      if (auto attr = node.at(key)) {
-                         // the first value() gets the attribute from the
-                         // optional the second value() gets the value of the
-                         // attribute
-                         return attr.value().value() == val;
+                         return attr.value() == val;
                      }
 
                      return false;
