@@ -2,7 +2,7 @@
 
 #include "constants.hpp"
 
-#include <myhtml/api.h>
+#include <myhtml/myhtml.h>
 #include <optional>
 #include <string>
 #include <type_traits>

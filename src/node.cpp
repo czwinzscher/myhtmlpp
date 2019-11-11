@@ -8,7 +8,7 @@
 #include <mycore/myosi.h>
 #include <mycore/mystring.h>
 #include <myencoding/myosi.h>
-#include <myhtml/api.h>
+#include <myhtml/serialization.h>
 #include <optional>
 #include <stdexcept>
 #include <string>
@@ -73,7 +73,7 @@ myhtmlpp::TAG myhtmlpp::Node::tag_id() const {
 
 std::string myhtmlpp::Node::tag_string() const {
     const char* tag_name = myhtml_tag_name_by_id(
-        myhtml_node_tree(m_raw_node), myhtml_node_tag_id(m_raw_node), nullptr);
+        m_raw_node->tree, myhtml_node_tag_id(m_raw_node), nullptr);
 
     return tag_name != nullptr ? tag_name : "";
 }
