@@ -4,10 +4,13 @@
 #include "myhtmlpp/node.hpp"
 
 #include <algorithm>
+#include <cstddef>
+#include <cstring>
 #include <iterator>
-#include <mycore/myosi.h>
-#include <mycore/mystring.h>
-#include <myhtml/api.h>
+#include <modest/finder/finder.h>
+#include <mycss/mycss.h>
+#include <mycss/selectors/init.h>
+#include <myhtml/serialization.h>
 #include <string>
 #include <utility>
 #include <vector>
@@ -72,6 +75,53 @@ std::string myhtmlpp::Tree::html() const {
                                      &str);
 
     return str.data != nullptr ? str.data : "";
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::select(const std::string& selector) const {
+    std::vector<Node> res;
+
+    mycss_t* mycss = mycss_create();
+    mystatus_t status = mycss_init(mycss);
+    if (status != MyCSS_STATUS_OK) {
+        return res;
+    }
+
+    mycss_entry_t* entry = mycss_entry_create();
+    status = mycss_entry_init(mycss, entry);
+    if (status != MyCSS_STATUS_OK) {
+        return res;
+    }
+
+    modest_finder_t* finder = modest_finder_create_simple();
+
+    mycss_selectors_list_t* list = mycss_selectors_parse(
+        mycss_entry_selectors(entry), MyENCODING_UTF_8, selector.c_str(),
+        strlen(selector.c_str()), &status);
+    if (status != MyCSS_STATUS_OK) {
+        return res;
+    }
+
+    myhtml_collection_t* collection = nullptr;
+    modest_finder_by_selectors_list(finder, m_raw_tree->node_html, list,
+                                    &collection);
+
+    if (collection != nullptr) {
+        for (size_t i = 0; i < collection->length; ++i) {
+            res.emplace_back(collection->list[i]);  // NOLINT
+        }
+    }
+
+    myhtml_collection_destroy(collection);
+
+    mycss_selectors_list_destroy(mycss_entry_selectors(entry), list, true);
+
+    modest_finder_destroy(finder, true);
+
+    mycss_entry_destroy(entry, true);
+    mycss_destroy(mycss, true);
+
+    return res;
 }
 
 std::vector<myhtmlpp::Node>

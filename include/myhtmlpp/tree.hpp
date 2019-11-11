@@ -2,10 +2,10 @@
 
 #include "constants.hpp"
 #include "node.hpp"
-#include "selection.hpp"
+#include "filter.hpp"
 
 #include <iterator>
-#include <myhtml/api.h>
+#include <myhtml/myhtml.h>
 #include <ostream>
 #include <string>
 #include <vector>
@@ -75,69 +75,78 @@ public:
     [[nodiscard]] Node body_node() const;
 
     /**
-     * Returns the HTML representation of the tree
+     * @brief Returns the HTML representation of the tree
      *
      * @return a string of the HTML code representing the tree.
      */
     [[nodiscard]] std::string html() const;
 
     /**
-     * Returns all nodes in the tree where the tag matches `tag`.
+     * @brief Returns all nodes in the tree that match the css selector
+     * `selector`.
+     *
+     * @param selector The css selector.
+     * @return A vector of all nodes in the tree that match `selector`.
+     */
+    [[nodiscard]] std::vector<Node> select(const std::string& selector) const;
+
+    /**
+     * @brief Returns all nodes in the tree where the tag matches `tag`.
      *
      * @param tag The tag to search.
-     * @return A selection of all nodes in the tree where
+     * @return A vector of all nodes in the tree where
      *         `tag_string()` returns `tag`.
      */
     [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag) const;
 
     /**
-     * Returns all nodes in the tree where the tag matches `tag`.
+     * @brief Returns all nodes in the tree where the tag matches `tag`.
      *
      * @param tag The tag to search.
-     * @return A selection of all nodes in the tree where
+     * @return A vector of all nodes in the tree where
      *         `tag_id()` returns `tag`.
      */
     [[nodiscard]] std::vector<Node> find_by_tag(TAG tag) const;
 
     /**
-     * Returns all nodes in the tree where the class matches `cl`.
+     * @brief Returns all nodes in the tree where the class matches `cl`.
      *
      * @param cl The value of the class to search.
-     * @return A selection of all nodes in the tree that have an attribute
+     * @return A vector of all nodes in the tree that have an attribute
      *         where key() returns \"class\" and value() returns `cl`.
      */
     [[nodiscard]] std::vector<Node> find_by_class(const std::string& cl) const;
 
     /**
-     * Returns all nodes in the tree where the id matches `id`.
+     * @brief Returns all nodes in the tree where the id matches `id`.
      *
      * @param id The value of the id to search.
-     * @return A selection of all nodes in the tree that have an attribute
+     * @return A vector of all nodes in the tree that have an attribute
      *         where key() returns \"id\" and value() returns `id`.
      */
     [[nodiscard]] std::vector<Node> find_by_id(const std::string& id) const;
 
     /**
-     * Returns all nodes in the tree that have an attribute with key `key`
-     * and value `value`.
+     * @brief Returns all nodes in the tree that have an attribute with key
+     * `key` and value `value`.
      *
      * @param key The key of the attribute.
      * @param value The value of the attribute.
-     * @return A selection of all nodes in the tree that have an attribute
+     * @return A vector of all nodes in the tree that have an attribute
      *         where key() returns `key` and value() returns `value`.
      */
     [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
                                                  const std::string& val) const;
 
     /**
-     * Returns all nodes in the tree where `f` returns true.
+     * @brief Returns all nodes in the tree where `f` returns true.
      *
      * @param f The filter function.
      * @return A selection of all nodes in the tree where `f` returns true.
      */
     template <typename FilterFunc>
-    [[nodiscard]] Selection<FilterFunc, Tree> filter(FilterFunc f) {
-        return Selection(*this, f);
+    [[nodiscard]] Filter<FilterFunc, Tree> filter(FilterFunc f) {
+        return Filter(*this, f);
     }
 
     /// A Tree Iterator class.
