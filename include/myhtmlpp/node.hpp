@@ -55,7 +55,7 @@ public:
      * @return Attribute with the key `key` if it exists,
      *         Attribute that gets initialised with nullptr otherwise.
      */
-    [[nodiscard]] Attribute operator[](const std::string& key) const noexcept;
+    [[nodiscard]] std::string operator[](const std::string& key) const noexcept;
 
     /**
      * @brief Check if myhtml pointer is not nullptr.

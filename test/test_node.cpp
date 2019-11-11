@@ -119,7 +119,7 @@ TEST_CASE("node") {
         CHECK(!bad_node.parent().has_value());
         CHECK(!bad_node.next().has_value());
         CHECK(!bad_node.previous().has_value());
-        CHECK(!bad_node["aaaaaa"].good());
+        CHECK(bad_node["aaaaaa"].empty());
         CHECK(bad_node.html_deep().empty());
     }
 
@@ -183,8 +183,9 @@ TEST_CASE("node") {
         auto div_node = *div_node_it;
         CHECK(div_node.has_attributes());
         CHECK(div_node.has_attribute("class"));
+        CHECK(div_node["class"] == "class");
         CHECK(!div_node.has_attribute("style"));
-        auto class_attr = div_node["class"];
+        auto class_attr = div_node.at("class").value();
         auto [k, v] = class_attr;
         CHECK(class_attr.key() == "class");
         CHECK(k == "class");
