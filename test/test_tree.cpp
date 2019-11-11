@@ -1,8 +1,8 @@
 #include "doctest/doctest.h"
 #include "myhtmlpp/constants.hpp"
+#include "myhtmlpp/filter.hpp"
 #include "myhtmlpp/node.hpp"
 #include "myhtmlpp/parser.hpp"
-#include "myhtmlpp/selection.hpp"
 #include "myhtmlpp/tree.hpp"
 
 #include <algorithm>

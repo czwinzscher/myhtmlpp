@@ -10,9 +10,9 @@
 namespace myhtmlpp {
 
 template <typename FilterFunc, typename TreeT>
-class Selection {
+class Filter {
 public:
-    Selection(TreeT& tree, FilterFunc filter_func)
+    Filter(TreeT& tree, FilterFunc filter_func)
         : m_tree(&tree), m_filter_func(filter_func) {}
 
     class Iterator {
