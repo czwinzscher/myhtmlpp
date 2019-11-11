@@ -1,18 +1,18 @@
 #pragma once
 
 #include "node.hpp"
-#include "tree.hpp"
 
 #include <algorithm>
 #include <functional>
+#include <iostream>
 #include <utility>
 
 namespace myhtmlpp {
 
-template <typename FilterFunc>
+template <typename FilterFunc, typename TreeT>
 class Selection {
 public:
-    Selection(Tree& tree, FilterFunc filter_func)
+    Selection(TreeT& tree, FilterFunc filter_func)
         : m_tree(&tree), m_filter_func(filter_func) {}
 
     class Iterator {
@@ -23,7 +23,8 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
 
-        Iterator(Tree::Iterator tree_iter, Tree::Iterator tree_end,
+        Iterator(typename TreeT::Iterator&& tree_iter,
+                 typename TreeT::Iterator&& tree_end,
                  const FilterFunc& filter_func)
             : m_tree_iter(std::move(tree_iter)),
               m_tree_end(std::move(tree_end)),
@@ -56,8 +57,8 @@ public:
             }
         }
 
-        Tree::Iterator m_tree_iter;
-        Tree::Iterator m_tree_end;
+        typename TreeT::Iterator m_tree_iter;
+        typename TreeT::Iterator m_tree_end;
         FilterFunc m_filter_func;
     };
 
@@ -69,8 +70,8 @@ public:
         using pointer = const value_type*;
         using reference = const value_type&;
 
-        ConstIterator(Tree::ConstIterator tree_iter,
-                      Tree::ConstIterator tree_end,
+        ConstIterator(typename TreeT::ConstIterator&& tree_iter,
+                      typename TreeT::ConstIterator&& tree_end,
                       const FilterFunc& filter_func)
             : m_tree_iter(std::move(tree_iter)),
               m_tree_end(std::move(tree_end)),
@@ -103,8 +104,8 @@ public:
             }
         }
 
-        Tree::ConstIterator m_tree_iter;
-        Tree::ConstIterator m_tree_end;
+        typename TreeT::ConstIterator m_tree_iter;
+        typename TreeT::ConstIterator m_tree_end;
         FilterFunc m_filter_func;
     };
 
@@ -128,9 +129,7 @@ public:
 
     [[nodiscard]] ConstIterator cend() const noexcept { return end(); }
 
-    [[nodiscard]] std::vector<Node> to_vector() const {
-        return std::vector(begin(), end());
-    }
+    [[nodiscard]] auto to_vector() const { return std::vector(begin(), end()); }
 
     template <typename Func>
     void for_each(Func f) {
@@ -138,7 +137,7 @@ public:
     }
 
 private:
-    Tree* m_tree;
+    TreeT* m_tree;
     FilterFunc m_filter_func;
 };
 
