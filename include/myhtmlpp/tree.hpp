@@ -2,6 +2,7 @@
 
 #include "constants.hpp"
 #include "node.hpp"
+#include "selection.hpp"
 
 #include <iterator>
 #include <myhtml/api.h>
@@ -10,10 +11,6 @@
 #include <vector>
 
 namespace myhtmlpp {
-
-// forward declaration necessary
-template <typename FilterFunc>
-class Selection;
 
 /// A HTML Tree class
 class Tree {
@@ -88,22 +85,58 @@ public:
      * Returns all nodes in the tree where the tag matches `tag`.
      *
      * @param tag The tag to search.
-     * @return A vector of all nodes in the tree where
+     * @return A selection of all nodes in the tree where
      *         `tag_string()` returns `tag`.
      */
-    [[nodiscard]] std::vector<Node> find_all(const std::string& tag) const;
+    [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag) const;
 
     /**
      * Returns all nodes in the tree where the tag matches `tag`.
      *
      * @param tag The tag to search.
-     * @return A vector of all nodes in the tree where
+     * @return A selection of all nodes in the tree where
      *         `tag_id()` returns `tag`.
      */
-    [[nodiscard]] std::vector<Node> find_all(TAG tag) const;
+    [[nodiscard]] std::vector<Node> find_by_tag(TAG tag) const;
 
+    /**
+     * Returns all nodes in the tree where the class matches `cl`.
+     *
+     * @param cl The value of the class to search.
+     * @return A selection of all nodes in the tree that have an attribute
+     *         where key() returns \"class\" and value() returns `cl`.
+     */
+    [[nodiscard]] std::vector<Node> find_by_class(const std::string& cl) const;
+
+    /**
+     * Returns all nodes in the tree where the id matches `id`.
+     *
+     * @param id The value of the id to search.
+     * @return A selection of all nodes in the tree that have an attribute
+     *         where key() returns \"id\" and value() returns `id`.
+     */
+    [[nodiscard]] std::vector<Node> find_by_id(const std::string& id) const;
+
+    /**
+     * Returns all nodes in the tree that have an attribute with key `key`
+     * and value `value`.
+     *
+     * @param key The key of the attribute.
+     * @param value The value of the attribute.
+     * @return A selection of all nodes in the tree that have an attribute
+     *         where key() returns `key` and value() returns `value`.
+     */
+    [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
+                                                 const std::string& val) const;
+
+    /**
+     * Returns all nodes in the tree where `f` returns true.
+     *
+     * @param f The filter function.
+     * @return A selection of all nodes in the tree where `f` returns true.
+     */
     template <typename FilterFunc>
-    [[nodiscard]] myhtmlpp::Selection<FilterFunc> filter(FilterFunc f) {
+    [[nodiscard]] Selection<FilterFunc, Tree> filter(FilterFunc f) {
         return Selection(*this, f);
     }
 
