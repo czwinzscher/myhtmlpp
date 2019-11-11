@@ -83,27 +83,6 @@ TEST_CASE("tree") {
         CHECK(tree.body_node().good());
     }
 
-    SUBCASE("find") {
-        auto p_by_string = tree.find_by_tag("p");
-        std::cout << p_by_string.size() << "\n";
-
-        auto p_by_tag = tree.find_by_tag(myhtmlpp::TAG::P);
-
-        CHECK(p_by_string.begin() != p_by_string.end());
-        CHECK(p_by_string == p_by_tag);
-        CHECK(p_by_string.size() == 3);
-
-        CHECK(tree.find_by_tag("").empty());
-        CHECK(tree.find_by_tag("iudwibfoe").empty());
-
-        CHECK(tree.find_by_tag("-text").size() == 21);
-        CHECK(tree.find_by_tag(myhtmlpp::TAG::UNDEF_).size() == 1);
-
-        CHECK(tree.find_by_class("hello").size() == 1);
-        CHECK(tree.find_by_id("bla").size() == 1);
-        CHECK(tree.find_by_attr("src", "image.jpg").size() == 1);
-    }
-
     SUBCASE("iterator") {
         CHECK(*tree.begin() == tree.document_node());
         CHECK(!(*tree.end()).good());
@@ -125,6 +104,35 @@ TEST_CASE("tree") {
                 return node.tag_id() == myhtmlpp::TAG::A;
             });
         CHECK(a_it == tree.end());
+    }
+
+    SUBCASE("select") {
+        CHECK(tree.select("*").size() == 14);
+        CHECK(tree.select("p.hello").size() == 1);
+        CHECK(tree.select("ul > li").size() == 3);
+        CHECK(tree.select("[class]").size() == 2);
+        CHECK(tree.select("isfb.s oai*/bnd7").empty());
+    }
+
+    SUBCASE("find") {
+        auto p_by_string = tree.find_by_tag("p");
+        std::cout << p_by_string.size() << "\n";
+
+        auto p_by_tag = tree.find_by_tag(myhtmlpp::TAG::P);
+
+        CHECK(p_by_string.begin() != p_by_string.end());
+        CHECK(p_by_string == p_by_tag);
+        CHECK(p_by_string.size() == 3);
+
+        CHECK(tree.find_by_tag("").empty());
+        CHECK(tree.find_by_tag("iudwibfoe").empty());
+
+        CHECK(tree.find_by_tag("-text").size() == 21);
+        CHECK(tree.find_by_tag(myhtmlpp::TAG::UNDEF_).size() == 1);
+
+        CHECK(tree.find_by_class("hello").size() == 1);
+        CHECK(tree.find_by_id("bla").size() == 1);
+        CHECK(tree.find_by_attr("src", "image.jpg").size() == 1);
     }
 
     SUBCASE("filter") {
