@@ -136,7 +136,7 @@ std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_tag(const std::string& tag) const {
     std::vector<Node> res;
     std::copy_if(begin(), end(), std::back_inserter(res),
-                 [&](const auto& node) { return node.tag_string() == tag; });
+                 [&](const auto& node) { return node.tag_name() == tag; });
 
     return res;
 }

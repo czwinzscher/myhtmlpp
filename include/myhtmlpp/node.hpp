@@ -94,13 +94,13 @@ public:
     [[nodiscard]] TAG tag_id() const;
 
     /**
-     * @brief Returns a string of the tag_id of the node.
+     * @brief Returns a string of the tag of the node.
      *
-     * @return A string corresponding to the tag_id of the node.
+     * @return A string corresponding to the tag of the node.
      *
      * @see Node::tag_id
      */
-    [[nodiscard]] std::string tag_string() const;
+    [[nodiscard]] std::string tag_name() const;
 
     /**
      * @brief Returns the namespace of the node.

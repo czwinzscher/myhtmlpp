@@ -71,7 +71,7 @@ myhtmlpp::TAG myhtmlpp::Node::tag_id() const {
     return static_cast<TAG>(myhtml_node_tag_id(m_raw_node));
 }
 
-std::string myhtmlpp::Node::tag_string() const {
+std::string myhtmlpp::Node::tag_name() const {
     const char* tag_name = myhtml_tag_name_by_id(
         m_raw_node->tree, myhtml_node_tag_id(m_raw_node), nullptr);
 

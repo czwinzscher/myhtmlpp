@@ -95,7 +95,7 @@ public:
      *
      * @param tag The tag to search.
      * @return A vector of all nodes in the tree where
-     *         `tag_string()` returns `tag`.
+     *         `tag_name()` returns `tag`.
      */
     [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag) const;
 

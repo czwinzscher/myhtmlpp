@@ -83,7 +83,7 @@ TEST_CASE("node") {
     SUBCASE("getters") {
         CHECK(doc.text().empty());
         CHECK(doc.tag_id() == myhtmlpp::TAG::UNDEF_);
-        CHECK(doc.tag_string() == "-undef");
+        CHECK(doc.tag_name() == "-undef");
         CHECK(doc.get_namespace() == myhtmlpp::NAMESPACE::HTML);
 
         CHECK(html_node.text().empty());
@@ -102,8 +102,8 @@ TEST_CASE("node") {
         auto p_text_node = p_node.first_child().value();
         CHECK(p_text_node.text() == "Hello World");
         CHECK(p_text_node.is_text_node());
-        CHECK(p_text_node.tag_string() == "-text");
-        CHECK(p_node.tag_string() == "p");
+        CHECK(p_text_node.tag_name() == "-text");
+        CHECK(p_node.tag_name() == "p");
         CHECK(!p_node.is_void_element());
         CHECK(p_node.html() == R"(<p class="hello">)");
 
@@ -144,8 +144,8 @@ TEST_CASE("node") {
 
         auto ul_node = *ul_node_it;
         CHECK(ul_node.siblings().size() == 8);
-        CHECK(ul_node.siblings().at(1).tag_string() == "p");
-        CHECK(ul_node.siblings().at(6).tag_string() == "img");
+        CHECK(ul_node.siblings().at(1).tag_name() == "p");
+        CHECK(ul_node.siblings().at(6).tag_name() == "img");
 
         for (const auto& child_node : ul_node.children()) {
             CHECK(child_node.parent().value() == ul_node);
