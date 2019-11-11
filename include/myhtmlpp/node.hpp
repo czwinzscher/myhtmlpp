@@ -49,10 +49,10 @@ public:
     [[nodiscard]] bool operator!=(const Node& other) const;
 
     /**
-     * Returns an Attribute in the node with the key `key`.
+     * Returns the value of the attribute with key `key`.
      *
-     * @param key the key of the attribute to access.
-     * @return Attribute with the key `key` if it exists,
+     * @param key The key of the attribute to access.
+     * @return Value of the Attribute with the key `key` if it exists,
      *         Attribute that gets initialised with nullptr otherwise.
      */
     [[nodiscard]] std::string operator[](const std::string& key) const noexcept;

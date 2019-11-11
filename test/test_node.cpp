@@ -119,7 +119,6 @@ TEST_CASE("node") {
         CHECK(!bad_node.parent().has_value());
         CHECK(!bad_node.next().has_value());
         CHECK(!bad_node.previous().has_value());
-        CHECK(bad_node["aaaaaa"].empty());
         CHECK(bad_node.html_deep().empty());
     }
 

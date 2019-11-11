@@ -41,7 +41,7 @@ std::string myhtmlpp::Node::operator[](const std::string& key) const
     myhtml_tree_attr_t* attr =
         myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
 
-    return Attribute(attr).value();
+    return myhtml_attribute_value(attr, nullptr);
 }
 
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
