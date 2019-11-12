@@ -122,6 +122,14 @@ TEST_CASE("node") {
         CHECK(bad_node.html_deep().empty());
     }
 
+    SUBCASE("inner text") {
+        auto tree2 =
+            myhtmlpp::parse(R"(<div id="test">some   text <b>bold</b></div>)");
+
+        auto div_node = tree2.find_by_tag("div").front();
+        CHECK(div_node.inner_text() == "some   text bold");
+    }
+
     SUBCASE("node traversal") {
         CHECK(doc.previous() == std::nullopt);
         CHECK(doc.next() == std::nullopt);
