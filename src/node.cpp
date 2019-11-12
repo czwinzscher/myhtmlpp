@@ -37,8 +37,7 @@ bool myhtmlpp::Node::operator!=(const Node& other) const {
     return !operator==(other);
 }
 
-std::string myhtmlpp::Node::operator[](const std::string& key) const
-    noexcept {
+std::string myhtmlpp::Node::operator[](const std::string& key) const noexcept {
     myhtml_tree_attr_t* attr =
         myhtml_attribute_by_key(m_raw_node, key.c_str(), strlen(key.c_str()));
 
@@ -67,6 +66,20 @@ std::string myhtmlpp::Node::text() const {
     return raw_text != nullptr ? raw_text : "";
 }
 
+std::string myhtmlpp::Node::inner_text() const {
+    std::string res;
+
+    if (tag_id() == TAG::TEXT_) {
+        res += text();
+    }
+
+    for (const auto& ch : children()) {
+        res += ch.inner_text();
+    }
+
+    return res;
+}
+
 myhtmlpp::TAG myhtmlpp::Node::tag_id() const {
     return static_cast<TAG>(myhtml_node_tag_id(m_raw_node));
 }
@@ -90,7 +103,10 @@ bool myhtmlpp::Node::is_void_element() const {
     return myhtml_node_is_void_element(m_raw_node);
 }
 
-bool myhtmlpp::Node::is_text_node() const { return tag_id() == TAG::TEXT_; }
+bool myhtmlpp::Node::is_text_node() const {
+    return tag_id() == TAG::TEXT_ || tag_id() == TAG::COMMENT_ ||
+           tag_id() == TAG::STYLE;
+}
 
 std::optional<myhtmlpp::Node> myhtmlpp::Node::first_child() const {
     return optional_helper<Node>(myhtml_node_child, m_raw_node);
@@ -142,8 +158,7 @@ std::vector<myhtmlpp::Node> myhtmlpp::Node::siblings() const {
     return res;
 }
 
-std::optional<std::string>
-myhtmlpp::Node::at(const std::string& key) const {
+std::optional<std::string> myhtmlpp::Node::at(const std::string& key) const {
     if (!good()) {
         return std::nullopt;
     }

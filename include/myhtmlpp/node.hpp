@@ -82,9 +82,19 @@ public:
     /**
      * @brief Returns a string of the text in the node.
      *
+     * Only works for myhtmlpp::TAG::TEXT_, myhtmlpp::TAG::COMMENT_
+     * and myhtmlpp::TAG::STYLE.
+     *
      * @return A string with the text, an empty string if it doesn't have text.
      */
     [[nodiscard]] std::string text() const;
+
+    /**
+     * @brief Returns the joined text of children nodes.
+     *
+     * @return A string with the joined text of all children nodes with text.
+     */
+    [[nodiscard]] std::string inner_text() const;
 
     /**
      * @brief Returns the tag id of the node.
@@ -120,9 +130,11 @@ public:
     [[nodiscard]] bool is_void_element() const;
 
     /**
-     * @brief Returns if the node is a text node or not.
+     * @brief Returns if the node can have text.
      *
-     * @return true if `tag_id` returns `myhtmlpp::TAG::TEXT_`, false otherwise.
+     * @return true if `tag_id` returns `myhtmlpp::TAG::TEXT_` or
+     *         `myhtmlpp::TAG::COMMENT_` or `myhtmlpp::TAG::STYLE`,
+     *         false otherwise.
      */
     [[nodiscard]] bool is_text_node() const;
 
