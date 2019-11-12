@@ -82,7 +82,11 @@ std::string myhtmlpp::Tree::html() const {
     myhtml_serialization_tree_buffer(myhtml_tree_get_document(m_raw_tree),
                                      &str);
 
-    return str.data != nullptr ? str.data : "";
+    std::string res = str.data != nullptr ? str.data : "";
+
+    mycore_string_raw_destroy(&str, false);
+
+    return res;
 }
 
 std::vector<myhtmlpp::Node>

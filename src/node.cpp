@@ -50,14 +50,22 @@ std::string myhtmlpp::Node::html() const {
     mycore_string_raw_t str = {nullptr, 0, 0};
     myhtml_serialization_node_buffer(m_raw_node, &str);
 
-    return str.data != nullptr ? str.data : "";
+    std::string res = str.data != nullptr ? str.data : "";
+
+    mycore_string_raw_destroy(&str, false);
+
+    return res;
 }
 
 std::string myhtmlpp::Node::html_deep() const {
     mycore_string_raw_t str = {nullptr, 0, 0};
     myhtml_serialization_tree_buffer(m_raw_node, &str);
 
-    return str.data != nullptr ? str.data : "";
+    std::string res = str.data != nullptr ? str.data : "";
+
+    mycore_string_raw_destroy(&str, false);
+
+    return res;
 }
 
 std::string myhtmlpp::Node::text() const {
