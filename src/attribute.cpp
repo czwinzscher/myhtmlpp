@@ -61,3 +61,10 @@ std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::previous() const {
 std::optional<myhtmlpp::Attribute> myhtmlpp::Attribute::next() const {
     return optional_helper<Attribute>(myhtml_attribute_next, m_raw_attribute);
 }
+
+std::ostream& myhtmlpp::operator<<(std::ostream& os, const myhtmlpp::Attribute& attr) {
+    std::string res = attr.key() + "=\"" + attr.value() + "\"";
+    os << res;
+
+    return os;
+}

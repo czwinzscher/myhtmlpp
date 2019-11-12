@@ -107,6 +107,11 @@ private:
     myhtml_tree_attr_t* m_raw_attribute;
 };
 
+/**
+ * @brief Print the attribute.
+ */
+std::ostream& operator<<(std::ostream& os, const Attribute& attr);
+
 }  // namespace myhtmlpp
 
 // required for structured bindings

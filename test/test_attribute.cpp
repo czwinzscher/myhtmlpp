@@ -7,6 +7,7 @@
 
 #include <algorithm>
 #include <optional>
+#include <sstream>
 #include <string>
 #include <utility>
 
@@ -95,5 +96,11 @@ TEST_CASE("attribute") {
         auto [key, value] = src_attr;
         CHECK(key == "src");
         CHECK(value == "image.jpg");
+    }
+
+    SUBCASE("operator<<") {
+        std::stringstream attr_sstream;
+        attr_sstream << class_attr;
+        CHECK(attr_sstream.str() == R"(class="hello")");
     }
 }
