@@ -64,10 +64,6 @@ TEST_CASE("attribute") {
         CHECK(src_attr.value() == "image.jpg");
 
         CHECK(hidden_attr.value().empty());
-
-        CHECK(bad_attr.key() == "");
-        CHECK(bad_attr.value() == "");
-        CHECK(bad_attr.get_namespace() == myhtmlpp::NAMESPACE::UNDEF);
     }
 
     SUBCASE("traversal") {
