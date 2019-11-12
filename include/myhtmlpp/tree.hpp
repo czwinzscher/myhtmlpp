@@ -99,6 +99,8 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag) const;
 
+    [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag,
+                                                const Node& scope_node) const;
     /**
      * @brief Returns all nodes in the tree where the tag matches `tag`.
      *
@@ -107,6 +109,9 @@ public:
      *         `tag_id()` returns `tag`.
      */
     [[nodiscard]] std::vector<Node> find_by_tag(TAG tag) const;
+
+    [[nodiscard]] std::vector<Node> find_by_tag(TAG tag,
+                                                const Node& scope_node) const;
 
     /**
      * @brief Returns all nodes in the tree where the class matches `cl`.
@@ -117,6 +122,9 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_by_class(const std::string& cl) const;
 
+    [[nodiscard]] std::vector<Node> find_by_class(const std::string& cl,
+                                                  const Node& scope_node) const;
+
     /**
      * @brief Returns all nodes in the tree where the id matches `id`.
      *
@@ -125,6 +133,9 @@ public:
      *         where key() returns \"id\" and value() returns `id`.
      */
     [[nodiscard]] std::vector<Node> find_by_id(const std::string& id) const;
+
+    [[nodiscard]] std::vector<Node> find_by_id(const std::string& id,
+                                               const Node& scope_node) const;
 
     /**
      * @brief Returns all nodes in the tree that have an attribute with key
@@ -137,6 +148,10 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
                                                  const std::string& val) const;
+
+    [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
+                                                 const std::string& val,
+                                                 const Node& scope_node) const;
 
     /**
      * @brief Returns all nodes in the tree where `f` returns true.

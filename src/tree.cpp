@@ -134,17 +134,27 @@ myhtmlpp::Tree::select(const std::string& selector) const {
 
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_tag(const std::string& tag) const {
+    return find_by_tag(tag, document_node());
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_tag(const std::string& tag,
+                            const Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(begin(), end(), std::back_inserter(res),
+    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
                  [&](const auto& node) { return node.tag_name() == tag; });
 
     return res;
 }
-
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_tag(myhtmlpp::TAG tag) const {
+    return find_by_tag(tag, document_node());
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_tag(myhtmlpp::TAG tag, const Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(begin(), end(), std::back_inserter(res),
+    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
                  [&](const auto& node) { return node.tag_id() == tag; });
 
     return res;
@@ -152,8 +162,14 @@ myhtmlpp::Tree::find_by_tag(myhtmlpp::TAG tag) const {
 
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_class(const std::string& cl) const {
+    return find_by_class(cl, document_node());
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_class(const std::string& cl,
+                              const myhtmlpp::Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(begin(), end(), std::back_inserter(res),
+    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
                  [&](const auto& node) {
                      if (auto cl_value = node.at("class")) {
                          return cl_value.value() == cl;
@@ -167,8 +183,14 @@ myhtmlpp::Tree::find_by_class(const std::string& cl) const {
 
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_id(const std::string& id) const {
+    return find_by_id(id, document_node());
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_id(const std::string& id,
+                           const myhtmlpp::Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(begin(), end(), std::back_inserter(res),
+    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
                  [&](const auto& node) {
                      if (auto id_value = node.at("id")) {
                          return id_value.value() == id;
@@ -183,8 +205,14 @@ myhtmlpp::Tree::find_by_id(const std::string& id) const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_attr(const std::string& key,
                              const std::string& val) const {
+    return find_by_attr(key, val, document_node());
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_attr(const std::string& key, const std::string& val,
+                             const myhtmlpp::Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(begin(), end(), std::back_inserter(res),
+    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
                  [&](const auto& node) {
                      if (auto attr = node.at(key)) {
                          return attr.value() == val;
