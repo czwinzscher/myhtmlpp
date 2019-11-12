@@ -116,13 +116,13 @@ TEST_CASE("tree") {
 
     SUBCASE("find") {
         auto p_by_string = tree.find_by_tag("p");
-        std::cout << p_by_string.size() << "\n";
-
         auto p_by_tag = tree.find_by_tag(myhtmlpp::TAG::P);
 
         CHECK(p_by_string.begin() != p_by_string.end());
         CHECK(p_by_string == p_by_tag);
         CHECK(p_by_string.size() == 3);
+        CHECK(tree.find_by_tag("p", p_by_tag.front()).size() == 1);
+        CHECK(tree.find_by_tag(myhtmlpp::TAG::P, tree.body_node()) == p_by_tag);
 
         CHECK(tree.find_by_tag("").empty());
         CHECK(tree.find_by_tag("iudwibfoe").empty());
@@ -131,8 +131,11 @@ TEST_CASE("tree") {
         CHECK(tree.find_by_tag(myhtmlpp::TAG::UNDEF_).size() == 1);
 
         CHECK(tree.find_by_class("hello").size() == 1);
+        CHECK(tree.find_by_class("hello", tree.body_node()).size() == 1);
         CHECK(tree.find_by_id("bla").size() == 1);
+        CHECK(tree.find_by_id("bla", p_by_tag.back()).empty());
         CHECK(tree.find_by_attr("src", "image.jpg").size() == 1);
+        CHECK(tree.find_by_attr("src", "image.jpg", tree.head_node()).empty());
     }
 
     SUBCASE("filter") {
