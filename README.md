@@ -1,6 +1,6 @@
 # myhtmlpp
 
-myhtmlpp is a modern C++17 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/Modest). (**WIP**)
+myhtmlpp is a modern C++17 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/modest). (**WIP**)
 
 ## Usage examples
 ```cpp
@@ -11,7 +11,19 @@ myhtmlpp is a modern C++17 HTML parser with CSS selectors based on [MyHTML/Modes
 #include <myhtmlpp/parser.hpp>
 
 int main() {
-    std::string html(R"(<div class="test" id="bla">hello world</div>)");
+    std::string html(
+        R"(<!DOCTYPE html>
+<html>
+<head>
+    <title>Foo</title>
+</head>
+<body>
+    <p class="hello">Hello World</p>
+    <div id="bla" class="test"></div>
+    <p class="hello"></p>
+    <img src="image.jpg" hidden>
+</body>
+</html>)");
 
     auto tree = myhtmlpp::parse(html);
 
@@ -20,16 +32,16 @@ int main() {
 
     // iterate over all nodes in the tree
     for (const auto& node : tree) {
-        if (node.is_text_node()) {
-            std::cout << node.text() << "\n";
-        }
+        // ...
     }
 
     // filter out nodes
-    // theses methods return a vector of nodes
-    auto by_tag = tree.find_by_tag("div");
+    // theses methods return a std::vector<myhtmlpp::Node>
+    auto by_css = tree.select("p.hello");
+    auto by_tag = tree.find_by_tag("div");  // same as find_by_tag(myhtmlpp::TAG::DIV)
     auto by_class = tree.find_by_class("test");
     auto by_id = tree.find_by_id("bla");
+    auto by_attr = tree.find_by_attr("src", "image.jpg");
 
     // get special nodes from the tree
     auto doc = tree.document_node();
@@ -41,9 +53,9 @@ int main() {
     // all these methods return std::optional<Node>
     assert(root.parent().value() == doc);
     assert(root.first_child().value() == head);
-    assert(head.next().value() == body);
+    assert(root.last_child().value() == body);
     assert(!head.previous().has_value());
-    assert(root.children().size() == 2);
+    assert(root.children().size() == 3);
 
     // use stl algorithms on the tree
     auto div_node_it =
@@ -59,6 +71,11 @@ int main() {
     auto class_attr = div_node["class"];
     assert(class_attr == "test");
 
+    // a safer alternative is at(), which checks if the attribute exists
+    // and returns an std::optional<std::string>
+    auto class_attr_opt = div_node.at("class");
+    assert(class_attr_opt.has_value());
+
     // iterate over all attributes of a node
     // attributes support structured bindings
     for (const auto& [key, value] : div_node) {
@@ -68,7 +85,7 @@ int main() {
 ```
 
 ## Installation
-Obviously you also need to have the [MyHTML library](https://github.com/lexborisov/myhtml) installed.
+You also need to have the [Modest library](https://github.com/lexborisov/modest) installed.
 
 ```bash
 mkdir build
@@ -105,7 +122,7 @@ target_link_libraries(your_project PRIVATE ${MYHTMLPP_LIBRARIES})
 You can build docs with `make doc`.
 
 ## Notes
-This library was tested with MyHTML version 0.0.6.
+This library was tested with Modest version 0.0.6.
 
 ## License
 - myhtmlpp - [MIT](https://github.com/czwinzscher/myhtmlpp/blob/master/LICENSE)
