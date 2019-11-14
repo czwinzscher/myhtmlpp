@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.8.0)
 ## PROJECT
 
 project(myhtmlpp
-  VERSION 1.1.0
+  VERSION 2.0.0
   DESCRIPTION "A C++ HTML parser with CSS selectors based on myhtml/modest")
 
 
