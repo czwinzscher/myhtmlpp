@@ -1,3 +1,30 @@
+# 2.0.0 (2019-11-14)
+## Tree
+- add `select(selector)`
+- add `filter(predicate)`
+- add `find_by_tag(tag_id)`
+- add `find_by_tag(tag_string)`
+- add `find_by_id(id)`
+- add `find_by_class(class)`
+- add `find_by_attr(key, value)`
+- remove `create_node`
+## Node
+- `at(key)` returns optional with value of attribute
+- `operator[]` return value of attribute, does not do any error checking
+- `is_text_node()` returns true if tag is one one `TEXT_`, `COMMENT_`, `STYLE`
+- add `inner_text()`
+- rename `tag_string()` to `tag_name()`
+- remove `set_namespace`
+- remove `add_child`
+- remove `insert_before`
+- remove `insert_after`
+- remove `remove`
+- remove `add_attribute`
+- remove `remove_attribute_by_key`
+## Attribute
+- add `operator<<`, gives out key="value"
+- remove `set_namespace`
+
 # 1.1.0 (2019-11-10)
 ## parser
 - all thrown exceptions have a `status_code()` method to return the mystatus_t value
