@@ -19,7 +19,8 @@ int main() {
 </head>
 <body>
     <p class="hello">Hello World</p>
-    <div id="bla" class="test"></div>
+    <div id="bla" class="test"><b>bold</b> div</div>
+    <div>normal div</div>
     <p class="hello"></p>
     <img src="image.jpg" hidden>
 </body>
@@ -27,7 +28,7 @@ int main() {
 
     auto tree = myhtmlpp::parse(html);
 
-    // print the tree
+    // print the serialized tree
     std::cout << tree << "\n";
 
     // iterate over all nodes in the tree
@@ -42,6 +43,11 @@ int main() {
     auto by_class = tree.find_by_class("test");
     auto by_id = tree.find_by_id("bla");
     auto by_attr = tree.find_by_attr("src", "image.jpg");
+
+    // get the inner text of a node
+    for (const auto& node : by_tag) {
+        std::cout << node.inner_text() << "\n";
+    }
 
     // get special nodes from the tree
     auto doc = tree.document_node();
