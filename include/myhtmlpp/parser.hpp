@@ -8,6 +8,20 @@
 
 namespace myhtmlpp {
 
+struct ParseOptions {
+    OPTION opt = OPTION::DEFAULT;
+    size_t thread_count = 1;
+    size_t queue_size = 4096;
+};
+
+struct ParseFragmentOptions {
+    OPTION opt = OPTION::DEFAULT;
+    size_t thread_count = 1;
+    size_t queue_size = 4096;
+    TAG tag_id = TAG::DIV;
+    NAMESPACE ns = NAMESPACE::HTML;
+};
+
 /**
  * @brief Parses a HTML string into a Tree structure with the given options.
  *
@@ -16,8 +30,7 @@ namespace myhtmlpp {
  *        or myhtml_parse does not return MyHTML_STATUS_OK.
  * @return A Tree with the parsed HTML nodes.
  */
-Tree parse(const std::string& html, OPTION opt = OPTION::DEFAULT,
-           size_t thread_count = 1, size_t queue_size = 4096);
+Tree parse(const std::string& html, ParseOptions opt = {});
 
 /**
  * @brief Parses a fragment of a HTML string into a Tree structure.
@@ -27,9 +40,6 @@ Tree parse(const std::string& html, OPTION opt = OPTION::DEFAULT,
  *        or myhtml_parse_fragment does not return MyHTML_STATUS_OK.
  * @return A Tree with the parsed HTML nodes.
  */
-Tree parse_fragment(const std::string& html, TAG tag_id = TAG::DIV,
-                    NAMESPACE ns = NAMESPACE::HTML,
-                    OPTION opt = OPTION::DEFAULT, size_t thread_count = 1,
-                    size_t queue_size = 4096);
+Tree parse_fragment(const std::string& html, ParseFragmentOptions opt = {});
 
 }  // namespace myhtmlpp
