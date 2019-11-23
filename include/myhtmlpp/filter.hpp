@@ -23,8 +23,7 @@ public:
         using pointer = value_type*;
         using reference = value_type&;
 
-        Iterator(typename TreeT::Iterator&& tree_iter,
-                 typename TreeT::Iterator&& tree_end,
+        Iterator(TreeT::Iterator&& tree_iter, TreeT::Iterator&& tree_end,
                  const FilterFunc& filter_func)
             : m_tree_iter(std::move(tree_iter)),
               m_tree_end(std::move(tree_end)),
@@ -57,8 +56,8 @@ public:
             }
         }
 
-        typename TreeT::Iterator m_tree_iter;
-        typename TreeT::Iterator m_tree_end;
+        TreeT::Iterator m_tree_iter;
+        TreeT::Iterator m_tree_end;
         FilterFunc m_filter_func;
     };
 
@@ -70,8 +69,8 @@ public:
         using pointer = const value_type*;
         using reference = const value_type&;
 
-        ConstIterator(typename TreeT::ConstIterator&& tree_iter,
-                      typename TreeT::ConstIterator&& tree_end,
+        ConstIterator(TreeT::ConstIterator&& tree_iter,
+                      TreeT::ConstIterator&& tree_end,
                       const FilterFunc& filter_func)
             : m_tree_iter(std::move(tree_iter)),
               m_tree_end(std::move(tree_end)),
@@ -104,8 +103,8 @@ public:
             }
         }
 
-        typename TreeT::ConstIterator m_tree_iter;
-        typename TreeT::ConstIterator m_tree_end;
+        TreeT::ConstIterator m_tree_iter;
+        TreeT::ConstIterator m_tree_end;
         FilterFunc m_filter_func;
     };
 
