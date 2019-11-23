@@ -46,7 +46,7 @@ std::string myhtmlpp::Node::operator[](const std::string& key) const noexcept {
 bool myhtmlpp::Node::good() const { return m_raw_node != nullptr; }
 
 std::string myhtmlpp::Node::html() const {
-    mycore_string_raw_t str = {nullptr, 0, 0};
+    mycore_string_raw_t str = {.data = nullptr, .size = 0, .length = 0};
     myhtml_serialization_node_buffer(m_raw_node, &str);
 
     std::string res = str.data != nullptr ? str.data : "";
@@ -57,7 +57,7 @@ std::string myhtmlpp::Node::html() const {
 }
 
 std::string myhtmlpp::Node::html_deep() const {
-    mycore_string_raw_t str = {nullptr, 0, 0};
+    mycore_string_raw_t str = {.data = nullptr, .size = 0, .length = 0};
     myhtml_serialization_tree_buffer(m_raw_node, &str);
 
     std::string res = str.data != nullptr ? str.data : "";
