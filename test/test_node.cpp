@@ -101,7 +101,6 @@ TEST_CASE("node") {
         auto p_node = *p_node_it;
         auto p_text_node = p_node.first_child().value();
         CHECK(p_text_node.text() == "Hello World");
-        CHECK(p_text_node.is_text_node());
         CHECK(p_text_node.tag_name() == "-text");
         CHECK(p_node.tag_name() == "p");
         CHECK(!p_node.is_void_element());
@@ -141,7 +140,6 @@ TEST_CASE("node") {
         CHECK(html_node.first_child().value().previous() == std::nullopt);
         CHECK(body_node.siblings().size() == 2);
         CHECK(body_node.siblings().at(0).tag_id() == myhtmlpp::TAG::TEXT_);
-        CHECK(body_node.siblings().at(0).is_text_node());
         CHECK(body_node.siblings().at(1) == head_node);
 
         auto ul_node_it =

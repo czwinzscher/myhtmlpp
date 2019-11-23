@@ -136,7 +136,7 @@ public:
      *         `myhtmlpp::TAG::COMMENT_` or `myhtmlpp::TAG::STYLE`,
      *         false otherwise.
      */
-    [[nodiscard]] bool is_text_node() const;
+    [[nodiscard, deprecated]] bool is_text_node() const;
 
     /**
      * @brief Returns the first child in the node.
