@@ -1,6 +1,6 @@
 # myhtmlpp
 
-myhtmlpp is a modern C++17 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/modest). (**WIP**)
+myhtmlpp is a modern C++20 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/modest). (**WIP**)
 
 ## Usage examples
 ```cpp
