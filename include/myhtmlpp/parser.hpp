@@ -30,7 +30,7 @@ struct ParseFragmentOptions {
  *        or myhtml_parse does not return MyHTML_STATUS_OK.
  * @return A Tree with the parsed HTML nodes.
  */
-Tree parse(const std::string& html, ParseOptions opt = {});
+Tree parse(const std::string& html, const ParseOptions& opt = {});
 
 /**
  * @brief Parses a fragment of a HTML string into a Tree structure.
@@ -40,6 +40,7 @@ Tree parse(const std::string& html, ParseOptions opt = {});
  *        or myhtml_parse_fragment does not return MyHTML_STATUS_OK.
  * @return A Tree with the parsed HTML nodes.
  */
-Tree parse_fragment(const std::string& html, ParseFragmentOptions opt = {});
+Tree parse_fragment(const std::string& html,
+                    const ParseFragmentOptions& opt = {});
 
 }  // namespace myhtmlpp
