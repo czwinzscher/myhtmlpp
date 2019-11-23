@@ -91,18 +91,16 @@ std::string myhtmlpp::Tree::html() const {
 
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::select(const std::string& selector) const {
-    std::vector<Node> res;
-
     mycss_t* mycss = mycss_create();
     mystatus_t status = mycss_init(mycss);
     if (status != MyCSS_STATUS_OK) {
-        return res;
+        return {};
     }
 
     mycss_entry_t* entry = mycss_entry_create();
     status = mycss_entry_init(mycss, entry);
     if (status != MyCSS_STATUS_OK) {
-        return res;
+        return {};
     }
 
     modest_finder_t* finder = modest_finder_create_simple();
@@ -111,12 +109,15 @@ myhtmlpp::Tree::select(const std::string& selector) const {
         mycss_entry_selectors(entry), MyENCODING_UTF_8, selector.c_str(),
         strlen(selector.c_str()), &status);
     if (status != MyCSS_STATUS_OK) {
-        return res;
+        return {};
     }
 
     myhtml_collection_t* collection = nullptr;
     modest_finder_by_selectors_list(finder, m_raw_tree->node_html, list,
                                     &collection);
+
+    std::vector<Node> res;
+    res.reserve(collection->length);
 
     if (collection != nullptr) {
         for (size_t i = 0; i < collection->length; ++i) {
