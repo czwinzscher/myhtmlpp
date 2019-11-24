@@ -38,12 +38,12 @@ TEST_CASE("parser") {
 
     REQUIRE_NOTHROW(myhtmlpp::parse_fragment(html));
 
-    REQUIRE_NOTHROW(
-        myhtmlpp::parse_fragment(html, myhtmlpp::ParseFragmentOptions{
-                                           .opt = myhtmlpp::OPTION::DEFAULT,
-                                           .thread_count = 2,
-                                           .queue_size = 0,
-                                           .tag_id = myhtmlpp::TAG::A,
-                                           .ns = myhtmlpp::NAMESPACE::XML,
-                                       }));
+    auto opts = myhtmlpp::ParseFragmentOptions{
+        .opt = myhtmlpp::OPTION::DEFAULT,
+        .thread_count = 2,
+        .queue_size = 0,
+        .tag_id = myhtmlpp::TAG::A,
+        .ns = myhtmlpp::NAMESPACE::XML,
+    };
+    REQUIRE_NOTHROW(myhtmlpp::parse_fragment(html, opts));
 }
