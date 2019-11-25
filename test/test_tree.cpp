@@ -125,10 +125,10 @@ TEST_CASE("tree") {
         CHECK(tree.find_by_tag(myhtmlpp::TAG::P, tree.body_node()) == p_by_tag);
 
         CHECK(tree.find_by_tag("").empty());
-        CHECK(tree.find_by_tag("iudwibfoe").empty());
+        CHECK(tree.find_by_tag("iudwibfoe", tree.head_node()).empty());
 
         CHECK(tree.find_by_tag("-text").size() == 21);
-        CHECK(tree.find_by_tag(myhtmlpp::TAG::UNDEF_).size() == 1);
+        CHECK(tree.find_by_tag(myhtmlpp::TAG::UNDEF_, tree.html_node()).empty());
 
         CHECK(tree.find_by_class("hello").size() == 1);
         CHECK(tree.find_by_class("hello", tree.body_node()).size() == 1);
