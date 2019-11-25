@@ -78,7 +78,7 @@ myhtmlpp::Node myhtmlpp::Tree::body_node() const {
 }
 
 std::string myhtmlpp::Tree::html() const {
-    mycore_string_raw_t str = {nullptr, 0, 0};
+    mycore_string_raw_t str = {.data = nullptr, .size = 0, .length = 0};
     myhtml_serialization_tree_buffer(myhtml_tree_get_document(m_raw_tree),
                                      &str);
 
