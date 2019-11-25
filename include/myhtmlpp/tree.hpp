@@ -24,7 +24,7 @@ public:
      * @param raw_myhtml A pointer to a myhtml struct.
      * @param raw_tree A pointer to a myhtml_tree struct.
      */
-    Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree);
+    explicit Tree(myhtml_tree_t* raw_tree);
 
     /**
      * @brief Tree destructor.
@@ -309,9 +309,6 @@ public:
     [[nodiscard]] ConstIterator cend() const noexcept;
 
 private:
-    /// Pointer to the underlying myhtml struct.
-    myhtml_t* m_raw_myhtml;
-
     /// Pointer to the underlying myhtml tree struct.
     myhtml_tree_t* m_raw_tree;
 };

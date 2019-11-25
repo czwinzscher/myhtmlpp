@@ -35,7 +35,7 @@ myhtmlpp::Tree parse_helper(ParseFunc f, const std::string& html,
         throw myhtmlpp::parse_error(parse_st);
     }
 
-    return myhtmlpp::Tree(raw_myhtml, raw_tree);
+    return myhtmlpp::Tree(raw_tree);
 }
 
 myhtmlpp::Tree myhtmlpp::parse(const std::string& html, myhtmlpp::OPTION opt,

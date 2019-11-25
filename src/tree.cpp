@@ -23,43 +23,37 @@
 #include <utility>
 #include <vector>
 
-myhtmlpp::Tree::Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree)
-    : m_raw_myhtml(raw_myhtml), m_raw_tree(raw_tree) {}
+myhtmlpp::Tree::Tree(myhtml_tree_t* raw_tree) : m_raw_tree(raw_tree) {}
 
 myhtmlpp::Tree::~Tree() {
-    myhtml_tree_destroy(m_raw_tree);
-    myhtml_destroy(m_raw_myhtml);
+    if (m_raw_tree != nullptr) {
+        myhtml_t* raw_myhtml = m_raw_tree->myhtml;
+        myhtml_tree_destroy(m_raw_tree);
+        myhtml_destroy(raw_myhtml);
+    }
 }
 
-myhtmlpp::Tree::Tree(Tree&& other) noexcept
-    : m_raw_myhtml(other.m_raw_myhtml), m_raw_tree(other.m_raw_tree) {
+myhtmlpp::Tree::Tree(Tree&& other) noexcept : m_raw_tree(other.m_raw_tree) {
     other.m_raw_tree = nullptr;
-    other.m_raw_myhtml = nullptr;
 }
 
 myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
     // if the tree is not empty and the other tree is different
     // we have to release the resources of the tree.
-    if (m_raw_myhtml != nullptr && m_raw_myhtml != other.m_raw_myhtml) {
-        myhtml_destroy(m_raw_myhtml);
-    }
-
     if (m_raw_tree != nullptr && m_raw_tree != other.m_raw_tree) {
+        myhtml_t* raw_myhtml = m_raw_tree->myhtml;
         myhtml_tree_destroy(m_raw_tree);
+        myhtml_destroy(raw_myhtml);
     }
 
-    m_raw_myhtml = other.m_raw_myhtml;
     m_raw_tree = other.m_raw_tree;
 
-    other.m_raw_myhtml = nullptr;
     other.m_raw_tree = nullptr;
 
     return *this;
 }
 
-bool myhtmlpp::Tree::good() const {
-    return m_raw_tree != nullptr && m_raw_myhtml != nullptr;
-}
+bool myhtmlpp::Tree::good() const { return m_raw_tree != nullptr; }
 
 myhtmlpp::Node myhtmlpp::Tree::document_node() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
