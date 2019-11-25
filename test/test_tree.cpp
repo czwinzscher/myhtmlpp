@@ -83,6 +83,27 @@ TEST_CASE("tree") {
         CHECK(tree.body_node().good());
     }
 
+    SUBCASE("scope") {
+        auto full_scope = tree.scope(tree.document_node());
+        CHECK(full_scope == std::vector(tree.begin(), tree.end()));
+        CHECK(full_scope.size() == 37);
+
+        auto body_scope = tree.scope(tree.body_node());
+        CHECK(body_scope.front() == tree.body_node());
+        CHECK(body_scope.size() == 26);
+
+        auto ul_it =
+            std::find_if(tree.begin(), tree.end(), [](const auto& node) {
+                return node.tag_id() == myhtmlpp::TAG::UL;
+            });
+        REQUIRE(ul_it != tree.end());
+
+        auto ul_scope = tree.scope(*ul_it);
+        CHECK(!ul_scope.empty());
+        CHECK(ul_scope.front() == *ul_it);
+        CHECK(ul_scope.size() == 11);
+    }
+
     SUBCASE("iterator") {
         CHECK(*tree.begin() == tree.document_node());
         CHECK(!(*tree.end()).good());
@@ -125,10 +146,11 @@ TEST_CASE("tree") {
         CHECK(tree.find_by_tag(myhtmlpp::TAG::P, tree.body_node()) == p_by_tag);
 
         CHECK(tree.find_by_tag("").empty());
-        CHECK(tree.find_by_tag("iudwibfoe").empty());
+        CHECK(tree.find_by_tag("iudwibfoe", tree.head_node()).empty());
 
         CHECK(tree.find_by_tag("-text").size() == 21);
-        CHECK(tree.find_by_tag(myhtmlpp::TAG::UNDEF_).size() == 1);
+        CHECK(
+            tree.find_by_tag(myhtmlpp::TAG::UNDEF_, tree.html_node()).empty());
 
         CHECK(tree.find_by_class("hello").size() == 1);
         CHECK(tree.find_by_class("hello", tree.body_node()).size() == 1);

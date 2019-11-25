@@ -75,6 +75,11 @@ public:
     [[nodiscard]] Node body_node() const;
 
     /**
+      * @brief Returns all nodes in the subtree of `scope_node`
+      */
+    [[nodiscard]] std::vector<Node> scope(const Node& scope_node) const;
+
+    /**
      * @brief Returns the HTML representation of the tree
      *
      * @return a string of the HTML code representing the tree.
@@ -184,7 +189,6 @@ public:
 
     private:
         Node m_node;
-        std::vector<Node> m_stack;
     };
 
     /// A Tree ConstIterator class.
@@ -207,7 +211,6 @@ public:
 
     private:
         Node m_node;
-        std::vector<Node> m_stack;
     };
 
     /**

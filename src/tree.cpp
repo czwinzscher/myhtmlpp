@@ -77,6 +77,18 @@ myhtmlpp::Node myhtmlpp::Tree::body_node() const {
     return Node(myhtml_tree_get_node_body(m_raw_tree));
 }
 
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::scope(const Node& scope_node) const {
+    std::vector<Node> res = {scope_node};
+
+    for (const auto& c : scope_node.children()) {
+        auto c_scope = scope(c);
+        res.insert(res.end(), c_scope.begin(), c_scope.end());
+    }
+
+    return res;
+}
+
 std::string myhtmlpp::Tree::html() const {
     mycore_string_raw_t str = {.data = nullptr, .size = 0, .length = 0};
     myhtml_serialization_tree_buffer(myhtml_tree_get_document(m_raw_tree),
@@ -91,18 +103,16 @@ std::string myhtmlpp::Tree::html() const {
 
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::select(const std::string& selector) const {
-    std::vector<Node> res;
-
     mycss_t* mycss = mycss_create();
     mystatus_t status = mycss_init(mycss);
     if (status != MyCSS_STATUS_OK) {
-        return res;
+        return {};
     }
 
     mycss_entry_t* entry = mycss_entry_create();
     status = mycss_entry_init(mycss, entry);
     if (status != MyCSS_STATUS_OK) {
-        return res;
+        return {};
     }
 
     modest_finder_t* finder = modest_finder_create_simple();
@@ -111,12 +121,15 @@ myhtmlpp::Tree::select(const std::string& selector) const {
         mycss_entry_selectors(entry), MyENCODING_UTF_8, selector.c_str(),
         strlen(selector.c_str()), &status);
     if (status != MyCSS_STATUS_OK) {
-        return res;
+        return {};
     }
 
     myhtml_collection_t* collection = nullptr;
     modest_finder_by_selectors_list(finder, m_raw_tree->node_html, list,
                                     &collection);
+
+    std::vector<Node> res;
+    res.reserve(collection->length);
 
     if (collection != nullptr) {
         for (size_t i = 0; i < collection->length; ++i) {
@@ -145,7 +158,10 @@ std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_tag(const std::string& tag,
                             const Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
+
+    auto scope_nodes = scope(scope_node);
+    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                 std::back_inserter(res),
                  [&](const auto& node) { return node.tag_name() == tag; });
 
     return res;
@@ -158,7 +174,10 @@ myhtmlpp::Tree::find_by_tag(myhtmlpp::TAG tag) const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_tag(myhtmlpp::TAG tag, const Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
+
+    auto scope_nodes = scope(scope_node);
+    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                 std::back_inserter(res),
                  [&](const auto& node) { return node.tag_id() == tag; });
 
     return res;
@@ -173,8 +192,10 @@ std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_class(const std::string& cl,
                               const myhtmlpp::Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
-                 [&](const auto& node) {
+
+    auto scope_nodes = scope(scope_node);
+    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                 std::back_inserter(res), [&](const auto& node) {
                      if (auto cl_value = node.at("class")) {
                          return cl_value.value() == cl;
                      }
@@ -194,8 +215,10 @@ std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_id(const std::string& id,
                            const myhtmlpp::Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
-                 [&](const auto& node) {
+
+    auto scope_nodes = scope(scope_node);
+    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                 std::back_inserter(res), [&](const auto& node) {
                      if (auto id_value = node.at("id")) {
                          return id_value.value() == id;
                      }
@@ -216,8 +239,10 @@ std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_attr(const std::string& key, const std::string& val,
                              const myhtmlpp::Node& scope_node) const {
     std::vector<Node> res;
-    std::copy_if(ConstIterator(scope_node), end(), std::back_inserter(res),
-                 [&](const auto& node) {
+
+    auto scope_nodes = scope(scope_node);
+    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                 std::back_inserter(res), [&](const auto& node) {
                      if (auto attr = node.at(key)) {
                          return attr.value() == val;
                      }
@@ -236,39 +261,26 @@ myhtmlpp::Tree::Iterator::reference myhtmlpp::Tree::Iterator::operator*() {
 }
 
 myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
-    std::vector<Node> children = m_node.children();
-    m_stack.insert(m_stack.end(), children.rbegin(), children.rend());
+    Node new_node(nullptr);
 
-    if (m_stack.empty()) {
-        m_node = Node(nullptr);
-        return *this;
+    if (auto child = m_node.first_child()) {
+        new_node = child.value();
+    } else if (auto next = m_node.next()) {
+        new_node = next.value();
+    } else {
+        while (auto parent = m_node.parent()) {
+            m_node = parent.value();
+
+            if (auto parent_next = m_node.next()) {
+                new_node = parent_next.value();
+                break;
+            }
+        }
     }
 
-    m_node = m_stack.back();
-    m_stack.pop_back();
+    m_node = new_node;
 
     return *this;
-
-    // Node new_node(nullptr);
-
-    // if (auto child = m_node.first_child()) {
-    //     new_node = child.value();
-    // } else if (auto next = m_node.next()) {
-    //     new_node = next.value();
-    // } else {
-    //     while (auto parent = m_node.parent()) {
-    //         m_node = parent.value();
-
-    //         if (auto parent_next = m_node.next()) {
-    //             new_node = parent_next.value();
-    //             break;
-    //         }
-    //     }
-    // }
-
-    // m_node = new_node;
-
-    // return *this;
 }
 
 bool myhtmlpp::Tree::Iterator::operator==(const Iterator& other) const {
@@ -298,39 +310,26 @@ myhtmlpp::Tree::ConstIterator::reference
 }
 
 myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
-    std::vector<Node> children = m_node.children();
-    m_stack.insert(m_stack.end(), children.rbegin(), children.rend());
+    Node new_node(nullptr);
 
-    if (m_stack.empty()) {
-        m_node = Node(nullptr);
-        return *this;
+    if (auto child = m_node.first_child()) {
+        new_node = child.value();
+    } else if (auto next = m_node.next()) {
+        new_node = next.value();
+    } else {
+        while (auto parent = m_node.parent()) {
+            m_node = parent.value();
+
+            if (auto parent_next = m_node.next()) {
+                new_node = parent_next.value();
+                break;
+            }
+        }
     }
 
-    m_node = m_stack.back();
-    m_stack.pop_back();
+    m_node = new_node;
 
     return *this;
-
-    // Node new_node(nullptr);
-
-    // if (auto child = m_node.first_child()) {
-    //     new_node = child.value();
-    // } else if (auto next = m_node.next()) {
-    //     new_node = next.value();
-    // } else {
-    //     while(auto parent = m_node.parent()) {
-    //         m_node = parent.value();
-
-    //         if (auto parent_next = m_node.next()) {
-    //             new_node = parent_next.value();
-    //             break;
-    //         }
-    //     }
-    // }
-
-    // m_node = new_node;
-
-    // return *this;
 }
 
 bool myhtmlpp::Tree::ConstIterator::operator==(
