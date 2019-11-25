@@ -1,3 +1,8 @@
+# 2.1.0 (2019-11-25)
+## Tree
+- add `scope(scope_node)`
+- fix Iterator operator++
+
 # 2.0.0 (2019-11-14)
 ## Tree
 - add `select(selector)`
