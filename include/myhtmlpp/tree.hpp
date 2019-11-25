@@ -75,8 +75,11 @@ public:
     [[nodiscard]] Node body_node() const;
 
     /**
-      * @brief Returns all nodes in the subtree of `scope_node`
-      */
+     * @brief Returns all nodes in the subtree of `scope_node`
+     *
+     * @param scope_node The scope node of the subtree.
+     * @return A vector of all nodes in the subtree of `scope_node`.
+     */
     [[nodiscard]] std::vector<Node> scope(const Node& scope_node) const;
 
     /**
@@ -88,7 +91,7 @@ public:
 
     /**
      * @brief Returns all nodes in the tree that match the css selector
-     * `selector`.
+     *        `selector`.
      *
      * @param selector The css selector.
      * @return A vector of all nodes in the tree that match `selector`.
@@ -104,17 +107,36 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag) const;
 
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` where the tag
+     *        matches `tag`.
+     *
+     * @param tag The tag to search.
+     * @param scope_node The scope node where searching starts.
+     * @return A vector of all nodes in the subtree of `scope_node` where
+     *         `tag_name()` returns `tag`.
+     */
     [[nodiscard]] std::vector<Node> find_by_tag(const std::string& tag,
                                                 const Node& scope_node) const;
     /**
      * @brief Returns all nodes in the tree where the tag matches `tag`.
      *
      * @param tag The tag to search.
+     * @param scope_node The scope node where searching starts.
      * @return A vector of all nodes in the tree where
      *         `tag_id()` returns `tag`.
      */
     [[nodiscard]] std::vector<Node> find_by_tag(TAG tag) const;
 
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` where the tag
+     *        matches `tag`.
+     *
+     * @param tag The tag to search.
+     * @param scope_node The scope node where searching starts.
+     * @return A vector of all nodes in the subtree of `scope_node` where
+     *         `tag_id()` returns `tag`.
+     */
     [[nodiscard]] std::vector<Node> find_by_tag(TAG tag,
                                                 const Node& scope_node) const;
 
@@ -127,6 +149,15 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_by_class(const std::string& cl) const;
 
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` where the class
+     *        matches `cl`.
+     *
+     * @param cl The value of the class to search.
+     * @param scope_node The scope node where searching starts.
+     * @return A vector of all nodes in the subtree of `scope_node` that have an
+     *         attribute where key() returns \"class\" and value() returns `cl`.
+     */
     [[nodiscard]] std::vector<Node> find_by_class(const std::string& cl,
                                                   const Node& scope_node) const;
 
@@ -139,6 +170,15 @@ public:
      */
     [[nodiscard]] std::vector<Node> find_by_id(const std::string& id) const;
 
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` where the id
+     *        matches `id`.
+     *
+     * @param id The value of the id to search.
+     * @param scope_node The scope node where searching starts.
+     * @return A vector of all nodes in the subtree of `scope_node` that have an
+     *         attribute where key() returns \"id\" and value() returns `id`.
+     */
     [[nodiscard]] std::vector<Node> find_by_id(const std::string& id,
                                                const Node& scope_node) const;
 
@@ -154,6 +194,16 @@ public:
     [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
                                                  const std::string& val) const;
 
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` that have an
+     *        attribute with key `key` and value `value`.
+     *
+     * @param key The key of the attribute.
+     * @param value The value of the attribute.
+     * @param scope_node The scope node where searching starts.
+     * @return A vector of all nodes in the subtree of `scope_node` that have an
+     *         attribute where key() returns `key` and value() returns `value`.
+     */
     [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
                                                  const std::string& val,
                                                  const Node& scope_node) const;
