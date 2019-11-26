@@ -39,6 +39,8 @@ public:
     Tree(Tree&& other) noexcept;
     Tree& operator=(Tree&& other) noexcept;
 
+    explicit operator bool() const noexcept;
+
     /**
      * @brief Check if myhtml and myhtml_tree pointers are not nullptr.
      *

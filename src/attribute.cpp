@@ -24,6 +24,10 @@ myhtmlpp::Attribute::operator=(Attribute&& other) noexcept {
     return *this;
 }
 
+myhtmlpp::Attribute::operator bool() const noexcept {
+    return good();
+}
+
 bool myhtmlpp::Attribute::operator==(const Attribute& other) const {
     return m_raw_attribute == other.m_raw_attribute;
 }

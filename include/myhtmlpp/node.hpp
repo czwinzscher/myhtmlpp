@@ -32,6 +32,8 @@ public:
     Node(Node&& other) noexcept;
     Node& operator=(Node&& other) noexcept;
 
+    explicit operator bool() const noexcept;
+
     /**
      * @brief Check if two nodes are equal.
      *

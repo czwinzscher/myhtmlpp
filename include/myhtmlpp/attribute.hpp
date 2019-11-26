@@ -30,6 +30,8 @@ public:
     Attribute(Attribute&& other) noexcept;
     Attribute& operator=(Attribute&& other) noexcept;
 
+    explicit operator bool() const noexcept;
+
     /**
      * @brief Check if two attributes are equal.
      *
