@@ -18,10 +18,8 @@ public:
     /**
      * @brief Tree constructor.
      *
-     * Initialises m_raw_myhtml with `raw_myhtml` and
-     * m_raw_tree with `raw_tree`.
+     * Initialises m_raw_tree with `raw_tree`.
      *
-     * @param raw_myhtml A pointer to a myhtml struct.
      * @param raw_tree A pointer to a myhtml_tree struct.
      */
     explicit Tree(myhtml_tree_t* raw_tree);
@@ -42,9 +40,9 @@ public:
     explicit operator bool() const noexcept;
 
     /**
-     * @brief Check if myhtml and myhtml_tree pointers are not nullptr.
+     * @brief Check if myhtml_tree pointer is not nullptr.
      *
-     * @return Whether m_raw_myhtml and m_raw_tree are != nullptr.
+     * @return Whether m_raw_tree is != nullptr.
      */
     [[nodiscard]] bool good() const;
 
