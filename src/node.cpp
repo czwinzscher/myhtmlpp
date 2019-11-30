@@ -28,9 +28,7 @@ myhtmlpp::Node& myhtmlpp::Node::operator=(Node&& other) noexcept {
     return *this;
 }
 
-myhtmlpp::Node::operator bool() const noexcept {
-    return good();
-}
+myhtmlpp::Node::operator bool() const noexcept { return good(); }
 
 bool myhtmlpp::Node::operator==(const Node& other) const {
     return m_raw_node == other.m_raw_node;

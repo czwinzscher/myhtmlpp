@@ -53,9 +53,7 @@ myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
     return *this;
 }
 
-myhtmlpp::Tree::operator bool() const noexcept {
-    return good();
-}
+myhtmlpp::Tree::operator bool() const noexcept { return good(); }
 
 bool myhtmlpp::Tree::good() const { return m_raw_tree != nullptr; }
 

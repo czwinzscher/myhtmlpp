@@ -59,7 +59,7 @@ TEST_CASE("node") {
     SUBCASE("good") {
         for (const auto& node : tree) {
             CHECK(node.good());
-            CHECK(node); // operator bool
+            CHECK(node);  // operator bool
         }
 
         CHECK(!(*tree.end()).good());
