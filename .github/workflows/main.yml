@@ -2,15 +2,18 @@ name: CI
 
 on: [push]
 
+env:
+  CC: clang
+
 jobs:
-  env:
-    CC: clang
 
   build:
 
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
+    - name: modest
+      run: git submodule update --init --recursive
     - name: prepare
       run: mkdir build
     - name: cmake
