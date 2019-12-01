@@ -1,5 +1,5 @@
 # myhtmlpp
-
+[![Actions Status](https://github.com/czwinzscher/myhtmlpp/workflows/build/badge.svg)](https://github.com/czwinzscher/myhtmlpp/actions)
 myhtmlpp is a modern C++17 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/modest). (**WIP**)
 
 ## Usage examples
