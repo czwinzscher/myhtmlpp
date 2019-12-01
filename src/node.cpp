@@ -202,7 +202,7 @@ std::optional<myhtmlpp::Attribute> myhtmlpp::Node::last_attribute() const {
 }
 
 std::vector<myhtmlpp::Attribute> myhtmlpp::Node::attributes() const {
-    return std::vector<Attribute>(begin(), end());
+    return std::vector(begin(), end());
 }
 
 // Iterator
