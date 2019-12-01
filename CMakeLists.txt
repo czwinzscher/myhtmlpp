@@ -15,6 +15,8 @@ include(GNUInstallDirs)
 
 ## OPTIONS
 
+option(MYHTMLPP_USE_SYSTEM_MODEST
+    "Use the system install of modest instead of the submodule if ON" OFF)
 option(MYHTMLPP_BUILD_TESTS "Build myhtmlpp tests if ON." ON)
 option(MYHTMLPP_BUILD_DOC "Build documentation if ON" ON)
 
@@ -24,7 +26,11 @@ option(MYHTMLPP_BUILD_DOC "Build documentation if ON" ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(MYHTML_LIBRARIES modest)
+if(NOT MYHTMLPP_USE_SYSTEM_MODEST)
+  set(MYHTML_LIBRARIES modest::modest_static)
+else()
+  set(MYHTML_LIBRARIES modest)
+endif()
 
 set(MYHTMLPP_TARGET_NAME ${PROJECT_NAME})
 
@@ -35,6 +41,10 @@ set(MYHTMLPP_LIBRARIES ${MYHTMLPP_TARGET_NAME} CACHE INTERNAL "")
 
 
 ## TARGET
+
+if(NOT MYHTMLPP_USE_SYSTEM_MODEST)
+    add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/modest)
+endif()
 
 file(GLOB MYHTMLPP_SRCFILES src/*.cpp)
 add_library(${MYHTMLPP_TARGET_NAME} STATIC ${MYHTMLPP_SRCFILES})
@@ -82,6 +92,6 @@ endif()
 ## INSTALL
 
 install(TARGETS ${MYHTMLPP_TARGET_NAME}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
+  ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
 install(DIRECTORY ${MYHTMLPP_INCLUDE_DIR}/
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
