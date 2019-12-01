@@ -104,8 +104,6 @@ make test
 sudo make install
 ```
 
-link with `-lmyhtmlpp` and `-lmodest` when using the library.
-
 ### CMake options
 - use `-DMYHTMLPP_USE_SYSTEM_MODEST` to use the system installation of modest
 - use `-DMYHTMLPP_BUILD_TESTS=OFF` to disable tests
