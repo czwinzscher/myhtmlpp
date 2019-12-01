@@ -129,7 +129,9 @@ public:
 
     [[nodiscard]] ConstIterator cend() const noexcept { return end(); }
 
-    [[nodiscard]] auto to_vector() const { return std::vector(begin(), end()); }
+    [[nodiscard]] auto to_vector() const {
+        return std::vector<myhtmlpp::Node>(begin(), end());
+    }
 
     template <typename Func>
     void for_each(Func f) {
