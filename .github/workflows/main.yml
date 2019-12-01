@@ -3,7 +3,7 @@ name: CI
 on: [push]
 
 env:
-  CC: clang-9
+  CC: clang
   # CXX: g++-9
 
 jobs:
