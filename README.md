@@ -129,9 +129,6 @@ target_link_libraries(your_project PRIVATE ${MYHTMLPP_LIBRARIES})
 ## Documentation
 You can build docs with `make doc`.
 
-## Notes
-The build of modest might fail with gcc, you can use `export CC=clang` to fix this.
-
 ## License
 - myhtmlpp - [MIT](https://github.com/czwinzscher/myhtmlpp/blob/master/LICENSE)
 - Modest - [LGPL 2.1](https://github.com/lexborisov/Modest/blob/master/LICENSE)
