@@ -85,7 +85,8 @@ TEST_CASE("tree") {
 
     SUBCASE("scope") {
         auto full_scope = tree.scope(tree.document_node());
-        CHECK(full_scope == std::vector(tree.begin(), tree.end()));
+        CHECK(full_scope ==
+              std::vector<myhtmlpp::Node>(tree.begin(), tree.end()));
         CHECK(full_scope.size() == 37);
 
         auto body_scope = tree.scope(tree.body_node());
