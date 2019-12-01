@@ -3,17 +3,20 @@ name: CI
 on: [push]
 
 env:
-  CC: clang
-  CXX: clang++
+  CC: clang-9
+  CXX: clang++-9
 
 jobs:
-
-  build:
-
+  ci:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: modest
+    - name: install clang-9
+      run: |
+        sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+        sudo apt update
+        sudo apt install -y clang-9
+    - name: modest submodule
       run: git submodule update --init --recursive
     - name: prepare
       run: mkdir build
