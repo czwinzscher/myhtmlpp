@@ -3,7 +3,6 @@ name: CI
 on: [push]
 
 env:
-  CC: clang-9
   CXX: g++-9
 
 jobs:
@@ -11,19 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - name: install clang-9
-      run: |
-        sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
-        sudo apt update
-        sudo apt install -y clang-9
-    - name: install cmake 3.15
-      run: |
-        curl -sSL https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.tar.gz -o cmake.tar.gz
-        sudo tar xf cmake.tar.gz --strip 1 -C /usr/local
+    # - name: install clang-9
+    #   run: |
+    #     sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+    #     sudo apt update
+    #     sudo apt install -y clang-9
+    # - name: install cmake 3.15
+    #   run: |
+    #     curl -sSL https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.tar.gz -o cmake.tar.gz
+    #     sudo tar xf cmake.tar.gz --strip 1 -C /usr/local
     - name: install g++-9
       run: |
         sudo apt update
-        sudo apt install -y g++-9 g++-9-multilib
+        sudo apt install -y g++-9
     - name: modest submodule
       run: git submodule update --init --recursive
     - name: prepare
