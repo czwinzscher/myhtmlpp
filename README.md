@@ -105,7 +105,7 @@ sudo make install
 ```
 
 ### CMake options
-- use `-DMYHTMLPP_USE_SYSTEM_MODEST` to use the system installation of modest
+- use `-DMYHTMLPP_USE_SYSTEM_MODEST=ON` to use the system installation of modest
 - use `-DMYHTMLPP_BUILD_TESTS=OFF` to disable tests
 - use `-DMYHTMLPP_BUILD_DOC=OFF` to disable doxygen documentation
 
