@@ -125,9 +125,9 @@ myhtmlpp::Tree::select(const std::string& selector) const {
                                     &collection);
 
     std::vector<Node> res;
-    res.reserve(collection->length);
-
     if (collection != nullptr) {
+        res.reserve(collection->length);
+
         for (size_t i = 0; i < collection->length; ++i) {
             res.emplace_back(collection->list[i]);  // NOLINT
         }
