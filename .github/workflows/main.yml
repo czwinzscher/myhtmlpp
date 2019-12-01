@@ -4,6 +4,7 @@ on: [push]
 
 env:
   CC: clang
+  CXX: clang++
 
 jobs:
 
