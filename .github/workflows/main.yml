@@ -3,6 +3,9 @@ name: CI
 on: [push]
 
 jobs:
+  env:
+    CC: clang
+
   build:
 
     runs-on: ubuntu-latest
