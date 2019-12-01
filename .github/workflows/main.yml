@@ -1,6 +1,6 @@
 name: build
 
-on: [push]
+on: [push, pull_request]
 
 env:
   CXX: g++-9
@@ -15,10 +15,6 @@ jobs:
     #     sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
     #     sudo apt update
     #     sudo apt install -y clang-9
-    # - name: install cmake 3.15
-    #   run: |
-    #     curl -sSL https://github.com/Kitware/CMake/releases/download/v3.15.4/cmake-3.15.4-Linux-x86_64.tar.gz -o cmake.tar.gz
-    #     sudo tar xf cmake.tar.gz --strip 1 -C /usr/local
     - name: install g++-9
       run: |
         sudo apt update
@@ -28,8 +24,12 @@ jobs:
     - name: prepare
       run: mkdir build
     - name: cmake
-      run: cd build ; cmake -DCMAKE_BUILD_TYPE=Release ..
+      run: |
+        cd build
+        cmake -DCMAKE_BUILD_TYPE=Release ..
     - name: build
       run: make -C build
     - name: test
-      run: cd build ; ctest
+      run: |
+        cd build
+        ctest
