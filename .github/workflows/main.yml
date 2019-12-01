@@ -4,7 +4,7 @@ on: [push]
 
 env:
   CC: clang
-  # CXX: g++-9
+  CXX: g++-9
 
 jobs:
   ci:
