@@ -6,7 +6,7 @@
 
 namespace myhtmlpp {
 
-/// A general exception bas class.
+/// A general exception base class.
 class myhtml_error : public std::exception {
 public:
     [[nodiscard]] const char* what() const noexcept override;

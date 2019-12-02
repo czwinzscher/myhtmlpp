@@ -30,6 +30,12 @@ public:
     Attribute(Attribute&& other) noexcept;
     Attribute& operator=(Attribute&& other) noexcept;
 
+    /**
+     * @brief Returns whether the raw myhtml_tree_attr pointer is not nullptr.
+     *
+     * @return true if `good()` returns true, false otherwise.
+     * @see Attribute::good
+     */
     explicit operator bool() const noexcept;
 
     /**

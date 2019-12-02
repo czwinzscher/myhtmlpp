@@ -37,6 +37,12 @@ public:
     Tree(Tree&& other) noexcept;
     Tree& operator=(Tree&& other) noexcept;
 
+    /**
+     * @brief Returns whether the raw myhtml_tree pointer is not nullptr.
+     *
+     * @return true if `good()` returns true, false otherwise.
+     * @see Tree::good
+     */
     explicit operator bool() const noexcept;
 
     /**
@@ -314,7 +320,9 @@ private:
 };
 
 /**
- * @brief Print the tree.
+ * @brief Returns the serialized tree.
+ *
+ * @see Tree::html
  */
 std::ostream& operator<<(std::ostream& os, const Tree& t);
 

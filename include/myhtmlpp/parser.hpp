@@ -12,8 +12,9 @@ namespace myhtmlpp {
  * @brief Parses a HTML string into a Tree structure with the given options.
  *
  * @param html The HTML code that will be parsed.
- * @throw std::runtime_error if one of myhtml_init, myhtml_tree_init
- *        or myhtml_parse does not return MyHTML_STATUS_OK.
+ * @throw `myhtmlpp::init_error` if `myhtml_init` fails,
+ *        `myhtmlpp::tree_init_error` if `myhtml_tree_init` fails,
+ *        `myhtmlpp::parse_error` if `myhtml_parse` fails.
  * @return A Tree with the parsed HTML nodes.
  */
 Tree parse(const std::string& html, OPTION opt = OPTION::DEFAULT,
@@ -23,8 +24,9 @@ Tree parse(const std::string& html, OPTION opt = OPTION::DEFAULT,
  * @brief Parses a fragment of a HTML string into a Tree structure.
  *
  * @param html The HTML code that will be parsed.
- * @throw std::runtime_error if one of myhtml_init, myhtml_tree_init
- *        or myhtml_parse_fragment does not return MyHTML_STATUS_OK.
+ * @throw `myhtmlpp::init_error` if `myhtml_init` fails,
+ *        `myhtmlpp::tree_init_error` if `myhtml_tree_init` fails,
+ *        `myhtmlpp::parse_error` if `myhtml_parse_fragment` fails.
  * @return A Tree with the parsed HTML nodes.
  */
 Tree parse_fragment(const std::string& html, TAG tag_id = TAG::DIV,
