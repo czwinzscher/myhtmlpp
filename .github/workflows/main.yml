@@ -1,29 +1,41 @@
 name: build
 
-on: [push, pull_request]
-
-env:
-  CXX: g++-9
+on:
+  push:
+    paths-ignore:
+    - 'doc/**'
+  pull_request:
+    paths-ignore:
+    - 'doc/**'
+  schedule:
+    - cron: '0 0 * * *'
 
 jobs:
-  ci:
+  build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        cxx: [g++-9, clang++-9]
     steps:
     - uses: actions/checkout@v1
-    # - name: install clang-9
-    #   run: |
-    #     sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
-    #     sudo apt update
-    #     sudo apt install -y clang-9
-    - name: install g++-9
+    - name: install compiler
       run: |
-        sudo apt update
-        sudo apt install -y g++-9
-    - name: modest submodule
+        if [ "${{ matrix.cxx }}" = "g++-9" ]; then
+          sudo apt update
+          sudo apt install -y g++-9
+        else
+          sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+          sudo apt update
+          sudo apt install -y clang-9
+        fi
+    - name: update modest submodule
       run: git submodule update --init --recursive
     - name: prepare
       run: mkdir build
     - name: cmake
+      env:
+        CXX:
+          ${{ matrix.cxx }}
       run: |
         cd build
         cmake -DCMAKE_BUILD_TYPE=Release ..
