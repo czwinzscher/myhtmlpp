@@ -18,16 +18,13 @@ jobs:
         cxx: [g++-9, clang++-9]
     steps:
     - uses: actions/checkout@v1
-    - name: install compiler
+    - name: install compilers
       run: |
-        if [ "${{ matrix.cxx }}" = "g++-9" ]; then
-          sudo apt update
-          sudo apt install -y g++-9
-        else
-          sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
-          sudo apt update
-          sudo apt install -y clang-9
-        fi
+        sudo apt update
+        sudo apt install -y gcc-9
+        sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+        sudo apt update
+        sudo apt install -y clang-9
     - name: update modest submodule
       run: git submodule update --init --recursive
     - name: prepare
