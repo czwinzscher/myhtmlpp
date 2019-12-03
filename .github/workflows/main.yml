@@ -21,7 +21,7 @@ jobs:
     - name: install compilers
       run: |
         sudo apt update
-        sudo apt install -y gcc-9
+        sudo apt install -y g++-9
         sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
         sudo apt update
         sudo apt install -y clang-9
