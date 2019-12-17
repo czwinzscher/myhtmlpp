@@ -30,7 +30,7 @@ TEST_CASE("tree") {
         <li>two</li>
         <li>three</li>
     </ul>
-    <div id="bla" class="class"></div>
+    <div id="bla" class="class class2 class3"></div>
     <img src="image.jpg" id="boom" hidden>
 </body>
 </html>)");
@@ -70,7 +70,7 @@ TEST_CASE("tree") {
         <li>two</li>
         <li>three</li>
     </ul>
-    <div id="bla" class="class"></div>
+    <div id="bla" class="class class2 class3"></div>
     <img src="image.jpg" id="boom" hidden="">
 
 </body></html>)");
@@ -159,6 +159,11 @@ TEST_CASE("tree") {
 
         CHECK(tree.find_by_class("hello").size() == 1);
         CHECK(tree.find_by_class("hello", tree.body_node()).size() == 1);
+        CHECK(!tree.find_by_class("class2").empty());
+        CHECK(!tree.find_by_class("class3").empty());
+        CHECK(tree.find_by_class("class3 ").empty());
+        CHECK(tree.find_by_class("cla").empty());
+        CHECK(tree.find_by_class("class class2 class3").empty());
 
         CHECK(tree.find_by_id("bla").size() == 1);
         CHECK(tree.find_by_id("bla", p_by_tag.back()).empty());
