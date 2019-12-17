@@ -31,7 +31,7 @@ TEST_CASE("tree") {
         <li>three</li>
     </ul>
     <div id="bla" class="class"></div>
-    <img src="image.jpg" hidden>
+    <img src="image.jpg" id="boom" hidden>
 </body>
 </html>)");
 
@@ -71,7 +71,7 @@ TEST_CASE("tree") {
         <li>three</li>
     </ul>
     <div id="bla" class="class"></div>
-    <img src="image.jpg" hidden="">
+    <img src="image.jpg" id="boom" hidden="">
 
 </body></html>)");
 
@@ -159,10 +159,28 @@ TEST_CASE("tree") {
 
         CHECK(tree.find_by_class("hello").size() == 1);
         CHECK(tree.find_by_class("hello", tree.body_node()).size() == 1);
+
         CHECK(tree.find_by_id("bla").size() == 1);
         CHECK(tree.find_by_id("bla", p_by_tag.back()).empty());
+
         CHECK(tree.find_by_attr("src", "image.jpg").size() == 1);
         CHECK(tree.find_by_attr("src", "image.jpg", tree.head_node()).empty());
+
+        auto starts_with = [](const auto& node, const auto& key,
+                              const auto& val) -> bool {
+            if (auto attr = node.at(key)) {
+                return attr.value().compare(0, val.size(), val) == 0;
+            }
+
+            return false;
+        };
+
+        CHECK(tree.find_by_attr("id", "b", starts_with).size() == 2);
+
+        CHECK(!tree.find_by_attr("id", "b", tree.body_node(), starts_with)
+                   .empty());
+        CHECK(tree.find_by_attr("id", "a", tree.body_node(), starts_with)
+                  .empty());
     }
 
     SUBCASE("filter") {
@@ -174,7 +192,6 @@ TEST_CASE("tree") {
             CHECK(node.has_attributes());
         }
 
-        CHECK(nodes_with_attrs.begin() != nodes_with_attrs.end());
         CHECK((*nodes_with_attrs.begin()).tag_id() == myhtmlpp::TAG::DOCTYPE_);
     }
 }
