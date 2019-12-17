@@ -188,19 +188,7 @@ myhtmlpp::Tree::find_by_class(const std::string& cl) const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_class(const std::string& cl,
                               const myhtmlpp::Node& scope_node) const {
-    std::vector<Node> res;
-
-    auto scope_nodes = scope(scope_node);
-    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
-                 std::back_inserter(res), [&](const auto& node) {
-                     if (auto cl_value = node.at("class")) {
-                         return cl_value.value() == cl;
-                     }
-
-                     return false;
-                 });
-
-    return res;
+    return find_by_attr("class", cl, scope_node);
 }
 
 std::vector<myhtmlpp::Node>
@@ -211,19 +199,7 @@ myhtmlpp::Tree::find_by_id(const std::string& id) const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_id(const std::string& id,
                            const myhtmlpp::Node& scope_node) const {
-    std::vector<Node> res;
-
-    auto scope_nodes = scope(scope_node);
-    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
-                 std::back_inserter(res), [&](const auto& node) {
-                     if (auto id_value = node.at("id")) {
-                         return id_value.value() == id;
-                     }
-
-                     return false;
-                 });
-
-    return res;
+    return find_by_attr("id", id, scope_node);
 }
 
 std::vector<myhtmlpp::Node>
