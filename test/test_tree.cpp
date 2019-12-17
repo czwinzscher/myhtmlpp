@@ -37,12 +37,17 @@ TEST_CASE("tree") {
 
     auto tree = myhtmlpp::parse(html);
 
-    SUBCASE("good") { CHECK(tree.good()); }
+    SUBCASE("good") {
+        CHECK(tree.good());
+        CHECK(tree);
+    }
 
     SUBCASE("move semantics") {
         auto tree2 = std::move(tree);
         CHECK(tree2.good());
+        CHECK(tree2);
         CHECK(!tree.good());  // NOLINT
+        CHECK(!tree);
 
         auto tree3 = myhtmlpp::parse("");
         tree3 = std::move(tree2);

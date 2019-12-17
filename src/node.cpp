@@ -9,6 +9,7 @@
 #include <mycore/mystring.h>
 #include <myhtml/serialization.h>
 #include <myhtml/tree.h>
+#include <numeric>
 #include <optional>
 #include <string>
 #include <utility>
@@ -27,6 +28,8 @@ myhtmlpp::Node& myhtmlpp::Node::operator=(Node&& other) noexcept {
 
     return *this;
 }
+
+myhtmlpp::Node::operator bool() const noexcept { return good(); }
 
 bool myhtmlpp::Node::operator==(const Node& other) const {
     return m_raw_node == other.m_raw_node;
@@ -74,17 +77,12 @@ std::string myhtmlpp::Node::text() const {
 }
 
 std::string myhtmlpp::Node::inner_text() const {
-    std::string res;
+    std::string res = tag_id() == TAG::TEXT_ ? text() : "";
 
-    if (tag_id() == TAG::TEXT_) {
-        res += text();
-    }
-
-    for (const auto& ch : children()) {
-        res += ch.inner_text();
-    }
-
-    return res;
+    auto ch = children();
+    return std::accumulate(ch.begin(), ch.end(), res, [](auto acc, auto cur) {
+        return acc + cur.inner_text();
+    });
 }
 
 myhtmlpp::TAG myhtmlpp::Node::tag_id() const {

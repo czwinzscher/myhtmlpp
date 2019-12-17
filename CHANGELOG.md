@@ -1,3 +1,20 @@
+# 2.2.0 (2019-12-02)
+## Tree
+- add `operator bool` which returns `good()`
+- fix potential bug in `select`, where a nullptr check was made too late
+## Node
+- add `operator bool` which returns `good()`
+## Attribute
+- add `operator bool` which returns `good()`
+## Misc
+- add Modest submodule
+- use Github Actions
+
+# 2.1.0 (2019-11-25)
+## Tree
+- add `scope(scope_node)`
+- fix Iterator operator++
+
 # 2.0.0 (2019-11-14)
 ## Tree
 - add `select(selector)`

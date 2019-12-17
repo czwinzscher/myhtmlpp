@@ -1,6 +1,7 @@
 # myhtmlpp
+[![Actions Status](https://github.com/czwinzscher/myhtmlpp/workflows/build/badge.svg)](https://github.com/czwinzscher/myhtmlpp/actions)
 
-myhtmlpp is a modern C++20 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/modest). (**WIP**)
+myhtmlpp is a modern C++20 HTML parser with CSS selectors based on [MyHTML/Modest](https://github.com/lexborisov/modest).
 
 ## Usage examples
 ```cpp
@@ -91,9 +92,11 @@ int main() {
 ```
 
 ## Installation
-You also need to have the [Modest library](https://github.com/lexborisov/modest) installed.
+The [Modest library](https://github.com/lexborisov/modest) is included as a submodule.
 
 ```bash
+git clone --recurse-submodules https://github.com/czwinzscher/myhtmlpp.git
+cd myhtmlpp
 mkdir build
 cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
@@ -102,9 +105,8 @@ make test
 sudo make install
 ```
 
-link with `-lmyhtmlpp` and `-lmodest` when using the library.
-
 ### CMake options
+- use `-DMYHTMLPP_USE_SYSTEM_MODEST=ON` to use the system installation of modest
 - use `-DMYHTMLPP_BUILD_TESTS=OFF` to disable tests
 - use `-DMYHTMLPP_BUILD_DOC=OFF` to disable doxygen documentation
 
@@ -126,9 +128,6 @@ target_link_libraries(your_project PRIVATE ${MYHTMLPP_LIBRARIES})
 
 ## Documentation
 You can build docs with `make doc`.
-
-## Notes
-This library was tested with Modest version 0.0.6.
 
 ## License
 - myhtmlpp - [MIT](https://github.com/czwinzscher/myhtmlpp/blob/master/LICENSE)

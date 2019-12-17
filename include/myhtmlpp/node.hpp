@@ -33,6 +33,14 @@ public:
     Node& operator=(Node&& other) noexcept;
 
     /**
+     * @brief Returns whether the raw myhtml_tree_node pointer is not nullptr.
+     *
+     * @return true if `good()` returns true, false otherwise.
+     * @see Node::good
+     */
+    explicit operator bool() const noexcept;
+
+    /**
      * @brief Check if two nodes are equal.
      *
      * @return Whether both nodes point to the same myhtml struct;
@@ -50,6 +58,8 @@ public:
 
     /**
      * Returns the value of the attribute with key `key`.
+     *
+     * This does not do any checking, so there might be a segfault.
      *
      * @param key The key of the attribute to access.
      * @return Value of the Attribute with the key `key` if it exists,
@@ -196,7 +206,7 @@ public:
      * Returns an Attribute in the node with the key `key`.
      *
      * @param key the key of the attribute to access.
-     * @return Optional with the Attribute with the key `key` if it exists,
+     * @return Optional with the Attribute value of the key `key` if it exists,
      *         std::nullopt otherwise.
      */
     [[nodiscard]] std::optional<std::string> at(const std::string& key) const;
@@ -308,7 +318,7 @@ public:
     [[nodiscard]] ConstIterator begin() const noexcept;
 
     /**
-     * @brief Returns an const iterator to after the last attribute.
+     * @brief Returns a const iterator to after the last attribute.
      *
      * @return ConstIterator to `Attribute(nullptr)`.
      */
@@ -323,7 +333,7 @@ public:
     [[nodiscard]] ConstIterator cbegin() const noexcept;
 
     /**
-     * @brief Returns an const iterator to after the last attribute.
+     * @brief Returns a const iterator to after the last attribute.
      *
      * @return ConstIterator to `Attribute(nullptr)`.
      */
@@ -335,7 +345,9 @@ private:
 };
 
 /**
- * @brief Print the node.
+ * @brief Returns the serialized node.
+ *
+ * @see Node::html
  */
 std::ostream& operator<<(std::ostream& os, const Node& n);
 

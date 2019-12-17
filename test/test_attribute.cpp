@@ -51,10 +51,12 @@ TEST_CASE("attribute") {
 
     SUBCASE("good") {
         CHECK(class_attr.good());
+        CHECK(class_attr);
         CHECK(src_attr.good());
         CHECK(!(*p_node.end()).good());
 
         CHECK(!bad_attr.good());
+        CHECK(!bad_attr);
     }
 
     SUBCASE("getters") {

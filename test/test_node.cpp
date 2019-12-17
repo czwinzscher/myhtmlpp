@@ -59,6 +59,7 @@ TEST_CASE("node") {
     SUBCASE("good") {
         for (const auto& node : tree) {
             CHECK(node.good());
+            CHECK(node);  // operator bool
         }
 
         CHECK(!(*tree.end()).good());
@@ -67,6 +68,7 @@ TEST_CASE("node") {
         CHECK(!doc.good());  // NOLINT
 
         CHECK(!bad_node.good());
+        CHECK(!bad_node);
     }
 
     SUBCASE("move semantics") {

@@ -23,43 +23,39 @@
 #include <utility>
 #include <vector>
 
-myhtmlpp::Tree::Tree(myhtml_t* raw_myhtml, myhtml_tree_t* raw_tree)
-    : m_raw_myhtml(raw_myhtml), m_raw_tree(raw_tree) {}
+myhtmlpp::Tree::Tree(myhtml_tree_t* raw_tree) : m_raw_tree(raw_tree) {}
 
 myhtmlpp::Tree::~Tree() {
-    myhtml_tree_destroy(m_raw_tree);
-    myhtml_destroy(m_raw_myhtml);
+    if (m_raw_tree != nullptr) {
+        myhtml_t* raw_myhtml = m_raw_tree->myhtml;
+        myhtml_tree_destroy(m_raw_tree);
+        myhtml_destroy(raw_myhtml);
+    }
 }
 
-myhtmlpp::Tree::Tree(Tree&& other) noexcept
-    : m_raw_myhtml(other.m_raw_myhtml), m_raw_tree(other.m_raw_tree) {
+myhtmlpp::Tree::Tree(Tree&& other) noexcept : m_raw_tree(other.m_raw_tree) {
     other.m_raw_tree = nullptr;
-    other.m_raw_myhtml = nullptr;
 }
 
 myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
     // if the tree is not empty and the other tree is different
     // we have to release the resources of the tree.
-    if (m_raw_myhtml != nullptr && m_raw_myhtml != other.m_raw_myhtml) {
-        myhtml_destroy(m_raw_myhtml);
-    }
-
     if (m_raw_tree != nullptr && m_raw_tree != other.m_raw_tree) {
+        myhtml_t* raw_myhtml = m_raw_tree->myhtml;
         myhtml_tree_destroy(m_raw_tree);
+        myhtml_destroy(raw_myhtml);
     }
 
-    m_raw_myhtml = other.m_raw_myhtml;
     m_raw_tree = other.m_raw_tree;
 
-    other.m_raw_myhtml = nullptr;
     other.m_raw_tree = nullptr;
 
     return *this;
 }
 
-bool myhtmlpp::Tree::good() const {
-    return m_raw_tree != nullptr && m_raw_myhtml != nullptr;
-}
+myhtmlpp::Tree::operator bool() const noexcept { return good(); }
+
+bool myhtmlpp::Tree::good() const { return m_raw_tree != nullptr; }
 
 myhtmlpp::Node myhtmlpp::Tree::document_node() const {
     return Node(myhtml_tree_get_document(m_raw_tree));
@@ -104,23 +100,24 @@ std::string myhtmlpp::Tree::html() const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::select(const std::string& selector) const {
     mycss_t* mycss = mycss_create();
-    mystatus_t status = mycss_init(mycss);
-    if (status != MyCSS_STATUS_OK) {
+    mystatus_t init_status = mycss_init(mycss);
+    if (init_status != MyCSS_STATUS_OK) {
         return {};
     }
 
     mycss_entry_t* entry = mycss_entry_create();
-    status = mycss_entry_init(mycss, entry);
-    if (status != MyCSS_STATUS_OK) {
+    mystatus_t entry_status = mycss_entry_init(mycss, entry);
+    if (entry_status != MyCSS_STATUS_OK) {
         return {};
     }
 
     modest_finder_t* finder = modest_finder_create_simple();
 
+    mystatus_t parse_status = MyCSS_STATUS_OK;
     mycss_selectors_list_t* list = mycss_selectors_parse(
         mycss_entry_selectors(entry), MyENCODING_UTF_8, selector.c_str(),
-        strlen(selector.c_str()), &status);
-    if (status != MyCSS_STATUS_OK) {
+        strlen(selector.c_str()), &parse_status);
+    if (parse_status != MyCSS_STATUS_OK) {
         return {};
     }
 
@@ -129,9 +126,9 @@ myhtmlpp::Tree::select(const std::string& selector) const {
                                     &collection);
 
     std::vector<Node> res;
-    res.reserve(collection->length);
-
     if (collection != nullptr) {
+        res.reserve(collection->length);
+
         for (size_t i = 0; i < collection->length; ++i) {
             res.emplace_back(collection->list[i]);  // NOLINT
         }
