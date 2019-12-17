@@ -19,6 +19,7 @@
 #include <myencoding/myosi.h>
 #include <myhtml/serialization.h>
 #include <myhtml/tree.h>
+#include <sstream>
 #include <string>
 #include <utility>
 #include <vector>
@@ -188,7 +189,21 @@ myhtmlpp::Tree::find_by_class(const std::string& cl) const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_class(const std::string& cl,
                               const myhtmlpp::Node& scope_node) const {
-    return find_by_attr("class", cl, scope_node);
+    return find_by_attr(
+        "class", cl, scope_node,
+        [](const auto& node, const auto& key, const auto& val) -> bool {
+            if (auto attr = node.at(key)) {
+                std::stringstream ss(attr.value());
+                std::string token;
+                while (std::getline(ss, token, ' ')) {
+                    if (token == val) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        });
 }
 
 std::vector<myhtmlpp::Node>
