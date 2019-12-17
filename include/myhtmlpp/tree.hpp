@@ -215,6 +215,35 @@ public:
                                                  const Node& scope_node) const;
 
     /**
+     * @brief Returns all nodes in the tree where
+     *        `matcher(node, key, val)` returns true.
+     */
+    template <typename MatcherFunc>
+    [[nodiscard]] std::vector<Node> find_by_attr(const std::string& key,
+                                                 const std::string& val,
+                                                 MatcherFunc matcher) const {
+        return find_by_attr(key, val, document_node(), matcher);
+    }
+
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` where
+     *        `matcher(node, key, val)` returns true.
+     */
+    template <typename MatcherFunc>
+    [[nodiscard]] std::vector<Node>
+    find_by_attr(const std::string& key, const std::string& val,
+                 const Node& scope_node, MatcherFunc matcher) const {
+        std::vector<Node> res;
+
+        auto scope_nodes = scope(scope_node);
+        std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                     std::back_inserter(res),
+                     [&](const auto& node) { return matcher(node, key, val); });
+
+        return res;
+    }
+
+    /**
      * @brief Returns all nodes in the tree where `f` returns true.
      *
      * @param f The filter function.

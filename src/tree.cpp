@@ -211,19 +211,15 @@ myhtmlpp::Tree::find_by_attr(const std::string& key,
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_attr(const std::string& key, const std::string& val,
                              const myhtmlpp::Node& scope_node) const {
-    std::vector<Node> res;
+    return find_by_attr(
+        key, val, scope_node,
+        [](const auto& node, const auto& key, const auto& val) -> bool {
+            if (auto attr = node.at(key)) {
+                return attr.value() == val;
+            }
 
-    auto scope_nodes = scope(scope_node);
-    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
-                 std::back_inserter(res), [&](const auto& node) {
-                     if (auto attr = node.at(key)) {
-                         return attr.value() == val;
-                     }
-
-                     return false;
-                 });
-
-    return res;
+            return false;
+        });
 }
 
 // Iterator
