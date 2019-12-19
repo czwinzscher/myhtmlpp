@@ -4,7 +4,8 @@ set(TEST_FILES
   test_attribute.cpp
   test_node.cpp
   test_parser.cpp
-  test_tree.cpp)
+  test_tree.cpp
+  test_matchers.cpp)
 
 foreach(file ${TEST_FILES})
   get_filename_component(file_basename ${file} NAME_WE)

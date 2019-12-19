@@ -1,6 +1,7 @@
 #include "myhtmlpp/tree.hpp"
 
 #include "myhtmlpp/constants.hpp"
+#include "myhtmlpp/matchers.hpp"
 #include "myhtmlpp/node.hpp"
 
 #include <algorithm>
@@ -189,21 +190,8 @@ myhtmlpp::Tree::find_by_class(const std::string& cl) const {
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_class(const std::string& cl,
                               const myhtmlpp::Node& scope_node) const {
-    return find_by_attr(
-        "class", cl, scope_node,
-        [](const auto& node, const auto& key, const auto& val) -> bool {
-            if (auto attr = node.at(key)) {
-                std::stringstream ss(attr.value());
-                std::string token;
-                while (std::getline(ss, token, ' ')) {
-                    if (token == val) {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        });
+    return find_by_attr("class", cl, scope_node,
+                        matchers::whitespace_seperated);
 }
 
 std::vector<myhtmlpp::Node>
@@ -226,15 +214,7 @@ myhtmlpp::Tree::find_by_attr(const std::string& key,
 std::vector<myhtmlpp::Node>
 myhtmlpp::Tree::find_by_attr(const std::string& key, const std::string& val,
                              const myhtmlpp::Node& scope_node) const {
-    return find_by_attr(
-        key, val, scope_node,
-        [](const auto& node, const auto& key, const auto& val) -> bool {
-            if (auto attr = node.at(key)) {
-                return attr.value() == val;
-            }
-
-            return false;
-        });
+    return find_by_attr(key, val, scope_node, matchers::exact_match);
 }
 
 // Iterator
