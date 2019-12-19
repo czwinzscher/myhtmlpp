@@ -186,6 +186,11 @@ TEST_CASE("tree") {
                    .empty());
         CHECK(tree.find_by_attr("id", "a", tree.body_node(), starts_with)
                   .empty());
+
+        CHECK(tree.find_by_attr_key("hidden").size() == 1);
+        CHECK(tree.find_by_attr_key("name").empty());
+        CHECK(tree.find_by_attr_key("charset").size() == 1);
+        CHECK(tree.find_by_attr_key("charset", tree.body_node()).empty());
     }
 
     SUBCASE("filter") {

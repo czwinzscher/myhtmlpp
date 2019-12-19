@@ -217,6 +217,24 @@ myhtmlpp::Tree::find_by_attr(const std::string& key, const std::string& val,
     return find_by_attr(key, val, scope_node, matchers::exact_match);
 }
 
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_attr_key(const std::string& key) {
+    return find_by_attr_key(key, document_node());
+}
+
+std::vector<myhtmlpp::Node>
+myhtmlpp::Tree::find_by_attr_key(const std::string& key,
+                                 const Node& scope_node) {
+    std::vector<Node> res;
+
+    auto scope_nodes = scope(scope_node);
+    std::copy_if(scope_nodes.begin(), scope_nodes.end(),
+                 std::back_inserter(res),
+                 [&](const Node& node) { return node.has_attribute(key); });
+
+    return res;
+}
+
 // Iterator
 myhtmlpp::Tree::Iterator::Iterator(Node node) : m_node(std::move(node)) {}
 

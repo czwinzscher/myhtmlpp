@@ -244,6 +244,19 @@ public:
     }
 
     /**
+     * @brief Returns all nodes in the tree that have an attribute
+     *        with the key `key`.
+     */
+    [[nodiscard]] std::vector<Node> find_by_attr_key(const std::string& key);
+
+    /**
+     * @brief Returns all nodes in the subtree of `scope_node` that have
+     *        an attribute with the key `key`.
+     */
+    [[nodiscard]] std::vector<Node> find_by_attr_key(const std::string& key,
+                                                     const Node& scope_node);
+
+    /**
      * @brief Returns all nodes in the tree where `f` returns true.
      *
      * @param f The filter function.
