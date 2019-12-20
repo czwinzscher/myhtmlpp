@@ -1,3 +1,9 @@
+# 2.3.0 (2019-12-20)
+## Tree
+- add `find_by_attr_key` which returns all nodes with a specific key
+- `find_by_class` now checks if the value is in the class list
+- add overloads to `find_by_attr` that accept a matcher function
+
 # 2.2.0 (2019-12-02)
 ## Tree
 - add `operator bool` which returns `good()`
