@@ -8,7 +8,7 @@ namespace matchers = myhtmlpp::matchers;
 
 TEST_CASE("matchers") {
     std::string html(
-        R"(<div id="bla" class="class class2 third-class"></div>
+        R"(<div id="bla" class="class  class2 third-class "></div>
 <img src="image.jpg" hidden>)");
 
     auto tree = myhtmlpp::parse(html);
@@ -23,29 +23,25 @@ TEST_CASE("matchers") {
             return node.tag_name() == "img";
         }));
 
-    SUBCASE("whitespace seperated") {
-        CHECK(matchers::whitespace_seperated(div_node, "class", "class2"));
-        CHECK(!matchers::whitespace_seperated(div_node, "class",
-                                              "class class2 third-class"));
-        CHECK(matchers::whitespace_seperated(div_node, "id", "bla"));
-
-        CHECK(matchers::whitespace_seperated(img_node, "src", "image.jpg"));
-        CHECK(!matchers::whitespace_seperated(img_node, "href", "image.jpg"));
-
-        // TODO
-        // CHECK(matchers::whitespace_seperated(img_node, "hidden", " "));
-    }
-
     SUBCASE("exact match") {
         CHECK(matchers::exact_match(div_node, "class",
-                                    "class class2 third-class"));
+                                    "class  class2 third-class "));
         CHECK(!matchers::exact_match(div_node, "class", "class"));
 
         CHECK(matchers::exact_match(img_node, "src", "image.jpg"));
         CHECK(!matchers::exact_match(img_node, "src", "image"));
-        CHECK(!matchers::exact_match(img_node, "class", "class"));
+        CHECK(!matchers::exact_match(img_node, "hidden", ""));
+    }
 
-        // TODO
-        // CHECK(matchers::exact_match(img_node, "hidden", ""));
+    SUBCASE("whitespace seperated") {
+        CHECK(matchers::whitespace_seperated(div_node, "class", "class"));
+        CHECK(matchers::whitespace_seperated(div_node, "class", "class2"));
+        CHECK(matchers::whitespace_seperated(div_node, "class", "third-class"));
+        CHECK(!matchers::whitespace_seperated(div_node, "class", ""));
+        CHECK(!matchers::whitespace_seperated(div_node, "class",
+                                              "class  class2 third-class "));
+        CHECK(matchers::whitespace_seperated(div_node, "id", "bla"));
+
+        CHECK(matchers::whitespace_seperated(img_node, "src", "image.jpg"));
     }
 }
