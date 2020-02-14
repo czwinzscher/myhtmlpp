@@ -26,19 +26,19 @@ TEST_CASE("parser") {
     REQUIRE_NOTHROW(myhtmlpp::parse(html));
 
     REQUIRE_NOTHROW(myhtmlpp::parse(
-        html, myhtmlpp::ParseOptions{
+        html, {
                   .opt = myhtmlpp::OPTION::PARSE_MODE_SEPARATELY,
               }));
 
     REQUIRE_NOTHROW(
-        myhtmlpp::parse(html, myhtmlpp::ParseOptions{
+        myhtmlpp::parse(html, {
                                   .opt = myhtmlpp::OPTION::PARSE_MODE_SINGLE,
                                   .thread_count = 3,
                               }));
 
     REQUIRE_NOTHROW(myhtmlpp::parse_fragment(html));
 
-    auto opts = myhtmlpp::ParseFragmentOptions{
+    myhtmlpp::ParseFragmentOptions opts{
         .opt = myhtmlpp::OPTION::DEFAULT,
         .thread_count = 2,
         .queue_size = 0,
