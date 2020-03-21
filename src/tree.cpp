@@ -243,13 +243,13 @@ myhtmlpp::Tree::Iterator::reference myhtmlpp::Tree::Iterator::operator*() {
 }
 
 myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
-    Node new_node(nullptr);
-
     if (auto child = m_node.first_child()) {
-        new_node = child.value();
+        m_node = child.value();
     } else if (auto next = m_node.next()) {
-        new_node = next.value();
+        m_node = next.value();
     } else {
+        Node new_node(nullptr);
+
         while (auto parent = m_node.parent()) {
             m_node = parent.value();
 
@@ -258,9 +258,9 @@ myhtmlpp::Tree::Iterator& myhtmlpp::Tree::Iterator::operator++() {
                 break;
             }
         }
-    }
 
-    m_node = new_node;
+        m_node = new_node;
+    }
 
     return *this;
 }
@@ -292,13 +292,13 @@ myhtmlpp::Tree::ConstIterator::reference
 }
 
 myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
-    Node new_node(nullptr);
-
     if (auto child = m_node.first_child()) {
-        new_node = child.value();
+        m_node = child.value();
     } else if (auto next = m_node.next()) {
-        new_node = next.value();
+        m_node = next.value();
     } else {
+        Node new_node(nullptr);
+
         while (auto parent = m_node.parent()) {
             m_node = parent.value();
 
@@ -307,9 +307,9 @@ myhtmlpp::Tree::ConstIterator& myhtmlpp::Tree::ConstIterator::operator++() {
                 break;
             }
         }
-    }
 
-    m_node = new_node;
+        m_node = new_node;
+    }
 
     return *this;
 }

@@ -101,11 +101,7 @@ myhtmlpp::NAMESPACE myhtmlpp::Node::get_namespace() const {
 }
 
 bool myhtmlpp::Node::is_void_element() const {
-    if (!good()) {
-        return false;
-    }
-
-    return myhtml_node_is_void_element(m_raw_node);
+    return good() ? myhtml_node_is_void_element(m_raw_node) : false;
 }
 
 bool myhtmlpp::Node::is_text_node() const {
