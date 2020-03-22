@@ -52,7 +52,7 @@ myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
         m_raw_tree = other.m_raw_tree;
         other.m_raw_tree = nullptr;
     }
-    
+
     return *this;
 }
 
