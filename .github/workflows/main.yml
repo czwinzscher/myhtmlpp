@@ -13,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        cxx: [g++-9, clang++-9]
+        cxx: [g++-9, clang++-10]
     steps:
     - uses: actions/checkout@v1
     - name: install compilers
       run: |
         sudo apt update
         sudo apt install -y g++-9
-        sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+        sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-10 main"
         sudo apt update
-        sudo apt install -y clang-9
+        sudo apt install -y clang-10
     - name: update modest submodule
       run: git submodule update --init --recursive
     - name: prepare
