@@ -287,7 +287,7 @@ myhtmlpp::Tree::ConstIterator::ConstIterator(Node node)
     : m_node(std::move(node)) {}
 
 myhtmlpp::Tree::ConstIterator::reference
-    myhtmlpp::Tree::ConstIterator::operator*() const {
+myhtmlpp::Tree::ConstIterator::operator*() const {
     return m_node;
 }
 

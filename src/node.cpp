@@ -238,7 +238,7 @@ myhtmlpp::Node::ConstIterator::ConstIterator(Attribute attr)
     : m_attr(std::move(attr)) {}
 
 myhtmlpp::Node::ConstIterator::reference
-    myhtmlpp::Node::ConstIterator::operator*() const {
+myhtmlpp::Node::ConstIterator::operator*() const {
     return m_attr;
 }
 
