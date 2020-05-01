@@ -53,6 +53,10 @@ TEST_CASE("tree") {
         tree3 = std::move(tree2);
         CHECK(tree3.good());
         CHECK(!tree2.good());  // NOLINT
+
+        auto tree4 = myhtmlpp::parse("");
+        tree4 = std::move(tree4);
+        CHECK(tree4.good());  // NOLINT
     }
 
     SUBCASE("serialization") {

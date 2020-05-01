@@ -48,9 +48,10 @@ myhtmlpp::Tree& myhtmlpp::Tree::operator=(Tree&& other) noexcept {
         myhtml_destroy(raw_myhtml);
     }
 
-    m_raw_tree = other.m_raw_tree;
-
-    other.m_raw_tree = nullptr;
+    if (&other != this) {
+        m_raw_tree = other.m_raw_tree;
+        other.m_raw_tree = nullptr;
+    }
 
     return *this;
 }
