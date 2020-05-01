@@ -1,0 +1,66 @@
+name: build
+
+on:
+  push:
+    paths-ignore:
+      - 'doc/**'
+
+  pull_request:
+    paths-ignore:
+      - 'doc/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        name: [gcc-9, clang-9]
+
+        include:
+          - name: gcc-9
+            compiler: gcc
+            version: "9"
+            cc: gcc-9
+            cxx: g++-9
+
+          - name: clang-9
+            compiler: clang
+            version: "9"
+            cc: clang-9
+            cxx: clang++-9
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v2
+
+      - name: install compilers
+        run: |
+          if [ "${{ matrix.compiler }}" = "clang" ]; then
+            sudo add-apt-repository "deb http://apt.llvm.org/bionic/ llvm-toolchain-bionic-9 main"
+          fi
+            
+          sudo apt-get update
+
+          if [ "${{ matrix.compiler }}" = "gcc" ]; then
+            sudo apt-get install -y g++-${{ matrix.version }}
+          else
+            sudo apt-get install -y clang-${{ matrix.version }}
+          fi
+
+      - name: update modest submodule
+        run: git submodule update --init --recursive
+
+      - name: run cmake
+        env:
+          CC: ${{ matrix.cc }}
+          CXX: ${{ matrix.cxx }}
+        run: cmake -Bbuild -DCMAKE_BUILD_TYPE=Release
+
+      - name: build
+        run: cmake --build build -j
+
+      - name: test
+        run: |
+          cd build
+          ctest
